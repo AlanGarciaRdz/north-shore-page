@@ -1,12 +1,17 @@
+import 'styles/fonts.css';
+
 import { CssBaseline } from '@nextui-org/react';
-import ThemeProvider from 'context/ThemeContext';
+import ContactDataProvider from 'src/context/ContactDataContext';
+import ThemeProvider from 'src/context/ThemeContext';
 
 import type { AppProps } from 'next/app';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider>
       <CssBaseline />
-      <Component {...pageProps} />
+      <ContactDataProvider>
+        <Component {...pageProps} />
+      </ContactDataProvider>
     </ThemeProvider>
   );
 }

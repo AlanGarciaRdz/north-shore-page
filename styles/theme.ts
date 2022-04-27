@@ -1,7 +1,7 @@
 export const MainSectionsContainerCSS = {
   position: 'relative',
   '@xl': {
-    padding: '0 126px 0 126px',
+    padding: '0 146px 0 146px',
   },
 };
 
@@ -24,8 +24,8 @@ export const MainSectionContainerAndMarginCSS = {
 };
 
 const fonts = {
-  sans: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
-  mono: 'Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace',
+  sans: '"Work Sans",-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+  mono: '"Work Sans",Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace',
 };
 
 const fontSizes = {
@@ -34,7 +34,7 @@ const fontSizes = {
   base: '1rem',
   sm: '1.25rem',
   md: '1.5rem',
-  lg: '2.25rem',
+  lg: '2rem',
   xl: '4rem',
 };
 
@@ -60,15 +60,18 @@ const breakpoints = {
 };
 
 const baseColors = {
+  black: '#333333',
+  white: '#FBFBFB',
   gray100: '#F6F6F6',
+  gray200: '#E5E5E5',
+  accents3: '#A0A0A0',
   selection: '#daaeea',
-  primaryLight: '#DDCEF8',
-  primary: '#785188',
-  primaryDark: '#55346C',
-  primaryOpacity: '#7a528933',
-  secondaryLight: '#ae5afe',
-  secondary: '#7928ca',
-  secondaryDark: '#430098',
+  primaryLight: '#FBFBFB',
+  primary: '#333333',
+  primaryDark: '#333333',
+  secondaryLight: '#6190C4',
+  secondary: '#508FC8',
+  secondaryDark: '#096297',
   successLight: '#6ec293',
   success: '#17c964',
   successDark: '#009c22',
@@ -84,7 +87,7 @@ const baseColors = {
   instagramColor: '#e1306c',
   linkedinColor: '#0e76a8',
   googleColor: '#F65314',
-  textGray:'#999999',
+  textGray: '#999999',
 };
 
 const lightColors = {
