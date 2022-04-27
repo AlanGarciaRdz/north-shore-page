@@ -42,7 +42,7 @@ export const getStaticProps = async () => {
   };
 };
 
-function Home({
+function Listings({
   header,
   listingsLabels,
   listingsFeatured,
@@ -106,4 +106,4 @@ function Home({
   );
 }
 
-export default Home;
+export default Listings;

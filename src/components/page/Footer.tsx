@@ -59,7 +59,7 @@ export default function Footer({ showContactCard }: FooterProps) {
                 padding: 0,
                 paddingTop: showContactCard ? 280 : 120,
                 '@sm': {
-                  paddingTop: 52,
+                  paddingTop: showContactCard ? 120 : 52,
                 },
               }}
             >
