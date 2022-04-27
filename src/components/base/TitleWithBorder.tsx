@@ -3,9 +3,13 @@ import { useEffect, useState } from 'react';
 
 type TitleWithBorderProps = {
   title: string;
+  color?: string;
 };
 
-export default function TitleWithBorder({ title }: TitleWithBorderProps) {
+export default function TitleWithBorder({
+  title,
+  color,
+}: TitleWithBorderProps) {
   return (
     <Container
       fluid
@@ -16,7 +20,9 @@ export default function TitleWithBorder({ title }: TitleWithBorderProps) {
         width: 'auto',
       }}
     >
-      <Text h2>{title}</Text>
+      <Text h2 css={{ color: color || '$text' }}>
+        {title}
+      </Text>
       <Container
         fluid
         responsive={false}

@@ -28,7 +28,7 @@ const react_1 = require("@nextui-org/react");
 const react_2 = __importStar(require("react"));
 const md_1 = require("react-icons/md");
 const react_3 = require("swiper/react");
-const ListingLabels = ({ onChangeListing, listings, }) => {
+const ListingLabels = ({ onChangeListing, listings, addMarginLeft, }) => {
     const { theme } = (0, react_1.useTheme)();
     const swiperRef = (0, react_2.useRef)();
     return (<react_3.Swiper spaceBetween={24} centeredSlides={false} slidesPerView={'auto'} onSwiper={(swiper) => {
@@ -42,10 +42,10 @@ const ListingLabels = ({ onChangeListing, listings, }) => {
             }
         }}>
       {[...listings, ...Array(20)].map((listing, index) => {
+            var _a;
             if (index >= listings.length) {
                 return (<react_3.SwiperSlide key={index} style={{
                         width: 'auto',
-                        height: '42px',
                     }}>
               <div style={{
                         width: 200,
@@ -54,22 +54,28 @@ const ListingLabels = ({ onChangeListing, listings, }) => {
                     }}/>
             </react_3.SwiperSlide>);
             }
+            const extraMarginLeftInit = addMarginLeft && index === 0 ? 'calc(2 * var(--nextui-space-sm))' : 0;
+            const extraMarginLeft = addMarginLeft &&
+                index === ((_a = swiperRef.current) === null || _a === void 0 ? void 0 : _a.activeIndex) &&
+                index !== 0
+                ? 'calc(calc(2 * var(--nextui-space-sm)) - 10px)'
+                : 0;
             return (<react_3.SwiperSlide key={index} style={{
                     width: 'auto',
-                    height: '48px',
+                    margin: 0,
+                    padding: 0,
+                    marginLeft: extraMarginLeftInit,
                 }}>
             {({ isActive }) => (<react_1.Container fluid responsive={false} css={{
                         padding: 0,
                         margin: 0,
-                        width: 'fit-content',
                         display: 'flex',
-                        position: 'relative',
                         flexDirection: 'row',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        height: '35px !important',
+                        marginLeft: extraMarginLeft,
                     }}>
-                {isActive && index !== 0 && (<react_1.Button light auto icon={<md_1.MdChevronLeft style={{ fontSize: theme === null || theme === void 0 ? void 0 : theme.fontSizes.md.value }}/>} css={{ width: 10, height: '100%', margin: 0, padding: 0 }} onClick={() => {
+                {isActive && index !== 0 && (<react_1.Button light auto icon={<md_1.MdChevronLeft style={{ fontSize: theme === null || theme === void 0 ? void 0 : theme.fontSizes.md.value }}/>} css={{ width: 20, height: '100%', margin: 0, padding: 0 }} onClick={() => {
                             if (swiperRef.current !== undefined) {
                                 swiperRef.current.slidePrev();
                             }

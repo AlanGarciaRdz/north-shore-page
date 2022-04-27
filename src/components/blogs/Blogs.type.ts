@@ -1,8 +1,8 @@
 export type BlogSmallCardProps = {
-  image: {
+  image?: {
     src: string;
     alt: string;
   };
-  title: string;
-  url: string;
+  title?: string;
+  url?: string;
 };

@@ -10,7 +10,7 @@ import DevelopmentData from './DevelopmentData';
 
 const DevelopmentCard = (development: DevelopmentCardProps) => {
   return (
-    <Link href={development.url}>
+    <Link href={development.url || '/'}>
       <Container
         responsive={false}
         fluid
@@ -29,11 +29,11 @@ const DevelopmentCard = (development: DevelopmentCardProps) => {
         >
           <Card.Body css={{ padding: 0, margin: 0, height: 296 }}>
             <OptimizeImage
-              src={development.image.src}
+              src={development.image?.src || '/'}
               layout='fill'
               objectFit='cover'
               objectPosition='center'
-              alt={development.image.alt}
+              alt={development.image?.alt}
               useBlur={false}
             />
           </Card.Body>
@@ -56,7 +56,7 @@ const DevelopmentCard = (development: DevelopmentCardProps) => {
                   }}
                   icon={<GrLocation style={{ fontSize: 15 }} />}
                 >
-                  <Text>{development.listing.name}</Text>
+                  <Text>{development.listing?.name}</Text>
                 </Button>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 20 }}>
@@ -66,9 +66,9 @@ const DevelopmentCard = (development: DevelopmentCardProps) => {
               </Grid>
               <Grid xs={12}>
                 <DevelopmentData
-                  bathrroms={development.bathrroms.toString()}
-                  bedrooms={development.bedrooms.toString()}
-                  squareFT={`${development.squareFT.toString()} ft`}
+                  bathrroms={development.bathrroms?.toString()}
+                  bedrooms={development.bedrooms?.toString()}
+                  squareFT={`${development.squareFT?.toString()} ft`}
                   bigData={false}
                 />
               </Grid>

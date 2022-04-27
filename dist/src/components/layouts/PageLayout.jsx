@@ -25,7 +25,7 @@ const PageLayout = ({ children, navigationOnAbsolute, showContactCard, backgroun
             maxWidth: '100vw',
             minHeight: '200vh',
             backgroundColor: backgroundColor || '$gray200',
-            paddingBottom: 342,
+            paddingBottom: 280,
         }}>
         {children}
       </react_1.Container>

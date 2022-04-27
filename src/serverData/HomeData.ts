@@ -234,7 +234,8 @@ export async function getHomeLocation() {
           let returnDevelopment: DevelopmentCardProps = JSON.parse(
             JSON.stringify(development)
           );
-          returnDevelopment.listing.name = 'San Pancho';
+          if (returnDevelopment.listing !== undefined)
+            returnDevelopment.listing.name = 'San Pancho';
           return returnDevelopment;
         }
       ),
@@ -246,7 +247,8 @@ export async function getHomeLocation() {
         let returnDevelopment: DevelopmentCardProps = JSON.parse(
           JSON.stringify(development)
         );
-        returnDevelopment.listing.name = 'Sayulita';
+        if (returnDevelopment.listing !== undefined)
+          returnDevelopment.listing.name = 'Sayulita';
         return returnDevelopment;
       }),
     },
@@ -261,7 +263,8 @@ export async function getHomeLocation() {
         let returnDevelopment: DevelopmentCardProps = JSON.parse(
           JSON.stringify(development)
         );
-        returnDevelopment.listing.name = 'Lo de Marcos';
+        if (returnDevelopment.listing !== undefined)
+          returnDevelopment.listing.name = 'Lo de Marcos';
         return returnDevelopment;
       }),
     },
@@ -277,7 +280,8 @@ export async function getHomeLocation() {
         let returnDevelopment: DevelopmentCardProps = JSON.parse(
           JSON.stringify(development)
         );
-        returnDevelopment.listing.name = 'Las Lomas';
+        if (returnDevelopment.listing !== undefined)
+          returnDevelopment.listing.name = 'Las Lomas';
         return returnDevelopment;
       }),
     },

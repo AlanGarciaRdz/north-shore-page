@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { AmenitiesProps } from './Development.types';
 
 type DevelopmentAmenitiesProps = {
-  amenities: AmenitiesProps[];
+  amenities?: AmenitiesProps[];
 };
 
 const DevelopmentAmenities = ({ amenities }: DevelopmentAmenitiesProps) => {
@@ -19,7 +19,7 @@ const DevelopmentAmenities = ({ amenities }: DevelopmentAmenitiesProps) => {
       }}
     >
       <Grid.Container>
-        {amenities.map((amenity, index) => {
+        {amenities?.map((amenity, index) => {
           return (
             <Grid css={{ marginRight: 8, marginBottom: 8 }} key={index}>
               <Container

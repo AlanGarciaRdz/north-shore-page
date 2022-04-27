@@ -24,15 +24,15 @@ function Footer({ showContactCard }) {
         }}>
       <react_1.Container css={Object.assign(Object.assign({}, theme_1.MainSectionsContainerCSS), { width: '100%', height: '100%' })}>
         <react_1.Grid.Container justify='space-between' alignItems='center' css={{ height: '100%', position: 'relative' }}>
-          <react_1.Grid xs={12} md={0} css={{ position: 'absolute', width: '100%', top: -260, right: 0 }}>
+          <react_1.Grid xs={12} sm={0} css={{ position: 'absolute', width: '100%', top: -260, right: 0 }}>
             {showContactCard === true && <ContactCard_1.default />}
           </react_1.Grid>
-          <react_1.Grid xs={12} md={6}>
+          <react_1.Grid xs={12} sm={6}>
             <react_1.Container fluid responsive={false} css={{
             margin: 0,
             padding: 0,
             paddingTop: 280,
-            '@md': {
+            '@sm': {
                 paddingTop: 52,
             },
         }}>
@@ -68,7 +68,7 @@ function Footer({ showContactCard }) {
                     <react_1.Text color='$secondary'>{contactDataInfo === null || contactDataInfo === void 0 ? void 0 : contactDataInfo.email}</react_1.Text>
                   </a>
                 </react_1.Grid>
-                <react_1.Grid xs={12} md={5} css={{ marginBottom: 32 }}>
+                <react_1.Grid xs={12} sm={5} css={{ marginBottom: 32 }}>
                   <react_1.Text color='$secondary'>
                     {contactDataInfo === null || contactDataInfo === void 0 ? void 0 : contactDataInfo.address1}
                     <span style={{ fontWeight: 'bold' }}>
@@ -94,7 +94,7 @@ function Footer({ showContactCard }) {
               </react_1.Grid.Container>
             </react_1.Container>
           </react_1.Grid>
-          <react_1.Grid xs={0} md={6} css={{ position: 'absolute', width: '100%', top: -230, right: 0 }}>
+          <react_1.Grid xs={0} sm={6} css={{ position: 'absolute', width: '100%', top: -230, right: 0 }}>
             {showContactCard === true && <ContactCard_1.default />}
           </react_1.Grid>
         </react_1.Grid.Container>

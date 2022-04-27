@@ -4,8 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("swiper/css");
-require("swiper/css/effect-fade");
-require("swiper/css/pagination");
 const react_1 = require("@nextui-org/react");
 const react_2 = require("react");
 const react_3 = require("swiper/react");
@@ -25,7 +23,7 @@ function DevelopmenstMainCard({ developments, }) {
                 opacity: 1,
             },
         }}>
-      <react_3.Swiper slidesPerView={'auto'} centeredSlides={true} spaceBetween={35} onSwiper={(swiper) => {
+      <react_3.Swiper slidesPerView={'auto'} centeredSlides={true} spaceBetween={0} onSwiper={(swiper) => {
             swiperRef.current = swiper;
         }}>
         {developments.map((development, developmentIndex) => {

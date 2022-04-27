@@ -28,35 +28,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("swiper/css");
 require("swiper/css/navigation");
-const react_1 = __importStar(require("react"));
-const react_2 = require("swiper/react");
-const RenderContainer_1 = __importDefault(require("../layouts/RenderContainer"));
+const react_1 = require("@nextui-org/react");
+const react_2 = __importStar(require("react"));
+const react_3 = require("swiper/react");
 const DevelopmentCard_1 = __importDefault(require("./DevelopmentCard"));
-const MobileView = ({ developemnts }) => {
-    const swiperRef = (0, react_1.useRef)();
-    return (<react_2.Swiper spaceBetween={20} centeredSlides={false} slidesPerView={'auto'} slidesPerGroup={1} style={{ margin: 0 }} onSwiper={(swiper) => {
+const DevelopmentsSwiper = ({ addMarginLeft, developemnts, }) => {
+    const swiperRef = (0, react_2.useRef)();
+    return (<react_3.Swiper spaceBetween={20} centeredSlides={false} slidesPerView={'auto'} slidesPerGroup={1} style={{ margin: 0 }} onSwiper={(swiper) => {
             swiperRef.current = swiper;
         }}>
       {developemnts.map((development, index) => {
-            const extraWidth = index === developemnts.length - 1
+            var _a;
+            const extraMarginLeft = addMarginLeft &&
+                (index === ((_a = swiperRef.current) === null || _a === void 0 ? void 0 : _a.activeIndex) || index === 0)
                 ? 'calc(2 * var(--nextui-space-sm))'
-                : '0px';
-            const extraMarginLeft = index !== 0 ? 0 : 'calc(2 * var(--nextui-space-sm))';
-            return (<react_2.SwiperSlide key={index} style={{
-                    width: `min(calc(282px + ${extraWidth}), calc(80vw + ${extraWidth}))`,
+                : 0;
+            return (<react_3.SwiperSlide key={index} style={{
+                    width: 'auto',
                     marginLeft: extraMarginLeft,
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'flex-start',
-                    justifyContent: 'flex-start',
                 }}>
-            <DevelopmentCard_1.default {...development}/>
-            <div style={{ width: extraWidth }}/>
-          </react_2.SwiperSlide>);
+            <react_1.Container fluid responsive={false} css={{
+                    margin: 0,
+                    padding: 0,
+                    width: '282px',
+                    '@sm': {
+                        width: '315px',
+                    },
+                }}>
+              <DevelopmentCard_1.default {...development}/>
+            </react_1.Container>
+          </react_3.SwiperSlide>);
         })}
-    </react_2.Swiper>);
-};
-const DevelopmentsSwiper = ({ developemnts }) => {
-    return (<RenderContainer_1.default mobileView={<MobileView developemnts={developemnts}/>}/>);
+    </react_3.Swiper>);
 };
 exports.default = DevelopmentsSwiper;

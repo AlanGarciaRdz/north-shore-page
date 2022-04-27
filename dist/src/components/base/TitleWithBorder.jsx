@@ -1,13 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = require("@nextui-org/react");
-function TitleWithBorder({ title }) {
+function TitleWithBorder({ title, color, }) {
     return (<react_1.Container fluid responsive={false} css={{
             margin: 0,
             padding: 0,
             width: 'auto',
         }}>
-      <react_1.Text h2>{title}</react_1.Text>
+      <react_1.Text h2 css={{ color: color || '$text' }}>
+        {title}
+      </react_1.Text>
       <react_1.Container fluid responsive={false} css={{
             margin: 0,
             padding: 0,

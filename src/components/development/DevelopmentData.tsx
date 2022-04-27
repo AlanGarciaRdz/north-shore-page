@@ -7,7 +7,7 @@ type DevelopmentSingleDataProps = {
   icon: React.ReactNode;
   data: string;
   name: string;
-  bigData: boolean;
+  bigData?: boolean;
 };
 
 const DevelopmentSingleData = ({
@@ -40,10 +40,10 @@ const DevelopmentSingleData = ({
 };
 
 type DevelopmentDataProps = {
-  bathrroms: string;
-  bedrooms: string;
-  squareFT: string;
-  bigData: boolean;
+  bathrroms?: string;
+  bedrooms?: string;
+  squareFT?: string;
+  bigData?: boolean;
 };
 const DevelopmentData = ({
   bathrroms,
@@ -74,7 +74,7 @@ const DevelopmentData = ({
       <Grid.Container justify='flex-start' alignItems='center'>
         <Grid {...gridProps}>
           <DevelopmentSingleData
-            data={bathrroms}
+            data={bathrroms || '0'}
             name='Bathrooms'
             icon={<IoMoonOutline style={{ fontSize: iconSize }} />}
             bigData={bigData}
@@ -82,7 +82,7 @@ const DevelopmentData = ({
         </Grid>
         <Grid {...gridProps}>
           <DevelopmentSingleData
-            data={bedrooms}
+            data={bedrooms || '0'}
             name='Bedrooms'
             icon={<BiDroplet style={{ fontSize: iconSize }} />}
             bigData={bigData}
@@ -90,7 +90,7 @@ const DevelopmentData = ({
         </Grid>
         <Grid {...gridProps}>
           <DevelopmentSingleData
-            data={squareFT}
+            data={squareFT || '0'}
             name='Square ft.'
             icon={<IoExpand style={{ fontSize: iconSize }} />}
             bigData={bigData}

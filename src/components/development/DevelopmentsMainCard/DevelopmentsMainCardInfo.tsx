@@ -117,7 +117,7 @@ export default function DevelopmentsMainCardInfo({
           </Grid.Container>
         </Grid>
         <Grid xs={12} css={{ marginBottom: 15 }}>
-          <Link href={development.url}>
+          <Link href={development.url || '/'}>
             <Button
               light
               auto
@@ -129,7 +129,7 @@ export default function DevelopmentsMainCardInfo({
           </Link>
         </Grid>
         <Grid xs={12}>
-          <Link href={development.listing.url}>
+          <Link href={development.listing?.url || '/'}>
             <Button
               auto
               light
@@ -141,7 +141,7 @@ export default function DevelopmentsMainCardInfo({
               }}
               icon={<GrLocation style={{ fontSize: 15 }} />}
             >
-              <Text>{development.listing.name}</Text>
+              <Text>{development.listing?.name}</Text>
             </Button>
           </Link>
         </Grid>
@@ -155,14 +155,14 @@ export default function DevelopmentsMainCardInfo({
         </Grid>
         <Grid xs={12} css={{ marginBottom: 28 }}>
           <DevelopmentsMainCardData
-            squareFT={development.squareFT.toString()}
-            bedrooms={development.bedrooms.toString()}
-            bathrroms={development.bathrroms.toString()}
+            squareFT={development.squareFT?.toString()}
+            bedrooms={development.bedrooms?.toString()}
+            bathrroms={development.bathrroms?.toString()}
             bigData
           />
         </Grid>
         <Grid xs={12} css={{ marginBottom: 20 }}>
-          <Link href={development.url}>
+          <Link href={development.url || '/'}>
             <Button
               auto
               css={{

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
 import TitleWithBorder from 'src/components/base/TitleWithBorder';
+import { DevelopmentCardProps } from 'src/components/development/Development.types';
 import DevelopmentsSwiper from 'src/components/development/DevelopmentsSwiper';
 import RenderContainer from 'src/components/layouts/RenderContainer';
 import ListingLabels from 'src/components/listing/ListingLabels';
@@ -109,7 +110,10 @@ export default function HomeLocations({
               >
                 <DevelopmentsSwiper
                   addMarginLeft
-                  developemnts={listings[currentListingIndex].developments}
+                  developemnts={
+                    listings[currentListingIndex]
+                      .developments as DevelopmentCardProps[]
+                  }
                 />
               </Container>
             }
@@ -120,7 +124,10 @@ export default function HomeLocations({
                 }}
               >
                 <DevelopmentsSwiper
-                  developemnts={listings[currentListingIndex].developments}
+                  developemnts={
+                    listings[currentListingIndex]
+                      .developments as DevelopmentCardProps[]
+                  }
                 />
               </Container>
             }
@@ -132,7 +139,7 @@ export default function HomeLocations({
               ...MainSectionsContainerCSS,
             }}
           >
-            <Link href={listings[currentListingIndex].url}>
+            <Link href={listings[currentListingIndex].url || ''}>
               <Button
                 light
                 auto

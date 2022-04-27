@@ -12,7 +12,7 @@ type BlogsSmallCardProps = {
 
 export default function BlogsSmallCard({ blog }: BlogsSmallCardProps) {
   return (
-    <Link href={blog.url}>
+    <Link href={blog.url || '/'}>
       <Container
         responsive={false}
         fluid
@@ -34,11 +34,11 @@ export default function BlogsSmallCard({ blog }: BlogsSmallCardProps) {
             css={{ padding: 0, margin: 0, borderRadius: 4, height: 156 }}
           >
             <OptimizeImage
-              src={blog.image.src}
+              src={blog.image?.src || '/'}
               layout='fill'
               objectFit='cover'
               objectPosition='center'
-              alt={blog.image.alt}
+              alt={blog.image?.alt}
               useBlur={false}
             />
           </Card.Body>

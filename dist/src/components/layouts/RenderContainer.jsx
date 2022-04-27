@@ -7,10 +7,10 @@ const react_1 = require("@nextui-org/react");
 const react_2 = __importDefault(require("react"));
 const RenderContainer = ({ mobileView, desktopView, containerProps, mobileViewGridProps, desktopViewGridProps, }) => {
     return (<react_1.Grid.Container css={{ padding: 0, margin: 0 }} {...containerProps}>
-      <react_1.Grid xs={12} md={0} css={{ position: 'relative', padding: 0, margin: 0 }} {...mobileViewGridProps}>
+      <react_1.Grid xs={12} sm={0} css={{ position: 'relative', padding: 0, margin: 0 }} {...mobileViewGridProps}>
         {mobileView}
       </react_1.Grid>
-      <react_1.Grid xs={0} md={12} css={{ position: 'relative', padding: 0, margin: 0 }} {...desktopViewGridProps}>
+      <react_1.Grid xs={0} sm={12} css={{ position: 'relative', padding: 0, margin: 0 }} {...desktopViewGridProps}>
         {desktopView || mobileView}
       </react_1.Grid>
     </react_1.Grid.Container>);

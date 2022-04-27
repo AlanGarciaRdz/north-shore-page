@@ -29,10 +29,10 @@ export default function DevelopmentMainCardImage({
           modules={[EffectFade, Pagination]}
           style={{ width: '100%' }}
         >
-          {development.images.map((image, key) => {
+          {development.images?.map((image, key) => {
             return (
               <SwiperSlide key={key}>
-                <Link href={development.url}>
+                <Link href={development.url || '/'}>
                   <Card
                     clickable
                     shadow={false}
@@ -51,7 +51,7 @@ export default function DevelopmentMainCardImage({
                         objectFit='cover'
                         objectPosition='center'
                         alt={`${formatToURL(
-                          development.name
+                          development.name || ''
                         )}-gallery-image-${key}`}
                         useBlur={false}
                       />

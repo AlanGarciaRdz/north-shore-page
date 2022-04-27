@@ -8,7 +8,7 @@ const DevelopmentAmenities = ({ amenities }) => {
             width: '100%',
         }}>
       <react_1.Grid.Container>
-        {amenities.map((amenity, index) => {
+        {amenities === null || amenities === void 0 ? void 0 : amenities.map((amenity, index) => {
             return (<react_1.Grid css={{ marginRight: 8, marginBottom: 8 }} key={index}>
               <react_1.Container responsive={false} fluid css={{
                     padding: '2px 8px',

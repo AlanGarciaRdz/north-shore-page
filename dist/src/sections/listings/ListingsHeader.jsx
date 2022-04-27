@@ -4,44 +4,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = require("@nextui-org/react");
-const link_1 = __importDefault(require("next/link"));
 const OptimizeImage_1 = __importDefault(require("src/components/base/OptimizeImage"));
-const GeneralData_1 = require("src/scripts/GeneralData");
+const TitleWithBorder_1 = __importDefault(require("src/components/base/TitleWithBorder"));
 const theme_1 = require("styles/theme");
-function HomeHeader({ image, title, button }) {
+function ListingsHeader({ image, title }) {
     return (<react_1.Container fluid responsive={false} css={{
             margin: 0,
             padding: 0,
             width: '100vw',
             position: 'relative',
-            height: '655px',
+            height: '351px',
+            '@sm': {
+                height: '655px',
+            },
         }}>
-      <react_1.Container css={Object.assign(Object.assign({}, theme_1.MainSectionsContainerCSS), { width: '100%', position: 'absolute', left: 0, right: 0, bottom: 160, zIndex: 3 })}>
+      <react_1.Container css={Object.assign(Object.assign({}, theme_1.MainSectionsContainerCSS), { width: '100%', position: 'absolute', left: 0, right: 0, bottom: 80, zIndex: 3 })}>
         <react_1.Grid.Container justify='space-between' alignItems='center' css={{
             width: '100%',
             bottom: 0,
             zIndex: 3,
         }}>
           <react_1.Grid xs={6} md={12}>
-            <react_1.Text h2 color='#ffffff' css={{ marginBottom: 16 }}>
-              {title}
-            </react_1.Text>
+            <TitleWithBorder_1.default color='$white' title={title}/>
           </react_1.Grid>
           <react_1.Grid xs={12}/>
-          <react_1.Grid xs={12} sm={6}>
-            <link_1.default href={GeneralData_1.LISTINGS_URL}>
-              <react_1.Button auto ghost css={{
-            width: '100%',
-            borderColor: '$white',
-            color: '$white',
-            '@sm': {
-                width: '388px',
-            },
-        }}>
-                {button.label}
-              </react_1.Button>
-            </link_1.default>
-          </react_1.Grid>
         </react_1.Grid.Container>
       </react_1.Container>
       <react_1.Container fluid responsive={false} css={{
@@ -57,8 +43,11 @@ function HomeHeader({ image, title, button }) {
             width: '100vw',
             maxWidth: '100vw',
             overflow: 'hidden',
-            height: '655px',
+            height: '351px',
+            '@sm': {
+                height: '655px',
+            },
         }}/>
     </react_1.Container>);
 }
-exports.default = HomeHeader;
+exports.default = ListingsHeader;
