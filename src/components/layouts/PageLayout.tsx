@@ -47,7 +47,7 @@ const PageLayout = ({
           maxWidth: '100vw',
           minHeight: '200vh',
           backgroundColor: backgroundColor || '$gray200',
-          paddingBottom: 280,
+          paddingBottom: showContactCard ? 280 : 120,
         }}
       >
         {children}

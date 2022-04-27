@@ -26,6 +26,7 @@ export default function ListingsHeader({ image, title }: ListingsHeaderProps) {
         '@sm': {
           height: '655px',
         },
+        marginBottom: 40,
       }}
     >
       <Container

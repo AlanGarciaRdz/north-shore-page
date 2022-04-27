@@ -57,7 +57,7 @@ export default function Footer({ showContactCard }: FooterProps) {
               css={{
                 margin: 0,
                 padding: 0,
-                paddingTop: 280,
+                paddingTop: showContactCard ? 280 : 120,
                 '@sm': {
                   paddingTop: 52,
                 },

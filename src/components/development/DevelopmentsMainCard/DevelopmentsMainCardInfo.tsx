@@ -11,12 +11,14 @@ import DevelopmentAmenities from '../DevelopmentAmenities';
 import DevelopmentsMainCardData from '../DevelopmentData';
 
 type DevelopmentsMainCardInfoProps = {
+  showHeaderData?: boolean;
   development: DevelopmentMainCardProps;
   developments: DevelopmentMainCardProps[];
   swiperRef: MutableRefObject<SwiperInterface | undefined>;
 };
 
 export default function DevelopmentsMainCardInfo({
+  showHeaderData,
   development,
   developments,
   swiperRef,
@@ -33,89 +35,91 @@ export default function DevelopmentsMainCardInfo({
       }}
     >
       <Grid.Container>
-        <Grid xs={12}>
-          <Grid.Container justify='space-between'>
-            <Grid
-              css={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              {developments.map((_development, developmentHeaderIndex) => {
-                return (
-                  <Button
-                    key={developmentHeaderIndex}
-                    light
-                    auto
-                    css={{ padding: 0, marginRight: 8 }}
-                    onClick={() => {
-                      if (swiperRef.current) {
-                        swiperRef.current.slideTo(developmentHeaderIndex);
-                      }
-                    }}
-                  >
-                    <Text
-                      weight={
-                        swiperRef.current?.activeIndex ===
-                        developmentHeaderIndex
-                          ? 'bold'
-                          : 'normal'
-                      }
-                    >{`0${developmentHeaderIndex + 1}.`}</Text>
-                  </Button>
-                );
-              })}
-            </Grid>
-            <Grid
-              css={{
-                display: 'flex',
-                flexDirection: 'row',
-              }}
-            >
-              <Button
-                auto
-                disabled={swiperRef.current?.activeIndex === 0}
-                onClick={() => {
-                  if (swiperRef.current) {
-                    swiperRef.current.slidePrev();
-                  }
-                }}
+        {showHeaderData && (
+          <Grid xs={12}>
+            <Grid.Container justify='space-between'>
+              <Grid
                 css={{
-                  padding: 0,
-                  borderRadius: 2,
-                  backgroundColor: '#F5F5F5',
-                  color: '$text',
-                  width: '40px',
-                  height: '40px',
-                  marginRight: 8,
+                  display: 'flex',
+                  flexDirection: 'row',
                 }}
               >
-                <BsArrowLeft color='inherit' style={{ fontSize: 20 }} />
-              </Button>
-              <Button
-                auto
-                disabled={
-                  swiperRef.current?.activeIndex === developments.length - 1
-                }
-                onClick={() => {
-                  if (swiperRef.current) {
-                    swiperRef.current.slideNext();
-                  }
-                }}
+                {developments.map((_development, developmentHeaderIndex) => {
+                  return (
+                    <Button
+                      key={developmentHeaderIndex}
+                      light
+                      auto
+                      css={{ padding: 0, marginRight: 8 }}
+                      onClick={() => {
+                        if (swiperRef.current) {
+                          swiperRef.current.slideTo(developmentHeaderIndex);
+                        }
+                      }}
+                    >
+                      <Text
+                        weight={
+                          swiperRef.current?.activeIndex ===
+                          developmentHeaderIndex
+                            ? 'bold'
+                            : 'normal'
+                        }
+                      >{`0${developmentHeaderIndex + 1}.`}</Text>
+                    </Button>
+                  );
+                })}
+              </Grid>
+              <Grid
                 css={{
-                  padding: 0,
-                  borderRadius: 2,
-                  backgroundColor: '#F5F5F5',
-                  color: '$text',
-                  width: '40px',
-                  height: '40px',
+                  display: 'flex',
+                  flexDirection: 'row',
                 }}
               >
-                <BsArrowRight color='inherit' style={{ fontSize: 20 }} />
-              </Button>
-            </Grid>
-          </Grid.Container>
-        </Grid>
+                <Button
+                  auto
+                  disabled={swiperRef.current?.activeIndex === 0}
+                  onClick={() => {
+                    if (swiperRef.current) {
+                      swiperRef.current.slidePrev();
+                    }
+                  }}
+                  css={{
+                    padding: 0,
+                    borderRadius: 2,
+                    backgroundColor: '#F5F5F5',
+                    color: '$text',
+                    width: '40px',
+                    height: '40px',
+                    marginRight: 8,
+                  }}
+                >
+                  <BsArrowLeft color='inherit' style={{ fontSize: 20 }} />
+                </Button>
+                <Button
+                  auto
+                  disabled={
+                    swiperRef.current?.activeIndex === developments.length - 1
+                  }
+                  onClick={() => {
+                    if (swiperRef.current) {
+                      swiperRef.current.slideNext();
+                    }
+                  }}
+                  css={{
+                    padding: 0,
+                    borderRadius: 2,
+                    backgroundColor: '#F5F5F5',
+                    color: '$text',
+                    width: '40px',
+                    height: '40px',
+                  }}
+                >
+                  <BsArrowRight color='inherit' style={{ fontSize: 20 }} />
+                </Button>
+              </Grid>
+            </Grid.Container>
+          </Grid>
+        )}
         <Grid xs={12} css={{ marginBottom: 15 }}>
           <Link href={development.url || '/'}>
             <Button

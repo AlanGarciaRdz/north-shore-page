@@ -10,10 +10,14 @@ import DevelopmentMainCardImage from './DevelopmenstMainCardImages';
 import DevelopmentsMainCardInfo from './DevelopmentsMainCardInfo';
 
 type DevelopmentsMainCardProps = {
+  isNormalSwiper?: boolean;
+  addMarginLeft?: boolean;
   developments: DevelopmentMainCardProps[];
 };
 
 export default function DevelopmenstMainCard({
+  isNormalSwiper,
+  addMarginLeft,
   developments,
 }: DevelopmentsMainCardProps) {
   const swiperRef = useRef<SwiperInterface>();
@@ -35,16 +39,33 @@ export default function DevelopmenstMainCard({
       }}
     >
       <Swiper
-        slidesPerView={'auto'}
-        centeredSlides={true}
-        spaceBetween={0}
+        slidesPerView={isNormalSwiper ? 1.2 : 1}
+        centeredSlides={isNormalSwiper ? false : true}
+        spaceBetween={isNormalSwiper ? 20 : 0}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
       >
         {developments.map((development, developmentIndex) => {
+          const extraMarginLeft =
+            addMarginLeft && isNormalSwiper && developmentIndex === 0
+              ? 'calc(2 * var(--nextui-space-sm))'
+              : 0;
+          const extraMarginRight =
+            addMarginLeft &&
+            isNormalSwiper &&
+            developmentIndex >= developments.length - 1
+              ? 'calc(calc(2 * var(--nextui-space-sm)) + 20px)'
+              : '0px';
           return (
-            <SwiperSlide key={developmentIndex}>
+            <SwiperSlide
+              key={developmentIndex}
+              style={{
+                width: 'auto',
+                marginLeft: extraMarginLeft,
+                marginRight: 0,
+              }}
+            >
               {({ isActive }) => (
                 <div>
                   <Card
@@ -69,6 +90,7 @@ export default function DevelopmenstMainCard({
                         </Grid>
                         <Grid xs={12} sm={6}>
                           <DevelopmentsMainCardInfo
+                            showHeaderData={!isNormalSwiper}
                             swiperRef={swiperRef}
                             development={development}
                             developments={developments}

@@ -100,6 +100,13 @@ const darkColors = {
   text: '#ffffff',
 };
 
+export const reactSelectorTheme = {
+  primary: baseColors.secondary || 'transparent',
+  primary75: baseColors.secondaryLight || 'transparent',
+  primary50: baseColors.secondaryLight || 'transparent',
+  primary25: baseColors.secondaryLight || 'transparent',
+};
+
 export default {
   fonts,
   fontSizes,

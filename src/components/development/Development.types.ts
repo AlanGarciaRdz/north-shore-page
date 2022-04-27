@@ -39,3 +39,8 @@ export type DevelopmentCardProps = {
   };
   amenities?: AmenitiesProps[];
 };
+
+export type DevelopmentPropertyTypeProps = {
+  label: string;
+  value: string;
+};

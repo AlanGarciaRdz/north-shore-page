@@ -12,12 +12,14 @@ interface ListingLabelsProps {
   listings: ListingProps[];
   onChangeListing: (index: number) => void;
   addMarginLeft?: boolean;
+  showLength?: boolean;
 }
 
 const ListingLabels: FC<ListingLabelsProps> = ({
   onChangeListing,
   listings,
   addMarginLeft,
+  showLength,
 }) => {
   const { theme } = useTheme();
   const swiperRef = useRef<SwiperInterface>();
@@ -131,6 +133,7 @@ const ListingLabels: FC<ListingLabelsProps> = ({
                     }}
                   >
                     {listing.name.toLowerCase()}
+                    {showLength ? ` (${listing.developments.length})` : ''}
                   </Text>
                 </Button>
               </Container>
