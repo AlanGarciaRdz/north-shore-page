@@ -157,4 +157,5 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
     </Container>
   );
 });
+Footer.displayName = 'Footer';
 export default Footer;
