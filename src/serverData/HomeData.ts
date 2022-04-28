@@ -9,16 +9,16 @@ export async function getHomeHeader() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/Las lomas') +
+        formatToURL('Las lomas') +
         '/' +
-        formatToURL('/Hacienda Marina'),
+        formatToURL('Hacienda Marina'),
       name: 'Hacienda Marina',
       price: 5137400,
       bathrroms: 5.5,
       bedrooms: 5.5,
       squareFT: 5.5,
       listing: {
-        url: LISTINGS_URL + formatToURL('/Las lomas'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('Las lomas'),
         name: 'Las lomas',
       },
       amenities: [
@@ -43,16 +43,16 @@ export async function getHomeHeader() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/sayulita') +
+        formatToURL('sayulita') +
         '/' +
-        formatToURL('/Casa de leon'),
+        formatToURL('Casa de leon'),
       name: 'Casa de león',
       price: 8003200,
       bathrroms: 5.5,
       bedrooms: 5.5,
       squareFT: 5.5,
       listing: {
-        url: LISTINGS_URL + formatToURL('/sayulita'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('sayulita'),
         name: 'Sayulita',
       },
       amenities: [
@@ -79,16 +79,16 @@ export async function getHomeHeader() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/San Pancho') +
+        formatToURL('San Pancho') +
         '/' +
-        formatToURL('/Casa de Prueba'),
+        formatToURL('Casa de Prueba'),
       name: 'Casa de Prueba',
       price: 8003200,
       bathrroms: 5.5,
       bedrooms: 5.5,
       squareFT: 5.5,
       listing: {
-        url: LISTINGS_URL + formatToURL('/San Pancho'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('San Pancho'),
         name: 'San Pancho',
       },
       amenities: [
@@ -134,16 +134,16 @@ export async function getHomeLocation() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/Las lomas') +
+        formatToURL('Las lomas') +
         '/' +
-        formatToURL('/Hacienda Marina'),
+        formatToURL('Hacienda Marina'),
       name: 'Hacienda Marina',
       price: 5137400,
       bathrroms: 2,
       bedrooms: 5,
       squareFT: 5200,
       listing: {
-        url: LISTINGS_URL + formatToURL('/Las lomas'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('Las lomas'),
         name: 'Las lomas',
       },
       amenities: [
@@ -165,16 +165,16 @@ export async function getHomeLocation() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/Sayulita') +
+        formatToURL('Sayulita') +
         '/' +
-        formatToURL('/Casa de leon'),
+        formatToURL('Casa de leon'),
       name: 'Casa de león',
       price: 8003200,
       bathrroms: 10,
       bedrooms: 10,
       squareFT: 6500,
       listing: {
-        url: LISTINGS_URL + formatToURL('/Sayulita'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('Sayulita'),
         name: 'Sayulita',
       },
       amenities: [
@@ -196,16 +196,16 @@ export async function getHomeLocation() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/San Pancho') +
+        formatToURL('San Pancho') +
         '/' +
-        formatToURL('/Casa de Prueba'),
+        formatToURL('Casa de Prueba'),
       name: 'Casa de Prueba',
       price: 8003200,
       bathrroms: 1,
       bedrooms: 1,
       squareFT: 900,
       listing: {
-        url: LISTINGS_URL + formatToURL('/San Pancho'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('San Pancho'),
         name: 'San Pancho',
       },
       amenities: [
@@ -227,7 +227,7 @@ export async function getHomeLocation() {
   ];
   const listings: ListingProps[] = [
     {
-      url: LISTINGS_URL + formatToURL('/San Pancho'),
+      url: LISTINGS_URL + '?listing=' + formatToURL('San Pancho'),
       name: 'San Pancho',
       developments: [...developmentsCard, ...developmentsCard].map(
         (development, index) => {
@@ -241,7 +241,7 @@ export async function getHomeLocation() {
       ),
     },
     {
-      url: LISTINGS_URL + formatToURL('/Sayulita'),
+      url: LISTINGS_URL + '?listing=' + formatToURL('Sayulita'),
       name: 'Sayulita',
       developments: [...developmentsCard].map((development, index) => {
         let returnDevelopment: DevelopmentCardProps = JSON.parse(
@@ -253,7 +253,7 @@ export async function getHomeLocation() {
       }),
     },
     {
-      url: LISTINGS_URL + formatToURL('/Lo de Marcos'),
+      url: LISTINGS_URL + '?listing=' + formatToURL('Lo de Marcos'),
       name: 'Lo de Marcos',
       developments: [
         ...developmentsCard,
@@ -269,7 +269,7 @@ export async function getHomeLocation() {
       }),
     },
     {
-      url: LISTINGS_URL + formatToURL('/Las Lomas'),
+      url: LISTINGS_URL + '?listing=' + formatToURL('Las Lomas'),
       name: 'Las Lomas',
       developments: [
         ...developmentsCard,
@@ -348,7 +348,7 @@ export async function getHomeAboutUs() {
 export async function getHomeBlogs() {
   const blogs: BlogSmallCardProps[] = [
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',
@@ -356,7 +356,7 @@ export async function getHomeBlogs() {
       title: 'Blog 1',
     },
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',
@@ -364,7 +364,7 @@ export async function getHomeBlogs() {
       title: 'Blog 1',
     },
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',
@@ -372,7 +372,7 @@ export async function getHomeBlogs() {
       title: 'Blog 1',
     },
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',
@@ -380,7 +380,7 @@ export async function getHomeBlogs() {
       title: 'Blog 1',
     },
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',
@@ -388,7 +388,7 @@ export async function getHomeBlogs() {
       title: 'Blog 1',
     },
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',
@@ -396,7 +396,7 @@ export async function getHomeBlogs() {
       title: 'Blog 1',
     },
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',
@@ -404,7 +404,7 @@ export async function getHomeBlogs() {
       title: 'Blog 1',
     },
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',
@@ -412,7 +412,7 @@ export async function getHomeBlogs() {
       title: 'Blog 1',
     },
     {
-      url: BLOGS_URL + formatToURL('/Blog 1'),
+      url: BLOGS_URL + formatToURL('Blog 1'),
       image: {
         src: '/dump/about-us.png',
         alt: 'about-san-pancho',

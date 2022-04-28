@@ -1,5 +1,5 @@
 import { Container } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { WithChildren } from 'src/scripts/Types';
 
 import Footer from '../page/Footer';
@@ -17,6 +17,7 @@ const PageLayout = ({
   showContactCard,
   backgroundColor,
 }: PageLayoutProps) => {
+  const contactRef = useRef<HTMLDivElement>(null);
   return (
     <Container
       responsive={false}
@@ -28,7 +29,7 @@ const PageLayout = ({
         maxWidth: '100vw',
       }}
     >
-      <Navigation />
+      <Navigation contactRef={contactRef} />
       {
         <div
           style={{
@@ -52,7 +53,7 @@ const PageLayout = ({
       >
         {children}
       </Container>
-      <Footer showContactCard={showContactCard} />
+      <Footer showContactCard={showContactCard} ref={contactRef} />
     </Container>
   );
 };

@@ -95,8 +95,6 @@ export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
         objectFit='cover'
         objectPosition='center'
         useBlur={true}
-        width='100vw'
-        height='655px'
         containerCSS={{
           zIndex: 1,
           position: 'absolute',

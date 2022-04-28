@@ -1,6 +1,6 @@
 import { Container, Grid, Text } from '@nextui-org/react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { forwardRef, RefObject, useEffect, useState } from 'react';
 import OptimizeImage from 'src/components/base/OptimizeImage';
 import { useContactDataContext } from 'src/context/ContactDataContext';
 import { WithChildren } from 'src/scripts/Types';
@@ -12,7 +12,7 @@ type FooterProps = WithChildren<{
   showContactCard?: boolean;
 }>;
 
-export default function Footer({ showContactCard }: FooterProps) {
+const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
   const contextData = useContactDataContext();
   const contactDataInfo = contextData?.contactDataInfo;
   if (contactDataInfo === undefined) {
@@ -143,10 +143,18 @@ export default function Footer({ showContactCard }: FooterProps) {
             sm={6}
             css={{ position: 'absolute', width: '100%', top: -230, right: 0 }}
           >
-            {showContactCard === true && <ContactCard />}
+            {showContactCard === true && (
+              <div
+                style={{ width: '100%' }}
+                ref={ref as RefObject<HTMLDivElement>}
+              >
+                <ContactCard />
+              </div>
+            )}
           </Grid>
         </Grid.Container>
       </Container>
     </Container>
   );
-}
+});
+export default Footer;

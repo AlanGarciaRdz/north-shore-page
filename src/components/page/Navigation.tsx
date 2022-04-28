@@ -1,10 +1,11 @@
 import { Button, Container, Grid, Text } from '@nextui-org/react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { RiMenu3Line } from 'react-icons/ri';
 import { animated, useSpring } from 'react-spring';
 import OptimizeImage from 'src/components/base/OptimizeImage';
 import useScrollPosition from 'src/hooks/useScrollPosition';
+import { BLOGS_URL, LISTINGS_URL } from 'src/scripts/GeneralData';
 import { WithChildren } from 'src/scripts/Types';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
@@ -14,8 +15,27 @@ type NavigationLabelProps = {
   label: string;
   href: string;
   noMargin?: boolean;
+  onClick?: () => void;
 };
-const NavigationLabel = ({ label, href, noMargin }: NavigationLabelProps) => {
+const NavigationLabel = ({
+  label,
+  href,
+  noMargin,
+  onClick,
+}: NavigationLabelProps) => {
+  if (onClick !== undefined) {
+    return (
+      <Text
+        onClick={onClick}
+        color='white'
+        weight='bold'
+        id={`navigate-to-${href}`}
+        css={{ marginRight: noMargin ? 0 : 32, cursor: 'pointer' }}
+      >
+        {label}
+      </Text>
+    );
+  }
   return (
     <Link href={href}>
       <Text
@@ -94,7 +114,11 @@ const NavigationContainer = ({
   );
 };
 
-export default function Navigation() {
+type NavigationProps = {
+  contactRef: RefObject<HTMLDivElement>;
+};
+
+export default function Navigation({ contactRef }: NavigationProps) {
   const navigationConf = {
     hideDuration: 50,
     showDuration: 200,
@@ -172,9 +196,20 @@ export default function Navigation() {
                 }
                 desktopView={
                   <>
-                    <NavigationLabel label='Listings' href='listings' />
-                    <NavigationLabel label='Contact us' href='contact' />
-                    <NavigationLabel label='Blog' noMargin href='blog' />
+                    <NavigationLabel label='Listings' href={LISTINGS_URL} />
+                    <NavigationLabel
+                      label='Contact us'
+                      href=''
+                      onClick={() => {
+                        if (contactRef.current !== null) {
+                          contactRef.current.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                          });
+                        }
+                      }}
+                    />
+                    <NavigationLabel label='Blog' noMargin href={BLOGS_URL} />
                   </>
                 }
               />

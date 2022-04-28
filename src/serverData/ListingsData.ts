@@ -29,7 +29,7 @@ export async function getListingsLabels() {
   ];
   const listingsLabels = [
     {
-      url: LISTINGS_URL + formatToURL('/Las Lomas'),
+      url: LISTINGS_URL + '?listing=' + formatToURL('Las Lomas'),
       name: 'Las Lomas',
       developments: [
         ...developments,
@@ -43,12 +43,12 @@ export async function getListingsLabels() {
       ],
     },
     {
-      url: LISTINGS_URL + formatToURL('/Lo de Marcos'),
+      url: LISTINGS_URL + '?listing=' + formatToURL('Lo de Marcos'),
       name: 'Lo de Marcos',
       developments: [...developments, ...developments],
     },
     {
-      url: LISTINGS_URL + formatToURL('/Sayulita'),
+      url: LISTINGS_URL + '?listing=' + formatToURL('Sayulita'),
       name: 'Sayulita',
       developments: [
         ...developments,
@@ -60,7 +60,7 @@ export async function getListingsLabels() {
       ],
     },
     {
-      url: LISTINGS_URL + formatToURL('/San Pancho'),
+      url: LISTINGS_URL + '?listing=' + formatToURL('San Pancho'),
       name: 'San Pancho',
       developments: [
         ...developments,
@@ -85,16 +85,16 @@ export async function getListingsFeatured() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/Las lomas') +
+        formatToURL('Las lomas') +
         '/' +
-        formatToURL('/Hacienda Marina'),
+        formatToURL('Hacienda Marina'),
       name: 'Hacienda Marina',
       price: 5137400,
       bathrroms: 5.5,
       bedrooms: 5.5,
       squareFT: 5.5,
       listing: {
-        url: LISTINGS_URL + formatToURL('/Las lomas'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('Las lomas'),
         name: 'Las lomas',
       },
       amenities: [
@@ -119,16 +119,16 @@ export async function getListingsFeatured() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/sayulita') +
+        formatToURL('sayulita') +
         '/' +
-        formatToURL('/Casa de leon'),
+        formatToURL('Casa de leon'),
       name: 'Casa de león',
       price: 8003200,
       bathrroms: 5.5,
       bedrooms: 5.5,
       squareFT: 5.5,
       listing: {
-        url: LISTINGS_URL + formatToURL('/sayulita'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('sayulita'),
         name: 'Sayulita',
       },
       amenities: [
@@ -155,16 +155,16 @@ export async function getListingsFeatured() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/San Pancho') +
+        formatToURL('San Pancho') +
         '/' +
-        formatToURL('/Casa de Prueba'),
+        formatToURL('Casa de Prueba'),
       name: 'Casa de Prueba',
       price: 8003200,
       bathrroms: 5.5,
       bedrooms: 5.5,
       squareFT: 5.5,
       listing: {
-        url: LISTINGS_URL + formatToURL('/San Pancho'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('San Pancho'),
         name: 'San Pancho',
       },
       amenities: [
@@ -202,16 +202,16 @@ export async function getListingsPropertiesList() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/Las lomas') +
+        formatToURL('Las lomas') +
         '/' +
-        formatToURL('/Hacienda Marina'),
+        formatToURL('Hacienda Marina'),
       name: 'Hacienda Marina',
       price: 5137400,
       bathrroms: 2,
       bedrooms: 5,
       squareFT: 5200,
       listing: {
-        url: LISTINGS_URL + formatToURL('/Las lomas'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('Las lomas'),
         name: 'Las lomas',
       },
       amenities: [
@@ -233,16 +233,16 @@ export async function getListingsPropertiesList() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/Sayulita') +
+        formatToURL('Sayulita') +
         '/' +
-        formatToURL('/Casa de leon'),
+        formatToURL('Casa de leon'),
       name: 'Casa de león',
       price: 8003200,
       bathrroms: 10,
       bedrooms: 10,
       squareFT: 6500,
       listing: {
-        url: LISTINGS_URL + formatToURL('/Sayulita'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('Sayulita'),
         name: 'Sayulita',
       },
       amenities: [
@@ -264,16 +264,16 @@ export async function getListingsPropertiesList() {
     {
       url:
         LISTINGS_URL +
-        formatToURL('/San Pancho') +
+        formatToURL('San Pancho') +
         '/' +
-        formatToURL('/Casa de Prueba'),
+        formatToURL('Casa de Prueba'),
       name: 'Casa de Prueba',
       price: 8003200,
       bathrroms: 1,
       bedrooms: 1,
       squareFT: 900,
       listing: {
-        url: LISTINGS_URL + formatToURL('/San Pancho'),
+        url: LISTINGS_URL + '?listing=' + formatToURL('San Pancho'),
         name: 'San Pancho',
       },
       amenities: [

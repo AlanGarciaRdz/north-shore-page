@@ -4,7 +4,7 @@ import OptimizeImage from 'src/components/base/OptimizeImage';
 import TitleWithBorder from 'src/components/base/TitleWithBorder';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
-type ListingsHeaderProps = {
+type BlogHeaderProps = {
   image: {
     src: string;
     alt: string;
@@ -12,7 +12,7 @@ type ListingsHeaderProps = {
   title: string;
 };
 
-export default function ListingsHeader({ image, title }: ListingsHeaderProps) {
+export default function BlogHeader({ image, title }: BlogHeaderProps) {
   return (
     <Container
       fluid

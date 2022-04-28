@@ -50,7 +50,7 @@ function Listings({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [currentFilter, setCurrentFilter] = useState({ listing: 0 });
   return (
-    <PageLayout>
+    <PageLayout showContactCard>
       <ListingsHeader title={header.page.title} image={header.page.image} />
       <Container
         css={{

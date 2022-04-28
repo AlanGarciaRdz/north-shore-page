@@ -1,19 +1,14 @@
 import { Container, Grid, Pagination } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import TitleWithBorder from 'src/components/base/TitleWithBorder';
-import { DevelopmentCardProps } from 'src/components/development/Development.types';
-import DevelopmentCard from 'src/components/development/DevelopmentCard';
+import { BlogCardProps } from 'src/components/blog/Blog.types';
+import BlogCard from 'src/components/blog/BlogCard';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
-type ListingsPropertiesListProps = {
-  title: string;
-  developments: DevelopmentCardProps[];
+type BlogListProps = {
+  blogs: BlogCardProps[];
 };
 
-export default function ListingsPropertiesList({
-  title,
-  developments,
-}: ListingsPropertiesListProps) {
+export default function BlogList({ blogs }: BlogListProps) {
   return (
     <Container
       fluid
@@ -41,27 +36,17 @@ export default function ListingsPropertiesList({
               width: '100%',
             }}
           >
-            <TitleWithBorder title={title} />
-          </Container>
-        </Grid>
-        <Grid xs={12} css={{ marginBottom: 40 }}>
-          <Container
-            css={{
-              ...MainSectionsContainerCSS,
-              width: '100%',
-            }}
-          >
             <Grid.Container justify='space-between'>
-              {developments.map((development, developmentHeaderIndex) => {
+              {blogs.map((blog, blogIndex) => {
                 return (
                   <Grid
-                    key={developmentHeaderIndex}
+                    key={blogIndex}
                     xs={12}
-                    sm={5.8}
-                    lg={3.8}
+                    sm={4.8}
+                    lg={2.8}
                     css={{ marginBottom: 30 }}
                   >
-                    <DevelopmentCard {...development} />
+                    <BlogCard {...blog} />
                   </Grid>
                 );
               })}

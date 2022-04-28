@@ -6,9 +6,9 @@ export async function getDevelopmentData() {
   const developmentData: DevelopmentCompleteProps = {
     url:
       LISTINGS_URL +
-      formatToURL('/Las lomas') +
+      formatToURL('Las lomas') +
       '/' +
-      formatToURL('/Hacienda Marina'),
+      formatToURL('Hacienda Marina'),
     name: 'Hacienda Marina',
     price: 5137400,
     oceanFrontMeters: 52.1,
@@ -31,7 +31,7 @@ export async function getDevelopmentData() {
     location: 'Beachfront; Gated Community',
     howToShow: 'Agent To Accompany; By Appointment Only',
     listing: {
-      url: LISTINGS_URL + formatToURL('/Las lomas'),
+      url: LISTINGS_URL + formatToURL('Las lomas'),
       name: 'Las lomas',
     },
     amenities: [
