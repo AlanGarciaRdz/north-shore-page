@@ -25,24 +25,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@main
 
-      #Checks if Package exist
-      - name: Check file Existence
-        id: check_files
-        uses: andstor/file-existence-action@main
-        with:
-          files: "package.json"
 
       # Runs to Clone the Project
       - name: Clone Project
         uses: appleboy/ssh-action@master
-        if: steps.check_files.outputs.files_exists == 'false'
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd page
-            git clone ${{ github.repository }}
+          cd page
+          FILE=package.json
+          if test -f "$FILE"; then
+              echo "$FILE exists."
+          fi
 
       # Runs to Get the Project
       - name: Get Project
