@@ -34,11 +34,11 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-          cd page
-          FILE=package.json
-          if test -f "$FILE"; then
-              echo "$FILE exists."
-          fi
+            cd page
+            FILE=package.json
+            if test -f "$FILE"; then
+                echo "$FILE exists."
+            fi
 
       # Runs to Get the Project
       - name: Get Project
