@@ -34,7 +34,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd page
-            ls
+            git checkout -f
+            git pull
 
       # Runs to Build the Project
       - name: Build Project
