@@ -33,8 +33,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            ls -al
             cd page
+            ls
 
       # Runs to Build the Project
       - name: Build Project
@@ -44,4 +44,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            ls -al
+            ls
