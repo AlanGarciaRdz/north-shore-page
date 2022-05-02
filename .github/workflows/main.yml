@@ -33,7 +33,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/${{ secrets.SSH_USERNAME }}/page/source
             ls -al
 
       # Runs to Build the Project
