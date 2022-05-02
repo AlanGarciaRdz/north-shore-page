@@ -34,6 +34,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             ls -al
+            cd page
 
       # Runs to Build the Project
       - name: Build Project
