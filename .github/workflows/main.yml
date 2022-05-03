@@ -34,6 +34,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            if [ ! -f page ]
+            then
+                mkdir page
+            fi
             cd page
             if [ ! -f package.json ]
             then
