@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@main
 
 
-      # Runs to Clone the Project
+      # Clone for the first time the Project
       - name: Clone Project
         uses: appleboy/ssh-action@master
         with:
@@ -44,8 +44,8 @@ jobs:
                 git clone https://${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }}.git .
             fi
 
-       # Runs to Checkout the Project
-      - name: Clone Project
+       # Checkout and Pull the Project for changes
+      - name: Checkout Project
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -56,8 +56,8 @@ jobs:
             git checkout -f
             git pull
 
-       # Runs to Install the Project
-      - name: Clone Project
+       # Builds and install the project using yarn
+      - name: Build Project
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -66,20 +66,10 @@ jobs:
           script: |
             cd ${{ secrets.PROJECT_FOLDER }}
             yarn install
-
-       # Runs to Build the Project
-      - name: Clone Project
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd ${{ secrets.PROJECT_FOLDER }}
             yarn run build
 
-       # Runs to Deploy the Project
-      - name: Clone Project
+       # Run the project on pm2
+      - name: Run Project
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
