@@ -34,12 +34,57 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            if [ ! -f page ]
+            if [ ! -f ${{ secrets.PROJECT_FOLDER }} ]
             then
-                mkdir page
+                mkdir ${{ secrets.PROJECT_FOLDER }}
             fi
-            cd page
+            cd ${{ secrets.PROJECT_FOLDER }}
             if [ ! -f package.json ]
             then
                 git clone https://${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }}.git .
             fi
+
+       # Runs to Checkout the Project
+      - name: Clone Project
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.PROJECT_FOLDER }}
+            git checkout -f
+            git pull
+
+       # Runs to Install the Project
+      - name: Clone Project
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.PROJECT_FOLDER }}
+            yarn install
+
+       # Runs to Build the Project
+      - name: Clone Project
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.PROJECT_FOLDER }}
+            yarn run build
+
+       # Runs to Deploy the Project
+      - name: Clone Project
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ secrets.PROJECT_FOLDER }}
+            yarn run server
