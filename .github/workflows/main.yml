@@ -37,8 +37,5 @@ jobs:
             cd page
             if [ ! -f /package.json ]
             then
-                echo ${{ github.repository }}
+                echo git@github.com:${{ github.repository }}.git
             fi
-      
-      
-        
