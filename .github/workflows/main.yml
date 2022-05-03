@@ -62,9 +62,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@main
-
        # Builds and install the project using yarn
       - name: Build Project
         uses: appleboy/ssh-action@master
@@ -84,9 +81,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@main
-
        # Run the project on pm2
       - name: Run Project
         uses: appleboy/ssh-action@master
