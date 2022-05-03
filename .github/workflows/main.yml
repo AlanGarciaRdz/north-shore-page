@@ -35,9 +35,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd page
-            FILE=package.json
-            if test -f "$FILE"; then
-                echo "$FILE exists."
+            if [ ! -f /package.json ]
+            then
+                ls -al
             fi
 
       # Runs to Get the Project
