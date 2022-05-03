@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd page
-            if [ ! -f /package.json ]
+            if [ ! -f package.json ]
             then
                 git clone https://${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }}.git .
             fi
