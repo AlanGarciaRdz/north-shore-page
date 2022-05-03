@@ -6,16 +6,15 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-
   git-checkout:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -43,7 +42,7 @@ jobs:
                 git clone https://${{ secrets.TOKEN_GITHUB }}@github.com/${{ github.repository }}.git .
             fi
 
-       # Checkout and Pull the Project for changes
+        # Checkout and Pull the Project for changes
       - name: Checkout Project
         uses: appleboy/ssh-action@master
         with:
@@ -72,7 +71,7 @@ jobs:
             cd ${{ secrets.PROJECT_FOLDER }}
             if [ ! -f .env ]
             then
-                printf ' ${{ secrets.ENV }}' > env.txt
+                printf '${{ secrets.ENV }}' > env.txt
                 cp env.txt .env
                 sudo rm -R env.txt
             fi
@@ -84,7 +83,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-       # Builds and install the project using yarn
+      # Builds and install the project using yarn
       - name: Build Project
         uses: appleboy/ssh-action@master
         with:
@@ -94,7 +93,7 @@ jobs:
           script: |
             cd ${{ secrets.PROJECT_FOLDER }}
             yarn install
-            yarn run build    
+            yarn run build
 
   run-project:
     needs: [git-checkout, build-project]
@@ -103,7 +102,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-       # Run the project on pm2
+      # Run the project on pm2
       - name: Run Project
         uses: appleboy/ssh-action@master
         with:

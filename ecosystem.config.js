@@ -1,16 +1,13 @@
 module.exports = {
   apps: [
     {
-      name: 'NORTH-SHORE-PAGE',
+      name: 'north-shore-page',
       instances: 1,
+      autorestart: true,
+      watch: false,
       interpreter: './node_modules/ts-node/dist/bin.js',
       script: 'npm',
       args: 'start',
-      autorestart: true,
-      watch: false,
-      env_stage: {
-        NODE_ENV: 'production',
-      },
       env_production: {
         NODE_ENV: 'production',
       },
