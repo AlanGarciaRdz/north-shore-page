@@ -37,27 +37,8 @@ jobs:
             cd page
             if [ ! -f /package.json ]
             then
-                ls -al
+                echo ${{ github.repository }}
             fi
-
-      # Runs to Get the Project
-      - name: Get Project
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            cd page
-            git checkout -f
-            git pull
-
-      # Runs to Build the Project
-      - name: Build Project
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            ls
+      
+      
+        
