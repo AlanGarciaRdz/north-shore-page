@@ -37,5 +37,5 @@ jobs:
             cd page
             if [ ! -f /package.json ]
             then
-                git clone https://github.com/${{ github.repository }}
+                git clone https://github.com/${{ github.repository }}.git
             fi
