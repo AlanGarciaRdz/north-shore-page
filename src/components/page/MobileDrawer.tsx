@@ -106,12 +106,14 @@ const MobileDrawer: FC<MobileDrawerProps> = ({
                   isBigText
                   onClick={() => {
                     toggleDrawer();
-                    if (contactRef.current !== null) {
-                      contactRef.current.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start',
-                      });
-                    }
+                    setTimeout(() => {
+                      if (contactRef.current !== null) {
+                        contactRef.current.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start',
+                        });
+                      }
+                    }, 200);
                   }}
                 />
               </Grid>
