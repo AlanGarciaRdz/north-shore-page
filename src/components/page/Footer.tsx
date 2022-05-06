@@ -38,6 +38,16 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
           height: '100%',
         }}
       >
+        <div
+          style={{
+            width: '100%',
+            height: 20,
+            position: 'absolute',
+            top: -270,
+            right: 0,
+          }}
+          ref={ref as RefObject<HTMLDivElement>}
+        />
         <Grid.Container
           justify='space-between'
           alignItems='center'
@@ -48,7 +58,11 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
             sm={0}
             css={{ position: 'absolute', width: '100%', top: -260, right: 0 }}
           >
-            {showContactCard === true && <ContactCard />}
+            {showContactCard === true && (
+              <div style={{ width: '100%' }}>
+                <ContactCard />
+              </div>
+            )}
           </Grid>
           <Grid xs={12} sm={6}>
             <Container
@@ -144,10 +158,7 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
             css={{ position: 'absolute', width: '100%', top: -230, right: 0 }}
           >
             {showContactCard === true && (
-              <div
-                style={{ width: '100%' }}
-                ref={ref as RefObject<HTMLDivElement>}
-              >
+              <div style={{ width: '100%' }} id='contact-card'>
                 <ContactCard />
               </div>
             )}
