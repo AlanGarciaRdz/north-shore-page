@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Text } from '@nextui-org/react';
+import { Button, Container, Grid } from '@nextui-org/react';
 import Link from 'next/link';
 import { RefObject, useEffect, useState } from 'react';
 import { RiMenu3Line } from 'react-icons/ri';
@@ -10,45 +10,7 @@ import { WithChildren } from 'src/scripts/Types';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
 import RenderContainer from '../layouts/RenderContainer';
-
-type NavigationLabelProps = {
-  label: string;
-  href: string;
-  noMargin?: boolean;
-  onClick?: () => void;
-};
-const NavigationLabel = ({
-  label,
-  href,
-  noMargin,
-  onClick,
-}: NavigationLabelProps) => {
-  if (onClick !== undefined) {
-    return (
-      <Text
-        onClick={onClick}
-        color='white'
-        weight='bold'
-        id={`navigate-to-${href}`}
-        css={{ marginRight: noMargin ? 0 : 32, cursor: 'pointer' }}
-      >
-        {label}
-      </Text>
-    );
-  }
-  return (
-    <Link href={href}>
-      <Text
-        color='white'
-        weight='bold'
-        id={`navigate-to-${href}`}
-        css={{ marginRight: noMargin ? 0 : 32, cursor: 'pointer' }}
-      >
-        {label}
-      </Text>
-    </Link>
-  );
-};
+import NavigationLabel from './NavigationLabel';
 
 type NavigationContainerProps = WithChildren<{
   useSmallNavigation: boolean;
@@ -116,9 +78,13 @@ const NavigationContainer = ({
 
 type NavigationProps = {
   contactRef: RefObject<HTMLDivElement>;
+  toggleDrawer: () => void;
 };
 
-export default function Navigation({ contactRef }: NavigationProps) {
+export default function Navigation({
+  contactRef,
+  toggleDrawer,
+}: NavigationProps) {
   const navigationConf = {
     hideDuration: 50,
     showDuration: 200,
@@ -192,12 +158,14 @@ export default function Navigation({ contactRef }: NavigationProps) {
                     light
                     css={{ padding: 0, margin: 0 }}
                     icon={<RiMenu3Line style={{ color: 'white' }} size={40} />}
+                    onClick={() => toggleDrawer()}
                   />
                 }
                 desktopView={
                   <>
                     <NavigationLabel label='Listings' href={LISTINGS_URL} />
                     <NavigationLabel
+                      simpleText
                       label='Contact us'
                       href=''
                       onClick={() => {
