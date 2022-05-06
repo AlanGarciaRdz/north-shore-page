@@ -37,6 +37,7 @@ const PageLayout = ({
         responsive={false}
         fluid
         css={{
+          ...(isDrawerOpen ? { height: '100vh', overflow: 'hidden' } : {}),
           padding: 0,
           margin: 0,
           width: '100vw',
