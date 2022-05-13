@@ -38,7 +38,7 @@ export default function BlogsSmallCard({ blog }: BlogsSmallCardProps) {
               layout='fill'
               objectFit='cover'
               objectPosition='center'
-              alt={blog.image?.alt}
+              alt={blog.image?.alternativeText}
               useBlur={false}
             />
           </Card.Body>
