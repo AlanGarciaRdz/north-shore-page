@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon",
-    "build": "next build && tsc --project tsconfig.server.json",
+    "build": "NODE_OPTIONS=--max-old-space-size=4096 next build && tsc --project tsconfig.server.json",
     "start": "node -r dotenv/config NODE_OPTIONS=--max-old-space-size=4096 dist/server/index.js",
     "lint": "next lint",
     "server-stage": "pm2 start ecosystem.config.js --env production",
