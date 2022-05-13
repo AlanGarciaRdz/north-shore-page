@@ -1,5 +1,8 @@
 import { InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
+import qs from 'qs';
+import { useEffect } from 'react';
+import API from 'src/API/API';
 import PageLayout from 'src/components/layouts/PageLayout';
 import { getHomeAboutUs, getHomeBlogs, getHomeHeader, getHomeLocation } from 'src/serverData/HomeData';
 
@@ -20,11 +23,56 @@ const HomeBlogs = dynamic(() => import('src/sections/home/HomeBlogs'), {
   ssr: false,
 });
 
+async function GetHomeBlogs() {
+  const api = new API();
+  const query = qs.stringify(
+    {
+      pagination: {
+        page: 1,
+        pageSize: 5,
+      },
+      populate: ['thumbnail'],
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  );
+  const getHomeBlogs = await api.GET(`/blogs?${query}`);
+  return getHomeBlogs;
+}
+
+async function GetHomeData() {
+  const api = new API();
+  const query = qs.stringify(
+    {
+      populate: [
+        'headerImage',
+        'headerButton',
+        'aboutUsSlider',
+        'aboutUsSlider.image',
+        'seo',
+        'seo.metaImage',
+        'seo.metaSocial',
+        'seo.metaSocial.image',
+      ],
+    },
+    {
+      encodeValuesOnly: true,
+    }
+  );
+  const getHomePage = await api.GET(`/home-page?${query}`);
+  return getHomePage;
+}
+
 export const getStaticProps = async () => {
-  const header = await getHomeHeader();
-  const location = await getHomeLocation();
-  const aboutUs = await getHomeAboutUs();
-  const homeBlogs = await getHomeBlogs();
+  const responseHomePage = await GetHomeData();
+  const responseHomeBlogs = await GetHomeBlogs();
+  const blogsData = responseHomeBlogs.data;
+  const homePageAttributes = responseHomePage.data.attributes;
+  const header = await getHomeHeader(homePageAttributes);
+  const location = await getHomeLocation(homePageAttributes);
+  const aboutUs = await getHomeAboutUs(homePageAttributes);
+  const homeBlogs = await getHomeBlogs(blogsData, homePageAttributes);
   return {
     props: {
       header,
@@ -41,6 +89,12 @@ function Home({
   aboutUs,
   homeBlogs,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') {
+      GetHomeData();
+      GetHomeBlogs();
+    }
+  });
   return (
     <PageLayout showContactCard>
       <HomeHeader
@@ -49,10 +103,7 @@ function Home({
           label: header.page.button.label,
           link: header.page.button.link,
         }}
-        image={{
-          src: header.page.image.src,
-          alt: header.page.image.alt,
-        }}
+        image={header.page.image}
       />
       <HomeMainDevelopments developments={header.developments} />
       <HomeLocations
@@ -70,6 +121,7 @@ function Home({
         title={homeBlogs.page.title}
         subtitle={homeBlogs.page.subtitle}
         blogs={homeBlogs.blogs}
+        goToBlogsLabel={homeBlogs.page.goToBlogsLabel}
       />
     </PageLayout>
   );

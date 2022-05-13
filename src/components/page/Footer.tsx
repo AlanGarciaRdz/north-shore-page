@@ -110,20 +110,17 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
                   />
                 </Grid>
                 <Grid xs={12} css={{ marginBottom: 0 }}>
-                  <a
-                    href={`tel:${contactDataInfo?.phoneNumber.replace(
-                      /\s/g,
-                      ''
-                    )}`}
-                  >
+                  <a href={contactDataInfo?.phoneNumber.link}>
                     <Text color='$secondary'>
-                      {contactDataInfo?.phoneNumber}
+                      {contactDataInfo?.phoneNumber.label}
                     </Text>
                   </a>
                 </Grid>
                 <Grid xs={12} css={{ marginBottom: 32 }}>
-                  <a href={`mailto:${contactDataInfo?.email}`}>
-                    <Text color='$secondary'>{contactDataInfo?.email}</Text>
+                  <a href={contactDataInfo.email.link}>
+                    <Text color='$secondary'>
+                      {contactDataInfo?.email.label}
+                    </Text>
                   </a>
                 </Grid>
                 <Grid xs={12} sm={5} css={{ marginBottom: 32 }}>

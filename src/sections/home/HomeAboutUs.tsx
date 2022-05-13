@@ -91,7 +91,8 @@ export default function HomeAboutUs({
                     layout='fill'
                     objectFit='cover'
                     objectPosition='center'
-                    alt={sliders[currentSlider].image.alt}
+                    alt={sliders[currentSlider].image.alternativeText}
+                    title={sliders[currentSlider].image.title}
                     useBlur={true}
                   />
                 </Container>
@@ -117,7 +118,8 @@ export default function HomeAboutUs({
                       layout='fill'
                       objectFit='cover'
                       objectPosition='center'
-                      alt={sliders[currentSlider].image.alt}
+                      alt={sliders[currentSlider].image.alternativeText}
+                      title={sliders[currentSlider].image.title}
                       useBlur={true}
                     />
                   </Container>

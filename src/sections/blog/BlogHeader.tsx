@@ -1,14 +1,12 @@
 import { Container, Grid } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
+import { BaseImageProps } from 'src/components/base/BaseInterface';
 import OptimizeImage from 'src/components/base/OptimizeImage';
 import TitleWithBorder from 'src/components/base/TitleWithBorder';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
 type BlogHeaderProps = {
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: BaseImageProps;
   title: string;
 };
 
@@ -69,7 +67,8 @@ export default function BlogHeader({ image, title }: BlogHeaderProps) {
       />
       <OptimizeImage
         src={image.src}
-        alt={image.alt}
+        alt={image.alternativeText}
+        title={image.title}
         layout='fill'
         objectFit='cover'
         objectPosition='center'

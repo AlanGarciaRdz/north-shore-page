@@ -1,18 +1,27 @@
-import { Container, Grid, Text } from '@nextui-org/react';
+import { Button, Container, Grid, Text } from '@nextui-org/react';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { BsArrowRight } from 'react-icons/bs';
 import TitleWithBorder from 'src/components/base/TitleWithBorder';
 import { BlogSmallCardProps } from 'src/components/blogs/Blogs.type';
 import BlogsSmallSwiper from 'src/components/blogs/BlogsSmallSwiper';
 import RenderContainer from 'src/components/layouts/RenderContainer';
+import { BLOGS_URL } from 'src/scripts/GeneralData';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
 type HomeBlogsProps = {
   title: string;
   subtitle: string;
+  goToBlogsLabel: string;
   blogs: BlogSmallCardProps[];
 };
 
-export default function HomeBlogs({ title, subtitle, blogs }: HomeBlogsProps) {
+export default function HomeBlogs({
+  title,
+  subtitle,
+  blogs,
+  goToBlogsLabel,
+}: HomeBlogsProps) {
   if (blogs.length === 0) return <div />;
   return (
     <Container
@@ -56,7 +65,7 @@ export default function HomeBlogs({ title, subtitle, blogs }: HomeBlogsProps) {
           </Container>
         </Grid>
         <Grid xs={12} css={{ marginBottom: 32 }} />
-        <Grid xs={12}>
+        <Grid xs={12} css={{ marginBottom: 24 }}>
           <RenderContainer
             mobileView={<BlogsSmallSwiper blogs={blogs} addMarginLeft />}
             desktopView={
@@ -69,6 +78,28 @@ export default function HomeBlogs({ title, subtitle, blogs }: HomeBlogsProps) {
               </Container>
             }
           />
+        </Grid>
+        <Grid xs={12}>
+          <Container
+            css={{
+              ...MainSectionsContainerCSS,
+            }}
+          >
+            <Link href={BLOGS_URL}>
+              <Button
+                auto
+                bordered
+                iconRight={<BsArrowRight />}
+                css={{
+                  backgroundColor: '$background',
+                  borderColor: '$background',
+                  color: '$text',
+                }}
+              >
+                {goToBlogsLabel}
+              </Button>
+            </Link>
+          </Container>
         </Grid>
       </Grid.Container>
     </Container>

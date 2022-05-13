@@ -1,6 +1,5 @@
 import { Button, Card, Container, Grid, Text } from '@nextui-org/react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { GrLocation } from 'react-icons/gr';
 import OptimizeImage from 'src/components/base/OptimizeImage';
 import { formatNumberToPrice } from 'src/scripts/StringTools';

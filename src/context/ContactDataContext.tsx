@@ -1,13 +1,22 @@
 import PropTypes from 'prop-types';
+import qs from 'qs';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import API from 'src/API/API';
+import { getPlatform, ReturnIPDataProps } from 'src/scripts/UserTools';
 
 type ContactDataProviderProps = {
   children: ReactNode;
 };
 
 export type ContactDataInfoProps = {
-  phoneNumber: string;
-  email: string;
+  phoneNumber: {
+    label: string;
+    link: string;
+  };
+  email: {
+    label: string;
+    link: string;
+  };
   address1: string;
   address2: string;
   bottomData1: {
@@ -18,6 +27,7 @@ export type ContactDataInfoProps = {
     label: string;
     link: string;
   };
+  contactCardTitle: string;
   contactCardSubtitle: string;
   contactCardButtonLabel: string;
 };
@@ -25,6 +35,7 @@ export type ContactDataInfoProps = {
 interface ContactDataInterfaceContext {
   getContactDataInfo: () => Promise<ContactDataInfoProps>;
   contactDataInfo: ContactDataInfoProps | undefined;
+  userData: ReturnIPDataProps | undefined;
 }
 
 export const ContactDataContext = createContext<
@@ -39,17 +50,44 @@ const ContactDataProvider = ({ children }: ContactDataProviderProps) => {
     ContactDataInfoProps | undefined
   >(undefined);
 
+  const [userData, setUserData] = useState<ReturnIPDataProps | undefined>(
+    undefined
+  );
+
   useEffect(() => {
+    getUserData();
     getContactDataInfo();
   }, []);
 
+  async function getUserData() {
+    const userData = await getPlatform();
+    setUserData(userData);
+  }
+
   async function getContactDataInfo() {
     if (contactDataInfo === undefined) {
+      const api = new API();
+      const query = qs.stringify(
+        {
+          populate: ['footerPhone', 'footerEmail'],
+        },
+        {
+          encodeValuesOnly: true,
+        }
+      );
+      const getContactPage = await api.GET(`/contact-page?${query}`);
+      const contactPageAttributes = getContactPage.data.attributes;
       const tempContactInfo: ContactDataInfoProps = {
-        phoneNumber: '+52 311 129 3296',
-        email: 'info@northshorerealtysanpancho.com',
-        address1: 'Av. Tercer Mundo #70, Zip Code: 63734 San Pancho,',
-        address2: ' Jalisco MX',
+        phoneNumber: {
+          label: contactPageAttributes.footerPhone.label,
+          link: contactPageAttributes.footerPhone.link,
+        },
+        email: {
+          label: contactPageAttributes.footerEmail.label,
+          link: contactPageAttributes.footerEmail.link,
+        },
+        address1: contactPageAttributes.footerAddress1,
+        address2: contactPageAttributes.footerAddress2,
         bottomData1: {
           label: 'Listings Sayulita',
           link: '/',
@@ -58,8 +96,9 @@ const ContactDataProvider = ({ children }: ContactDataProviderProps) => {
           label: 'Listings Punta Mita',
           link: '/',
         },
-        contactCardSubtitle: 'North Shore Realty San Pancho',
-        contactCardButtonLabel: 'Contact an Agent',
+        contactCardTitle: contactPageAttributes.cardTitle,
+        contactCardSubtitle: contactPageAttributes.cardSubtitle,
+        contactCardButtonLabel: contactPageAttributes.cardButtonLabel,
       };
       setContactDataInfo(tempContactInfo);
       return tempContactInfo;
@@ -69,7 +108,7 @@ const ContactDataProvider = ({ children }: ContactDataProviderProps) => {
   }
   return (
     <ContactDataContext.Provider
-      value={{ getContactDataInfo, contactDataInfo }}
+      value={{ getContactDataInfo, contactDataInfo, userData }}
     >
       {children}
     </ContactDataContext.Provider>

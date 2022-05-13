@@ -1,14 +1,16 @@
 import { Container, Grid, Pagination } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
+import { BasePaginationProps } from 'src/components/base/BaseInterface';
 import { BlogCardProps } from 'src/components/blog/Blog.types';
 import BlogCard from 'src/components/blog/BlogCard';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
 type BlogListProps = {
   blogs: BlogCardProps[];
+  paginationData: BasePaginationProps;
 };
 
-export default function BlogList({ blogs }: BlogListProps) {
+export default function BlogList({ blogs, paginationData }: BlogListProps) {
   return (
     <Container
       fluid
@@ -85,8 +87,8 @@ export default function BlogList({ blogs }: BlogListProps) {
                 }
               }
               color='secondary'
-              total={20}
-              initialPage={1}
+              total={paginationData.pageCount}
+              initialPage={paginationData.page}
             />
           </Container>
         </Grid>

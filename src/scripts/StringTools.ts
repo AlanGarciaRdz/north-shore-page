@@ -29,8 +29,9 @@ export const IsValidPhoneNumber = (number: any) => {
   if (number === undefined || number == null) {
     return false;
   }
+  const checkNumber = number.replace(/[^0-9]/g, '');
   var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-  return re.test(number);
+  return re.test(checkNumber);
 };
 
 //Validate if is a valid numeric value
@@ -40,6 +41,14 @@ export const isNumeric = (str: string): boolean => {
     !isNaN(parseInt(str)) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
     !isNaN(parseFloat(str))
   ); // ...and ensure strings of whitespace fail
+};
+
+//Format a string to only numbers
+export const formatToNumber = (phoneNumber: string): number => {
+  const str = phoneNumber;
+  const strOnlyNumber = str.replace(/\D/g, '');
+  const formatNumber = parseInt(strOnlyNumber);
+  return formatNumber;
 };
 
 //Format a string to a valid phone number

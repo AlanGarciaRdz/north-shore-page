@@ -1,7 +1,16 @@
 import { Button, Card, Input, Text, Textarea } from '@nextui-org/react';
 import { useState } from 'react';
+import toast, { useToaster } from 'react-hot-toast';
+import API from 'src/API/API';
 import { useContactDataContext } from 'src/context/ContactDataContext';
-import { formatToPhoneNumber, IsEmptyString, IsValidEmail, IsValidPhoneNumber } from 'src/scripts/StringTools';
+import {
+  formatToNumber,
+  formatToPhoneNumber,
+  IsEmptyString,
+  IsValidEmail,
+  IsValidPhoneNumber,
+} from 'src/scripts/StringTools';
+import { getPlatform } from 'src/scripts/UserTools';
 
 import OptimizeImage from '../base/OptimizeImage';
 import RenderContainer from '../layouts/RenderContainer';
@@ -14,6 +23,8 @@ type UserContactInfoInput = {
 };
 
 export default function ContactCard() {
+  const { toasts, handlers } = useToaster();
+  const { startPause, endPause } = handlers;
   const [userContactData, setUserContactData] = useState<UserContactInfoInput>(
     {} as UserContactInfoInput
   );
@@ -25,6 +36,7 @@ export default function ContactCard() {
     return <div />;
   }
   const inputCSS = {
+    marginTop: 10,
     marginBottom: 24,
     borderRadius: 4,
     '.nextui-input-container': {
@@ -39,9 +51,7 @@ export default function ContactCard() {
       return false;
     } else if (!IsValidEmail(userContactData.email)) {
       return false;
-    } else if (
-      !IsValidPhoneNumber(userContactData.phone.replace(/[^0-9]/g, ''))
-    ) {
+    } else if (!IsValidPhoneNumber(userContactData.phone)) {
       return false;
     } else if (IsEmptyString(userContactData.message)) {
       return false;
@@ -51,6 +61,22 @@ export default function ContactCard() {
 
   async function sendContactInfo() {
     setSendingContactInfo(true);
+    const userPlatform = await getPlatform();
+    const api = new API();
+    const postLead = api.POST('/leads', {
+      data: {
+        name: userContactData.name,
+        email: userContactData.email,
+        phoneNumber: formatToNumber(userContactData.phone),
+        message: userContactData.message,
+        userPlatform: userPlatform,
+      },
+    });
+    await toast.promise(postLead, {
+      loading: 'Sending Message...',
+      success: 'Message Sended',
+      error: 'Please Try Again',
+    });
     setSendingContactInfo(false);
   }
 
@@ -86,7 +112,7 @@ export default function ContactCard() {
         }}
       >
         <Text weight='bold' css={{ marginBottom: 8 }}>
-          {'Contact an Agent'}
+          {contactDataInfo.contactCardTitle}
         </Text>
         <Text css={{ marginBottom: 24 }}>
           {contactDataInfo.contactCardSubtitle}
@@ -95,7 +121,7 @@ export default function ContactCard() {
           disabled={sendingContactInfo}
           clearable
           bordered
-          placeholder='Name'
+          labelPlaceholder='Name'
           value={userContactData.name}
           onChange={(e) => {
             setUserContactData({ ...userContactData, name: e.target.value });
@@ -107,7 +133,7 @@ export default function ContactCard() {
           clearable
           bordered
           type='email'
-          placeholder='Email'
+          labelPlaceholder='Email'
           value={userContactData.email}
           onChange={(e) => {
             setUserContactData({ ...userContactData, email: e.target.value });
@@ -119,7 +145,7 @@ export default function ContactCard() {
           clearable
           bordered
           type='tel'
-          placeholder='Phone'
+          labelPlaceholder='Phone'
           value={userContactData.phone}
           onChange={(e) => {
             setUserContactData({
@@ -132,7 +158,7 @@ export default function ContactCard() {
         <Textarea
           disabled={sendingContactInfo}
           bordered
-          placeholder='Message'
+          labelPlaceholder='Message'
           value={userContactData.message}
           onChange={(e) => {
             setUserContactData({ ...userContactData, message: e.target.value });
@@ -146,7 +172,7 @@ export default function ContactCard() {
           disabled={!isValidContactInfo() || sendingContactInfo}
           bordered={isValidContactInfo() || sendingContactInfo}
         >
-          {'Contact an Agent'}
+          {contactDataInfo.contactCardButtonLabel}
         </Button>
       </Card.Body>
     </Card>

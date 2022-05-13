@@ -1,7 +1,6 @@
 import { Container, Grid, Text } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
-import { BiDroplet } from 'react-icons/bi';
-import { IoExpand, IoMoonOutline } from 'react-icons/io5';
+
+import { BathroomsIcon, BedroomsIcon, MT2Icon } from './DevelopmentIcons';
 
 type DevelopmentSingleDataProps = {
   icon: React.ReactNode;
@@ -76,7 +75,7 @@ const DevelopmentData = ({
           <DevelopmentSingleData
             data={bathrroms || '0'}
             name='Bathrooms'
-            icon={<IoMoonOutline style={{ fontSize: iconSize }} />}
+            icon={<BathroomsIcon style={{ fontSize: iconSize }} />}
             bigData={bigData}
           />
         </Grid>
@@ -84,7 +83,7 @@ const DevelopmentData = ({
           <DevelopmentSingleData
             data={bedrooms || '0'}
             name='Bedrooms'
-            icon={<BiDroplet style={{ fontSize: iconSize }} />}
+            icon={<BedroomsIcon style={{ fontSize: iconSize }} />}
             bigData={bigData}
           />
         </Grid>
@@ -92,7 +91,7 @@ const DevelopmentData = ({
           <DevelopmentSingleData
             data={squareFT || '0'}
             name='Square ft.'
-            icon={<IoExpand style={{ fontSize: iconSize }} />}
+            icon={<MT2Icon style={{ fontSize: iconSize }} />}
             bigData={bigData}
           />
         </Grid>

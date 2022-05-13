@@ -17,16 +17,19 @@ export default function AboutUsCard({
   sliders,
   index,
 }: AboutUsCardProps) {
+  const selected =
+    swiperRef.current?.activeIndex === undefined
+      ? index === 0
+      : swiperRef.current?.activeIndex === index;
   return (
     <Card
       css={{
         padding: 0,
         borderRadius: 4,
         width: '100%',
-        boxShadow:
-          swiperRef.current?.activeIndex === index
-            ? '10px 10px 20px rgba(126, 148, 166, 0.1)'
-            : 'none',
+        boxShadow: selected
+          ? '10px 10px 20px rgba(126, 148, 166, 0.1)'
+          : 'none',
       }}
     >
       <Card.Body
@@ -54,6 +57,10 @@ export default function AboutUsCard({
                 }}
               >
                 {sliders.map((_slider, sliderInternalIndex) => {
+                  const selectedInternal =
+                    swiperRef.current?.activeIndex === undefined
+                      ? sliderInternalIndex === 0
+                      : swiperRef.current?.activeIndex === sliderInternalIndex;
                   return (
                     <Button
                       key={sliderInternalIndex}
@@ -66,13 +73,9 @@ export default function AboutUsCard({
                         }
                       }}
                     >
-                      <Text
-                        weight={
-                          swiperRef.current?.activeIndex === sliderInternalIndex
-                            ? 'bold'
-                            : 'normal'
-                        }
-                      >{`0${sliderInternalIndex + 1}.`}</Text>
+                      <Text weight={selectedInternal ? 'bold' : 'normal'}>{`0${
+                        sliderInternalIndex + 1
+                      }.`}</Text>
                     </Button>
                   );
                 })}

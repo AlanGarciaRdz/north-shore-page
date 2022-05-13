@@ -1,101 +1,57 @@
 import { BlogCardProps } from 'src/components/blog/Blog.types';
 import { BLOGS_URL } from 'src/scripts/GeneralData';
+import { getImageData } from 'src/scripts/ImageTools';
 import { formatToURL } from 'src/scripts/StringTools';
 
-export async function getBlogHeader() {
+interface BlogPageAttributesProps {
+  headerImage: any;
+  bottomBannerImage: any;
+  bottomBannerText: string;
+  bottomBannerLink: string;
+}
+
+export async function getBlogHeader({ headerImage }: BlogPageAttributesProps) {
+  const headerImageLarge = getImageData(headerImage);
   const header = {
     page: {
       title: 'Our Blog',
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'Blog header image',
-      },
+      image: headerImageLarge,
     },
   };
   return header;
 }
 
-export async function getBlogVisitOurListings() {
+export async function getBlogVisitOurListings({
+  bottomBannerImage,
+  bottomBannerLink,
+  bottomBannerText,
+}: BlogPageAttributesProps) {
+  const bottomBannerImageLarge = getImageData(bottomBannerImage);
   const header = {
     page: {
-      title: 'Visit Our Listings',
-      image: {
-        src: '/dump/visit-our-listing.png',
-        alt: 'Blog header image',
-      },
+      title: bottomBannerText,
+      link: bottomBannerLink,
+      image: bottomBannerImageLarge,
     },
   };
   return header;
 }
 
-export async function getBlogList() {
-  const blgoCards: BlogCardProps[] = [
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      title: 'Blog 1',
-      smallDesc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
-      views: 123,
-      likes: 5,
-      image: { src: '/dump/blog-1.png', alt: 'blog-1' },
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 2'),
-      title: 'Blog 2',
-      smallDesc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
-      views: 123,
-      likes: 5,
-      image: { src: '/dump/blog-2.png', alt: 'blog-2' },
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 2'),
-      title: 'Blog 2',
-      smallDesc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
-      views: 123,
-      likes: 5,
-      image: { src: '/dump/blog-2.png', alt: 'blog-2' },
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      title: 'Blog 1',
-      smallDesc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
-      views: 123,
-      likes: 5,
-      image: { src: '/dump/blog-1.png', alt: 'blog-1' },
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 2'),
-      title: 'Blog 2',
-      smallDesc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
-      views: 123,
-      likes: 5,
-      image: { src: '/dump/blog-2.png', alt: 'blog-2' },
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      title: 'Blog 1',
-      smallDesc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
-      views: 123,
-      likes: 5,
-      image: { src: '/dump/blog-1.png', alt: 'blog-1' },
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      title: 'Blog 1',
-      smallDesc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam.',
-      views: 123,
-      likes: 5,
-      image: { src: '/dump/blog-1.png', alt: 'blog-1' },
-    },
-  ];
+export async function getBlogList(blogsData: any) {
+  const blgoCards: BlogCardProps[] = blogsData.map((blog: any) => {
+    const blogData = blog.attributes;
+    const thumbnail = getImageData(blogData.thumbnail);
+    return {
+      url: BLOGS_URL + formatToURL(blogData.url),
+      title: blogData.title,
+      views: blogData.blog_views.data.length,
+      likes: blogData.blog_likes.data.length,
+      smallDesc: blogData.smallDesc,
+      image: thumbnail,
+    };
+  });
   const blogList = {
-    blogs: [...blgoCards, ...blgoCards, ...blgoCards, ...blgoCards],
+    blogs: blgoCards,
   };
   return blogList;
 }

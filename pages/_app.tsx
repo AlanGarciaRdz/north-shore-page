@@ -2,7 +2,9 @@ import 'styles/fonts.css';
 
 import { CssBaseline } from '@nextui-org/react';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import LoadingPage from 'src/components/base/LoadingPage';
 import ContactDataProvider from 'src/context/ContactDataContext';
 import ThemeProvider from 'src/context/ThemeContext';
@@ -44,6 +46,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider>
+      <Script
+        src='https://platform.twitter.com/widgets.js'
+        strategy='lazyOnload'
+      />
       <CssBaseline />
       <LoadingPage
         isRouteChanging={routerState.isRouteChanging}
@@ -51,6 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       >
         <ContactDataProvider>
           <Component {...pageProps} />
+          <Toaster />
         </ContactDataProvider>
       </LoadingPage>
     </ThemeProvider>

@@ -8,6 +8,7 @@ import DevelopmentsSwiper from 'src/components/development/DevelopmentsSwiper';
 import RenderContainer from 'src/components/layouts/RenderContainer';
 import ListingLabels from 'src/components/listing/ListingLabels';
 import { ListingProps } from 'src/components/listing/Listings.types';
+import { LISTINGS_URL } from 'src/scripts/GeneralData';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
 type HomeLocationsProps = {
@@ -139,12 +140,16 @@ export default function HomeLocations({
               ...MainSectionsContainerCSS,
             }}
           >
-            <Link href={listings[currentListingIndex].url || ''}>
+            <Link href={listings[currentListingIndex].url || LISTINGS_URL}>
               <Button
-                light
                 auto
-                css={{ padding: 0 }}
+                bordered
                 iconRight={<BsArrowRight />}
+                css={{
+                  backgroundColor: '$background',
+                  borderColor: '$background',
+                  color: '$text',
+                }}
               >
                 {`${goToListingLabel} ${listings[currentListingIndex].name}`}
               </Button>

@@ -1,25 +1,24 @@
 import { Container, Grid } from '@nextui-org/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { BaseImageProps } from 'src/components/base/BaseInterface';
 import OptimizeImage from 'src/components/base/OptimizeImage';
 import TitleWithBorder from 'src/components/base/TitleWithBorder';
-import { LISTINGS_URL } from 'src/scripts/GeneralData';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
 type BlogVisitOurListingsProps = {
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: BaseImageProps;
   title: string;
+  link: string;
 };
 
 export default function BlogVisitOurListings({
   image,
   title,
+  link,
 }: BlogVisitOurListingsProps) {
   return (
-    <Link href={LISTINGS_URL}>
+    <Link href={link}>
       <Container
         fluid
         responsive={false}
@@ -78,7 +77,8 @@ export default function BlogVisitOurListings({
         />
         <OptimizeImage
           src={image.src}
-          alt={image.alt}
+          alt={image.alternativeText}
+          title={image.title}
           layout='fill'
           objectFit='cover'
           objectPosition='center'

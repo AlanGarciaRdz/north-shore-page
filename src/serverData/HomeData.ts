@@ -2,9 +2,24 @@ import { BlogSmallCardProps } from 'src/components/blogs/Blogs.type';
 import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import { ListingProps } from 'src/components/listing/Listings.types';
 import { BLOGS_URL, LISTINGS_URL } from 'src/scripts/GeneralData';
+import { getImageData } from 'src/scripts/ImageTools';
 import { formatToURL } from 'src/scripts/StringTools';
 
-export async function getHomeHeader() {
+interface HomePageAttributesProps {
+  headerTitle: string;
+  locationBody: string;
+  aboutUsBody: string;
+  ourBlogBody: string;
+  headerImage: any;
+  headerButton: any;
+  aboutUsSlider: any[];
+}
+
+export async function getHomeHeader({
+  headerImage,
+  headerTitle,
+  headerButton,
+}: HomePageAttributesProps) {
   const developmentsMainCard: DevelopmentMainCardProps[] = [
     {
       url:
@@ -112,24 +127,24 @@ export async function getHomeHeader() {
       ],
     },
   ];
+  const headerImageLarge = getImageData(headerImage);
   const header = {
     page: {
-      title: 'Your house on the beach',
+      title: headerTitle,
       button: {
-        label: 'View listings',
-        link: LISTINGS_URL,
+        label: headerButton.label,
+        link: headerButton.link,
       },
-      image: {
-        src: '/dump/home-header.png',
-        alt: 'Home header image',
-      },
+      image: headerImageLarge,
     },
     developments: developmentsMainCard,
   };
   return header;
 }
 
-export async function getHomeLocation() {
+export async function getHomeLocation({
+  locationBody,
+}: HomePageAttributesProps) {
   const developmentsCard: DevelopmentCardProps[] = [
     {
       url:
@@ -289,8 +304,7 @@ export async function getHomeLocation() {
   const location = {
     page: {
       title: 'Locations',
-      subtitle:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in dictum enim. ',
+      subtitle: locationBody,
       goToListingLabel: 'See all properties at',
     },
     listings: listings,
@@ -298,133 +312,45 @@ export async function getHomeLocation() {
   return location;
 }
 
-export async function getHomeAboutUs() {
-  const dumpText =
-    '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in dictum enim. Suspendisse et porta justo. Nulla eu libero viverra, vestibulum quam ac, consectetur eros. Sed eget velit ultricies, tristique ante vitae, venenatis risus.&nbsp;</p><p>Nam volutpat velit et metus feugiat ultricies. Fusce laoreet, ligula id efficitur ultrices, ante purus fringilla sapien, in iaculis enim neque at nisi. Vestibulum ultricies tellus vel diam tempus vehicula.&nbsp;</p>';
+export async function getHomeAboutUs({
+  aboutUsSlider,
+  aboutUsBody,
+}: HomePageAttributesProps) {
   const aboutUs = {
     page: {
       title: 'About San Pancho',
-      subtitle:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in dictum enim. Suspendisse et porta justo. Nulla eu libero viverra, vestibulum quam ac, consectetur eros.',
+      subtitle: aboutUsBody,
     },
-    sliders: [
-      {
-        image: {
-          src: '/dump/about-us.png',
-          alt: 'about-san-pancho',
-        },
-        title: 'Beaches',
-        body: dumpText,
-      },
-      {
-        image: {
-          src: '/dump/development-2.png',
-          alt: 'about-san-pancho',
-        },
-        title: 'Mountains',
-        body: dumpText,
-      },
-      {
-        image: {
-          src: '/dump/development-1.png',
-          alt: 'about-san-pancho',
-        },
-        title: 'Stores',
-        body: dumpText,
-      },
-      {
-        image: {
-          src: '/dump/home-header.png',
-          alt: 'about-san-pancho',
-        },
-        title: 'Discounts',
-        body: dumpText,
-      },
-    ],
+    sliders: aboutUsSlider.map((singleSlider: any) => {
+      const image = getImageData(singleSlider.image);
+      return {
+        image,
+        title: singleSlider.title,
+        body: singleSlider.body,
+      };
+    }),
   };
   return aboutUs;
 }
 
-export async function getHomeBlogs() {
-  const blogs: BlogSmallCardProps[] = [
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-    {
-      url: BLOGS_URL + formatToURL('Blog 1'),
-      image: {
-        src: '/dump/about-us.png',
-        alt: 'about-san-pancho',
-      },
-      title: 'Blog 1',
-    },
-  ];
+export async function getHomeBlogs(
+  blogsData: any,
+  { ourBlogBody }: HomePageAttributesProps
+) {
+  const blogs: BlogSmallCardProps[] = blogsData.map((blog: any) => {
+    const blogAttributes = blog.attributes;
+    const thumbnail = getImageData(blogAttributes.thumbnail);
+    return {
+      url: BLOGS_URL + formatToURL(blogAttributes.url),
+      title: blogAttributes.title,
+      image: thumbnail,
+    };
+  });
   const homeBlogs = {
     page: {
       title: 'Our blog',
-      subtitle:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in dictum enim. Suspendisse et porta justo. Nulla eu libero viverra, vestibulum quam ac, consectetur eros.',
+      goToBlogsLabel: 'See all Blogs',
+      subtitle: ourBlogBody,
     },
     blogs,
   };

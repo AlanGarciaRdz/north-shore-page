@@ -1,8 +1,7 @@
+import { BaseImageProps } from '../base/BaseInterface';
+
 export type AboutUsSlide = {
-  image: {
-    src: string;
-    alt: string;
-  };
+  image: BaseImageProps;
   title: string;
   body: string;
 };

@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 type TitleWithBorderProps = {
   title: string;
   color?: string;
+  isH1?: boolean;
 };
 
 export default function TitleWithBorder({
   title,
   color,
+  isH1,
 }: TitleWithBorderProps) {
   return (
     <Container
@@ -20,7 +22,11 @@ export default function TitleWithBorder({
         width: 'auto',
       }}
     >
-      <Text h2 css={{ color: color || '$text' }}>
+      <Text
+        h2={isH1 === true ? false : true}
+        h1={isH1 === true ? true : false}
+        css={{ color: color || '$text' }}
+      >
         {title}
       </Text>
       <Container

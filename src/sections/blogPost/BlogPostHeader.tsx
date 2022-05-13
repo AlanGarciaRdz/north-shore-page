@@ -1,21 +1,15 @@
-import { Button, Container, Grid, Text } from '@nextui-org/react';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { BaseImageProps } from 'src/components/base/BaseInterface';
+import { Container, Grid, Text } from '@nextui-org/react';
+import moment from 'moment';
 import OptimizeImage from 'src/components/base/OptimizeImage';
-import { LISTINGS_URL } from 'src/scripts/GeneralData';
+import TitleWithBorder from 'src/components/base/TitleWithBorder';
+import { BlogPostProps } from 'src/components/blog/Blog.types';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
-type HomeHeaderProps = {
-  image: BaseImageProps;
-  title: string;
-  button: {
-    label: string;
-    link: string;
-  };
-};
-
-export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
+export default function BlogPostHeader({
+  image,
+  title,
+  publishedAt,
+}: BlogPostProps) {
   return (
     <Container
       fluid
@@ -25,7 +19,11 @@ export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
         padding: 0,
         width: '100vw',
         position: 'relative',
-        height: '655px',
+        height: '351px',
+        '@sm': {
+          height: '655px',
+        },
+        marginBottom: 40,
       }}
     >
       <Container
@@ -35,7 +33,7 @@ export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
           position: 'absolute',
           left: 0,
           right: 0,
-          bottom: 160,
+          bottom: 80,
           zIndex: 3,
         }}
       >
@@ -48,30 +46,15 @@ export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
             zIndex: 3,
           }}
         >
-          <Grid xs={6} md={12}>
-            <Text h2 color='#ffffff' css={{ marginBottom: 16 }}>
-              {title}
-            </Text>
+          <Grid xs={12} md={10}>
+            <TitleWithBorder color='$white' title={title} isH1 />
+          </Grid>
+          <Grid xs={12}>
+            <Text weight='bold' color='$white'>{`Published: ${moment(
+              publishedAt
+            ).format('LLL')}`}</Text>
           </Grid>
           <Grid xs={12} />
-          <Grid xs={12} sm={6}>
-            <Link href={LISTINGS_URL}>
-              <Button
-                auto
-                ghost
-                css={{
-                  width: '100%',
-                  borderColor: '$white',
-                  color: '$white',
-                  '@sm': {
-                    width: '388px',
-                  },
-                }}
-              >
-                {button.label}
-              </Button>
-            </Link>
-          </Grid>
         </Grid.Container>
       </Container>
       <Container
@@ -100,7 +83,10 @@ export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
           width: '100vw',
           maxWidth: '100vw',
           overflow: 'hidden',
-          height: '655px',
+          height: '351px',
+          '@sm': {
+            height: '655px',
+          },
         }}
       />
     </Container>

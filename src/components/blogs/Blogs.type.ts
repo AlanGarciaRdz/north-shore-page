@@ -1,8 +1,7 @@
+import { BaseImageProps } from '../base/BaseInterface';
+
 export type BlogSmallCardProps = {
-  image?: {
-    src: string;
-    alt: string;
-  };
+  image?: BaseImageProps;
   title?: string;
   url?: string;
 };

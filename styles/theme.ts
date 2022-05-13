@@ -65,7 +65,7 @@ const baseColors = {
   gray100: '#F6F6F6',
   gray200: '#E5E5E5',
   accents3: '#A0A0A0',
-  selection: '#daaeea',
+  selection: '#74b6f7',
   primaryLight: '#FBFBFB',
   primary: '#333333',
   primaryDark: '#333333',

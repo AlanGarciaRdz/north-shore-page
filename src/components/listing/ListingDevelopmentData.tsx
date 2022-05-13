@@ -1,8 +1,7 @@
 import { Grid, Input, Text } from '@nextui-org/react';
 import React, { Dispatch, FC, SetStateAction, useRef, useState } from 'react';
-import { BiDroplet } from 'react-icons/bi';
-import { IoMoonOutline } from 'react-icons/io5';
 
+import { BathroomsIcon, BedroomsIcon } from '../development/DevelopmentIcons';
 import { ListingFilter } from './ListingFilterCard';
 
 type ListingDevelopmentDataProps = {
@@ -26,9 +25,10 @@ function ListingDevelopmentData({
             xs={12}
             css={{ justifyContent: 'center', alignItems: 'center' }}
           >
-            <IoMoonOutline style={{ fontSize: 30, marginRight: 12 }} />
+            <BedroomsIcon style={{ fontSize: 30, marginRight: 12 }} />
             <Input
               type='number'
+              min={0}
               css={{
                 width: 'calc(100% - 43px)',
                 height: 35,
@@ -62,10 +62,11 @@ function ListingDevelopmentData({
               alignItems: 'center',
             }}
           >
-            <BiDroplet style={{ fontSize: 30, marginRight: 12 }} />
+            <BathroomsIcon style={{ fontSize: 30, marginRight: 12 }} />
             <Input
               animated={true}
               type='number'
+              min={0}
               css={{
                 width: 'calc(100% - 43px)',
                 height: 35,
