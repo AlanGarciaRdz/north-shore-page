@@ -139,7 +139,7 @@ function Listings({
     return <div />;
   }
   return (
-    <PageLayout showContactCard>
+    <PageLayout showContactCard={true}>
       <BlogPostHeader {...blogData} />
       <BlogPostBody {...blogData} />
     </PageLayout>

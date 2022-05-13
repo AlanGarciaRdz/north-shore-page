@@ -89,7 +89,7 @@ function Listings({
     }
   });
   return (
-    <PageLayout showContactCard>
+    <PageLayout showContactCard={true}>
       <BlogHeader title={header.page.title} image={header.page.image} />
       <Container
         fluid

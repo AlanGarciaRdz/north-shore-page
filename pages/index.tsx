@@ -96,7 +96,7 @@ function Home({
     }
   });
   return (
-    <PageLayout showContactCard>
+    <PageLayout showContactCard={true}>
       <HomeHeader
         title={header.page.title}
         button={{
