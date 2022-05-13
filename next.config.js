@@ -8,7 +8,7 @@ module.exports = {
     return [
       {
         // matching all API routes
-        source: 'http://143.198.108.116:1337/:path*',
+        source: '/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
