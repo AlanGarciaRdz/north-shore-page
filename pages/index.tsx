@@ -3,16 +3,16 @@ import dynamic from 'next/dynamic';
 import qs from 'qs';
 import { useEffect } from 'react';
 import API from 'src/API/API';
+import APISpark from 'src/API/APISpark';
 import PageLayout from 'src/components/layouts/PageLayout';
 import { getHomeAboutUs, getHomeBlogs, getHomeHeader, getHomeLocation } from 'src/serverData/HomeData';
 
 const HomeHeader = dynamic(() => import('src/sections/home/HomeHeader'), {
   ssr: false,
 });
-const HomeMainDevelopments = dynamic(
-  () => import('src/sections/home/HomeMainDevelopments'),
-  { ssr: false }
-);
+const HomeMainDevelopments = dynamic(() => import('src/sections/home/HomeMainDevelopments'), {
+  ssr: false,
+});
 const HomeLocations = dynamic(() => import('src/sections/home/HomeLocations'), {
   ssr: false,
 });
@@ -64,6 +64,12 @@ async function GetHomeData() {
   return getHomePage;
 }
 
+async function GetListing() {
+  const api = new APISpark();
+  const returnData = await api.GET('/listings');
+  console.log('returnData', returnData);
+}
+
 export const getStaticProps = async () => {
   const responseHomePage = await GetHomeData();
   const responseHomeBlogs = await GetHomeBlogs();
@@ -93,6 +99,7 @@ function Home({
     if (process.env.NODE_ENV !== 'production') {
       GetHomeData();
       GetHomeBlogs();
+      GetListing();
     }
   });
   return (
