@@ -9,12 +9,7 @@ type DevelopmentSingleDataProps = {
   bigData?: boolean;
 };
 
-const DevelopmentSingleData = ({
-  data,
-  name,
-  icon,
-  bigData,
-}: DevelopmentSingleDataProps) => {
+const DevelopmentSingleData = ({ data, name, icon, bigData }: DevelopmentSingleDataProps) => {
   return (
     <Container
       fluid
@@ -44,16 +39,12 @@ type DevelopmentDataProps = {
   squareFT?: string;
   bigData?: boolean;
 };
-const DevelopmentData = ({
-  bathrroms,
-  bedrooms,
-  squareFT,
-  bigData,
-}: DevelopmentDataProps) => {
+const DevelopmentData = ({ bathrroms, bedrooms, squareFT, bigData }: DevelopmentDataProps) => {
   const iconSize = bigData ? 30 : 16;
   const gridProps = bigData
     ? {
-        xs: 4,
+        xs: 6,
+        sm: 4,
       }
     : {
         css: {
@@ -70,7 +61,7 @@ const DevelopmentData = ({
         width: '100%',
       }}
     >
-      <Grid.Container justify='flex-start' alignItems='center'>
+      <Grid.Container justify={bigData ? 'center' : 'flex-start'} alignItems='center'>
         <Grid {...gridProps}>
           <DevelopmentSingleData
             data={bathrroms || '0'}

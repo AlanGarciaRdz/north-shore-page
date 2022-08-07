@@ -51,7 +51,7 @@ export default function ListingsPropertiesList({
               width: '100%',
             }}
           >
-            <Grid.Container justify='space-between'>
+            <Grid.Container justify='space-evenly'>
               {developments.map((development, developmentHeaderIndex) => {
                 return (
                   <Grid

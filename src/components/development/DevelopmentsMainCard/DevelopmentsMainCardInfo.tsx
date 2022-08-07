@@ -59,8 +59,7 @@ export default function DevelopmentsMainCardInfo({
                     >
                       <Text
                         weight={
-                          swiperRef.current?.activeIndex ===
-                          developmentHeaderIndex
+                          swiperRef.current?.activeIndex === developmentHeaderIndex
                             ? 'bold'
                             : 'normal'
                         }
@@ -97,9 +96,7 @@ export default function DevelopmentsMainCardInfo({
                 </Button>
                 <Button
                   auto
-                  disabled={
-                    swiperRef.current?.activeIndex === developments.length - 1
-                  }
+                  disabled={swiperRef.current?.activeIndex === developments.length - 1}
                   onClick={() => {
                     if (swiperRef.current) {
                       swiperRef.current.slideNext();
@@ -122,12 +119,7 @@ export default function DevelopmentsMainCardInfo({
         )}
         <Grid xs={12} css={{ marginBottom: 15 }}>
           <Link href={development.url || '/'}>
-            <Button
-              light
-              auto
-              css={{ padding: 0, margin: 0 }}
-              onClick={() => {}}
-            >
+            <Button light auto css={{ padding: 0, margin: 0 }} onClick={() => {}}>
               <Text h2>{development.name}</Text>
             </Button>
           </Link>
@@ -150,11 +142,9 @@ export default function DevelopmentsMainCardInfo({
           </Link>
         </Grid>
         <Grid xs={12} css={{ marginBottom: 20 }}>
-          <Text weight='bold'>
-            {`${formatNumberToPrice(development.price)} USD`}
-          </Text>
+          <Text weight='bold'>{`${formatNumberToPrice(development.price)} USD`}</Text>
         </Grid>
-        <Grid xs={12} sm={8} css={{ marginBottom: 28 }}>
+        <Grid xs={12} css={{ marginBottom: 28 }}>
           <DevelopmentAmenities amenities={development.amenities} />
         </Grid>
         <Grid xs={12} css={{ marginBottom: 28 }}>

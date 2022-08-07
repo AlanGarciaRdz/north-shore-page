@@ -2,7 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['143.198.108.116'],
+    domains: ['143.198.108.116', 's3-us-west-2.amazonaws.com'],
   },
   async headers() {
     return [

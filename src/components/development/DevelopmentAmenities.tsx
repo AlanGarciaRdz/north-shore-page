@@ -16,6 +16,7 @@ const DevelopmentAmenities = ({ amenities }: DevelopmentAmenitiesProps) => {
         padding: 0,
         margin: 0,
         width: '100%',
+        minHeight: 90,
       }}
     >
       <Grid.Container>

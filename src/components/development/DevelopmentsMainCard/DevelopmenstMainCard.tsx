@@ -1,7 +1,8 @@
 import 'swiper/css';
 
-import { Card, Container, Grid } from '@nextui-org/react';
+import { Button, Card, Container, Grid } from '@nextui-org/react';
 import { useEffect, useRef, useState } from 'react';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { Swiper as SwiperInterface } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,17 +11,40 @@ import DevelopmentMainCardImage from './DevelopmenstMainCardImages';
 import DevelopmentsMainCardInfo from './DevelopmentsMainCardInfo';
 
 type DevelopmentsMainCardProps = {
+  showNavButtons?: boolean;
   isNormalSwiper?: boolean;
   addMarginLeft?: boolean;
   developments: DevelopmentMainCardProps[];
 };
 
 export default function DevelopmenstMainCard({
+  showNavButtons,
   isNormalSwiper,
   addMarginLeft,
   developments,
 }: DevelopmentsMainCardProps) {
   const swiperRef = useRef<SwiperInterface>();
+  const [onHover, setOnHover] = useState(false);
+  const [isEnd, setIsEnd] = useState(false);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const generalSwiperHelpersDistance = -2;
+  const generalSwiperHelpersCSS = {
+    position: 'absolute',
+    padding: 0,
+    margin: 0,
+    height: 50,
+    width: 50,
+    borderRadius: '50%',
+    fontSize: '$md',
+    zIndex: 100,
+    bottom: '50%',
+    backgroundColor: '#ffffff',
+    color: '$primary',
+    '&:hover': {
+      backgroundColor: '$primary',
+      color: '#ffffff',
+    },
+  };
   return (
     <Container
       fluid
@@ -37,6 +61,8 @@ export default function DevelopmenstMainCard({
           opacity: 1,
         },
       }}
+      onMouseEnter={() => setOnHover(true)}
+      onMouseLeave={() => setOnHover(false)}
     >
       <Swiper
         slidesPerView={isNormalSwiper ? 1.2 : 1}
@@ -45,6 +71,16 @@ export default function DevelopmenstMainCard({
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
+        onSlideChange={(swiper) => {
+          if (swiper !== undefined) {
+            if (swiper.isBeginning !== isBeginning) {
+              setIsBeginning(swiper.isBeginning);
+            }
+            if (swiper.isEnd !== isEnd) {
+              setIsEnd(swiper.isEnd);
+            }
+          }
+        }}
       >
         {developments.map((development, developmentIndex) => {
           const extraMarginLeft =
@@ -52,9 +88,7 @@ export default function DevelopmenstMainCard({
               ? 'calc(2 * var(--nextui-space-sm))'
               : 0;
           const extraMarginRight =
-            addMarginLeft &&
-            isNormalSwiper &&
-            developmentIndex >= developments.length - 1
+            addMarginLeft && isNormalSwiper && developmentIndex >= developments.length - 1
               ? 'calc(calc(2 * var(--nextui-space-sm)) + 20px)'
               : '0px';
           return (
@@ -105,6 +139,38 @@ export default function DevelopmenstMainCard({
           );
         })}
       </Swiper>
+      {showNavButtons && !isEnd && onHover === true && (
+        <Button
+          auto
+          css={{
+            ...generalSwiperHelpersCSS,
+            right: generalSwiperHelpersDistance,
+          }}
+          onClick={() => {
+            if (swiperRef.current !== undefined) {
+              swiperRef.current.slideNext();
+            }
+          }}
+        >
+          <AiOutlineArrowRight />
+        </Button>
+      )}
+      {showNavButtons && !isBeginning && onHover === true && (
+        <Button
+          auto
+          css={{
+            ...generalSwiperHelpersCSS,
+            left: generalSwiperHelpersDistance,
+          }}
+          onClick={() => {
+            if (swiperRef.current !== undefined) {
+              swiperRef.current.slidePrev();
+            }
+          }}
+        >
+          <AiOutlineArrowLeft />
+        </Button>
+      )}
     </Container>
   );
 }

@@ -71,16 +71,16 @@ export default function HomeLocations({
             mobileView={
               <Container
                 css={{
-                  padding: 0,
-                  margin: 'auto',
+                  ...MainSectionsContainerCSS,
                 }}
               >
                 <ListingLabels
-                  addMarginLeft
+                  fullWidth={true}
                   listings={listings}
                   onChangeListing={(index: number) => {
                     setCurrentListingIndex(index);
                   }}
+                  currentListingIndex={currentListingIndex}
                 />
               </Container>
             }
@@ -95,6 +95,7 @@ export default function HomeLocations({
                   onChangeListing={(index: number) => {
                     setCurrentListingIndex(index);
                   }}
+                  currentListingIndex={currentListingIndex}
                 />
               </Container>
             }
@@ -111,9 +112,8 @@ export default function HomeLocations({
               >
                 <DevelopmentsSwiper
                   addMarginLeft
-                  developemnts={
-                    listings[currentListingIndex]
-                      .developments as DevelopmentCardProps[]
+                  developments={
+                    listings[currentListingIndex].developments as DevelopmentCardProps[]
                   }
                 />
               </Container>
@@ -125,9 +125,9 @@ export default function HomeLocations({
                 }}
               >
                 <DevelopmentsSwiper
-                  developemnts={
-                    listings[currentListingIndex]
-                      .developments as DevelopmentCardProps[]
+                  showNavButtons
+                  developments={
+                    listings[currentListingIndex].developments as DevelopmentCardProps[]
                   }
                 />
               </Container>

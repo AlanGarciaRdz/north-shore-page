@@ -7,10 +7,7 @@ import RenderContainer from 'src/components/layouts/RenderContainer';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
 const DevelopmentMainCard = dynamic(
-  () =>
-    import(
-      'src/components/development/DevelopmentsMainCard/DevelopmenstMainCard'
-    ),
+  () => import('src/components/development/DevelopmentsMainCard/DevelopmenstMainCard'),
   {
     ssr: false,
   }
@@ -65,11 +62,7 @@ export default function ListingsFeaturedProperties({
                   margin: 'auto',
                 }}
               >
-                <DevelopmentMainCard
-                  addMarginLeft
-                  developments={developments}
-                  isNormalSwiper
-                />
+                <DevelopmentMainCard addMarginLeft developments={developments} isNormalSwiper />
               </Container>
             }
             desktopView={
@@ -78,10 +71,7 @@ export default function ListingsFeaturedProperties({
                   ...MainSectionsContainerCSS,
                 }}
               >
-                <DevelopmentMainCard
-                  developments={developments}
-                  isNormalSwiper
-                />
+                <DevelopmentMainCard showNavButtons developments={developments} isNormalSwiper />
               </Container>
             }
           />

@@ -2,10 +2,7 @@ import fetch from 'isomorphic-unfetch';
 import qs from 'qs';
 
 export default class RestClient {
-  constructor(
-    baseUrl = '',
-    { headers = {}, devMode = false, simulatedDelay = 0 } = {}
-  ) {
+  constructor(baseUrl = '', { headers = {}, devMode = false, simulatedDelay = 0 } = {}) {
     if (!baseUrl) throw new Error('missing baseUrl');
     this.headers = {
       Accept: 'application/json',
@@ -87,5 +84,8 @@ export default class RestClient {
   }
   DELETE(route, query) {
     return this._fetch(route, 'DELETE', query, true);
+  }
+  OPTIONS(route, query) {
+    return this._fetch(route, 'OPTIONS', query, true);
   }
 }

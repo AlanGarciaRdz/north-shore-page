@@ -1,5 +1,4 @@
 import { Container, Grid } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
 import { DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import DevelopmentMainCard from 'src/components/development/DevelopmentsMainCard/DevelopmenstMainCard';
 import { MainSectionsContainerCSS } from 'styles/theme';
@@ -8,9 +7,7 @@ type HomeMainDevelopmentsProps = {
   developments: DevelopmentMainCardProps[];
 };
 
-export default function HomeMainDevelopments({
-  developments,
-}: HomeMainDevelopmentsProps) {
+export default function HomeMainDevelopments({ developments }: HomeMainDevelopmentsProps) {
   return (
     <Container
       fluid
