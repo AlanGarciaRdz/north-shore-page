@@ -2,7 +2,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['143.198.108.116', 's3-us-west-2.amazonaws.com'],
+    domains: ['143.198.108.116', 's3-us-west-2.amazonaws.com', 'cdn.photos.sparkplatform.com'],
   },
   async headers() {
     return [

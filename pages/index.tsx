@@ -3,11 +3,9 @@ import dynamic from 'next/dynamic';
 import qs from 'qs';
 import { useEffect } from 'react';
 import API from 'src/API/API';
-import APISimplyRETS from 'src/API/APISimplyRETS';
 import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import PageLayout from 'src/components/layouts/PageLayout';
-import { LISTINGS_URL } from 'src/scripts/GeneralData';
-import { formatToURL } from 'src/scripts/StringTools';
+import { GenerateAllDevelopmentCards, GenerateAllMainCards, GenerateAreas, GetMetaData } from 'src/scripts/RETSPropertiesData';
 import { getHomeAboutUs, getHomeBlogs, getHomeHeader, getHomeLocation } from 'src/serverData/HomeData';
 
 const HomeHeader = dynamic(() => import('src/sections/home/HomeHeader'), {
@@ -67,89 +65,23 @@ async function GetHomeData() {
   return getHomePage;
 }
 
-async function GetListing() {
-  const retsAPI = new APISimplyRETS();
-  const getProperties = await retsAPI.GET('/properties');
-  const getPropertiesMetData = await retsAPI.OPTIONS('/properties');
-  return getProperties;
-}
-
 export const getStaticProps = async () => {
-  interface RetsDevelopmentsCardsProps {
-    developmentsCards: DevelopmentCardProps[];
-    developmentMainCards: DevelopmentMainCardProps[];
-  }
-  const retsProperties = await GetListing();
-  const retsDevelopmentsCards: RetsDevelopmentsCardsProps = retsProperties.reduce(
-    (returnData: RetsDevelopmentsCardsProps, retsProperty: any, index: number) => {
-      const amenities = [
-        ...retsProperty.property.exteriorFeatures.split(','),
-        ...retsProperty.property.interiorFeatures.split(','),
-      ].map((amenity: string) => {
-        return {
-          name: amenity,
-        };
-      });
-      const bathrroms = parseFloat(
-        retsProperty.property.bathsFull.toString() +
-          '.' +
-          retsProperty.property.bathsHalf.toString()
-      );
-      const developmentCard: DevelopmentCardProps = {
-        url: LISTINGS_URL + formatToURL('Las lomas') + '/' + formatToURL('Hacienda Marina'),
-        name: 'Hacienda Marina',
-        price: retsProperty.listPrice,
-        bathrroms: bathrroms,
-        bedrooms: retsProperty.property.bedrooms,
-        squareFT: retsProperty.property.area,
-        listing: {
-          url: LISTINGS_URL + '?listing=' + formatToURL('Las lomas'),
-          name: 'Las lomas',
-        },
-        amenities: amenities,
-        image: { src: retsProperty.photos[0], alt: `${retsProperty.listingId}-thumbnail` },
-      };
-      returnData.developmentsCards.push(developmentCard);
-      if (index < 3) {
-        const developmentMainCard: DevelopmentMainCardProps = {
-          url: LISTINGS_URL + formatToURL('Las lomas') + '/' + formatToURL('Hacienda Marina'),
-          name: 'Hacienda Marina',
-          price: retsProperty.listPrice,
-          bathrroms: bathrroms,
-          bedrooms: retsProperty.property.bedrooms,
-          squareFT: retsProperty.property.area,
-          listing: {
-            url: LISTINGS_URL + '?listing=' + formatToURL('Las lomas'),
-            name: 'Las lomas',
-          },
-          amenities: amenities,
-          images: retsProperty.photos.map((photo: string, index: number) => ({
-            src: photo,
-            alt: `${retsProperty.listingId}-gallery-${index}`,
-          })),
-        };
-        returnData.developmentMainCards.push(developmentMainCard);
-      }
-      return returnData;
-    },
-    {
-      developmentsCards: [],
-      developmentMainCards: [],
-    } as RetsDevelopmentsCardsProps
+  const metaData = await GetMetaData();
+  const listingData = GenerateAreas(metaData);
+  const retsDevelopmentsCards: DevelopmentCardProps[] = await GenerateAllDevelopmentCards(
+    listingData,
+    7
   );
-  const properties = [...retsProperties];
+  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await GenerateAllMainCards(
+    listingData,
+    4
+  );
   const responseHomePage = await GetHomeData();
   const responseHomeBlogs = await GetHomeBlogs();
   const blogsData = responseHomeBlogs.data;
   const homePageAttributes = responseHomePage.data.attributes;
-  const header = await getHomeHeader(
-    homePageAttributes,
-    retsDevelopmentsCards.developmentMainCards
-  );
-  const location = await getHomeLocation(
-    homePageAttributes,
-    retsDevelopmentsCards.developmentsCards
-  );
+  const header = await getHomeHeader(homePageAttributes, mainDevelopmentsCards);
+  const location = await getHomeLocation(homePageAttributes, listingData, retsDevelopmentsCards);
   const aboutUs = await getHomeAboutUs(homePageAttributes);
   const homeBlogs = await getHomeBlogs(blogsData, homePageAttributes);
   return {
@@ -158,7 +90,6 @@ export const getStaticProps = async () => {
       location,
       aboutUs,
       homeBlogs,
-      properties,
     },
   };
 };
@@ -168,15 +99,7 @@ function Home({
   location,
   aboutUs,
   homeBlogs,
-  properties,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'production') {
-      GetHomeData();
-      GetHomeBlogs();
-      GetListing();
-    }
-  });
   return (
     <PageLayout showContactCard={true}>
       <HomeHeader

@@ -1,6 +1,6 @@
 import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
+import { ListingData, ListingProps } from 'src/components/listing/Listings.types';
 import { LISTINGS_URL } from 'src/scripts/GeneralData';
-import { formatToURL } from 'src/scripts/StringTools';
 
 export async function getListingsHeader() {
   const header = {
@@ -15,64 +15,24 @@ export async function getListingsHeader() {
   return header;
 }
 
-export async function getListingsLabels() {
-  const developments = [
-    {
-      id: '0',
-    },
-    {
-      id: '0',
-    },
-    {
-      id: '0',
-    },
-  ];
-  const listingsLabels = [
-    {
-      url: LISTINGS_URL + '?listing=' + formatToURL('Las Lomas'),
-      name: 'Las Lomas',
-      developments: [
-        ...developments,
-        ...developments,
-        ...developments,
-        ...developments,
-        ...developments,
-        ...developments,
-        ...developments,
-        ...developments,
-      ],
-    },
-    {
-      url: LISTINGS_URL + '?listing=' + formatToURL('Lo de Marcos'),
-      name: 'Lo de Marcos',
-      developments: [...developments, ...developments],
-    },
-    {
-      url: LISTINGS_URL + '?listing=' + formatToURL('Sayulita'),
-      name: 'Sayulita',
-      developments: [
-        ...developments,
-        ...developments,
-        ...developments,
-        ...developments,
-        ...developments,
-        ...developments,
-      ],
-    },
-    {
-      url: LISTINGS_URL + '?listing=' + formatToURL('San Pancho'),
-      name: 'San Pancho',
-      developments: [...developments, ...developments, ...developments, ...developments],
-    },
-  ];
-  listingsLabels.unshift({
+export async function getListingsLabels(
+  listingData: ListingData[],
+  properties: DevelopmentCardProps[]
+) {
+  const listings: ListingProps[] = listingData.map((listing: ListingData) => {
+    return {
+      ...listing,
+      developments: properties.filter((property: DevelopmentCardProps) => {
+        return property.listing?.name === listing.name;
+      }),
+    };
+  });
+  listings.unshift({
     url: LISTINGS_URL,
     name: 'All',
-    developments: listingsLabels.reduce((acc: any, curr: any) => {
-      return acc.concat(curr.developments);
-    }, []),
+    developments: properties,
   });
-  return listingsLabels;
+  return listings;
 }
 
 export async function getListingsFeatured(developments: DevelopmentMainCardProps[]) {
