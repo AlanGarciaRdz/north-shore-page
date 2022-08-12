@@ -1,14 +1,12 @@
+import queryString from 'query-string';
+
 //Validate if is an empty string
 export const IsEmptyString = (text: string | undefined) => {
   if (text === undefined || text == null) {
     return true;
   }
   const textCheck = text.toString();
-  if (
-    textCheck === undefined ||
-    textCheck == null ||
-    textCheck.trim().length === 0
-  ) {
+  if (textCheck === undefined || textCheck == null || textCheck.trim().length === 0) {
     return true;
   }
   return false;
@@ -99,4 +97,39 @@ export const numberPriceFormatter = new Intl.NumberFormat('es-US', {
 //Format a Number to Price
 export const formatNumberToPrice = (number: any) => {
   return numberPriceFormatter.format(number).toString().replace('$', '');
+};
+
+export const getQueryFromURL = (query: string) => {
+  const queryObject = queryString.parse(location.search);
+  const queryValue = queryObject[query];
+  if (queryValue !== undefined && queryValue !== null && typeof queryValue === 'string') {
+    return queryValue;
+  }
+  return undefined;
+};
+
+export const updateQueryFromURL = (query: string, newValue: string) => {
+  const url = new URL(window.location.href);
+  const queryObject = queryString.parse(location.search);
+  for (const queryKey of Object.keys(queryObject)) {
+    const queryValue = queryObject[queryKey];
+    if (queryValue !== undefined && queryValue !== null && typeof queryValue === 'string') {
+      url.searchParams.set(queryKey, queryValue);
+    }
+  }
+  url.searchParams.set(query, newValue);
+  window.history.replaceState(null, '', url);
+};
+
+export const removeQueryFromURL = (query: string) => {
+  const url = new URL(window.location.href);
+  const queryObject = queryString.parse(location.search);
+  for (const queryKey of Object.keys(queryObject)) {
+    const queryValue = queryObject[queryKey];
+    if (queryValue !== undefined && queryValue !== null && typeof queryValue === 'string') {
+      url.searchParams.set(queryKey, queryValue);
+    }
+  }
+  url.searchParams.delete(query);
+  window.history.replaceState(null, '', url);
 };

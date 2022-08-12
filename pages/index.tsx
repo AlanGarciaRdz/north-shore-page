@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import API from 'src/API/API';
 import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import PageLayout from 'src/components/layouts/PageLayout';
-import { GenerateAllDevelopmentCards, GenerateAllMainCards, GenerateAreas, GetMetaData } from 'src/scripts/RETSPropertiesData';
+import { GenerateAllDevelopmentCards, GenerateAllMainCards, GenerateAreas, GetAllListing, GetMetaData } from 'src/scripts/RETSPropertiesData';
 import { getHomeAboutUs, getHomeBlogs, getHomeHeader, getHomeLocation } from 'src/serverData/HomeData';
 
 const HomeHeader = dynamic(() => import('src/sections/home/HomeHeader'), {
@@ -72,10 +72,7 @@ export const getStaticProps = async () => {
     listingData,
     7
   );
-  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await GenerateAllMainCards(
-    listingData,
-    4
-  );
+  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await GenerateAllMainCards(listingData);
   const responseHomePage = await GetHomeData();
   const responseHomeBlogs = await GetHomeBlogs();
   const blogsData = responseHomeBlogs.data;
@@ -90,6 +87,7 @@ export const getStaticProps = async () => {
       location,
       aboutUs,
       homeBlogs,
+      metaData,
     },
   };
 };
@@ -99,7 +97,16 @@ function Home({
   location,
   aboutUs,
   homeBlogs,
+  metaData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  async function getListing() {
+    const listing = await GetAllListing();
+    console.log(listing);
+    console.log(metaData);
+  }
+  useEffect(() => {
+    getListing();
+  }, []);
   return (
     <PageLayout showContactCard={true}>
       <HomeHeader

@@ -26,7 +26,7 @@ export default class RestClient {
     return `${this.baseUrl}${url}`;
   }
 
-  _fetch(route, method, body, isQuery = false, passNormal = false) {
+  _fetch(route, method, body, isQuery = false, passNormal = false, count = false) {
     if (!route) throw new Error('Route is undefined');
     var fullRoute = this._fullRoute(route);
     if (isQuery && body) {
@@ -55,20 +55,26 @@ export default class RestClient {
         .then((response) => response.json());
     } else {
       return fetchPromise().then((response) => {
-        if (response.status === 504) {
-          const response = { error: { message: 'Timed Out' } };
-          return response;
-        } else if (response.status === 204) {
-          return 'No-Content';
-        } else {
-          return response.json();
+        if (count) {
+          const count = response.headers.get('X-Total-Count');
+          return response.json().then((json) => {
+            return {
+              count,
+              data: json,
+            };
+          });
         }
+        return response.json();
       });
     }
   }
 
   GET(route, query) {
     return this._fetch(route, 'GET', query, true);
+  }
+
+  GETWITHCOUNT(route, query) {
+    return this._fetch(route, 'GET', query, true, false, true);
   }
   GETPASSVALUE(route, query) {
     return this._fetch(route, 'GET', query, true, true);

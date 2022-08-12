@@ -1,43 +1,60 @@
 import 'rc-slider/assets/index.css';
 
-import { Card, Container, Grid, Text } from '@nextui-org/react';
-import React, { FC, useRef, useState } from 'react';
+import { Button, Card, Container, Grid, Text } from '@nextui-org/react';
+import React, { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
 import { BiFilterAlt } from 'react-icons/bi';
 
+import ListigFilterLocation from './ListigFilterLocation';
 import ListingDevelopmentData from './ListingDevelopmentData';
 import ListingFilterRange from './ListingFilterRange';
-import ListingPropertyType from './ListingPropertyType';
-
-interface ListingFilterCardProps {
-  maxPrice: number;
-}
+import { ListingProps } from './Listings.types';
 
 export type ListingFilter = {
+  findNewLocation: boolean;
+  initFilters: boolean;
   minValue: number;
   maxValue: number;
-  propertyType: string;
+  location: string;
   bedrooms?: number;
   bathrooms?: number;
+  pagination?: number;
 };
+interface ListingFilterCardProps {
+  maxPrice: number;
+  listingData: ListingProps[];
+  pageInitFilter: ListingFilter;
+  setPageInitFilter: (filter: ListingFilter) => void;
+}
 
-function ListingFilterCard({ maxPrice }: ListingFilterCardProps) {
+function ListingFilterCard({
+  maxPrice,
+  listingData,
+  pageInitFilter,
+  setPageInitFilter,
+}: ListingFilterCardProps) {
   const [currentFilter, setCurrentFilter] = useState<ListingFilter>({
+    initFilters: false,
+    findNewLocation: false,
     minValue: 0,
     maxValue: maxPrice,
-    propertyType: 'all',
+    location: 'all',
+    pagination: 1,
   });
+  useEffect(() => {
+    if (pageInitFilter.initFilters === true && currentFilter.initFilters === false) {
+      setCurrentFilter(pageInitFilter);
+    }
+  }, [pageInitFilter]);
   return (
     <Container
       fluid
       responsive={false}
       css={{
+        zIndex: 2000,
         padding: 0,
         margin: 0,
         width: '100%',
-        height: 329,
-        '@sm': {
-          height: 246,
-        },
+        height: 'auto',
         '@lg': {
           height: 157,
         },
@@ -66,7 +83,7 @@ function ListingFilterCard({ maxPrice }: ListingFilterCardProps) {
               <BiFilterAlt style={{ fontSize: 20, marginRight: 9 }} />
               <Text weight='bold'>{'Properties filter'}</Text>
             </Grid>
-            <Grid xs={12} lg={3.5}>
+            <Grid xs={12} lg={2.5}>
               <ListingFilterRange
                 currentFilter={currentFilter}
                 setCurrentFilter={setCurrentFilter}
@@ -87,13 +104,14 @@ function ListingFilterCard({ maxPrice }: ListingFilterCardProps) {
                 }}
               />
             </Grid>
-            <Grid xs={12} sm={5.5} lg={3.5}>
-              <ListingPropertyType
-                propertyTypes={[
-                  { label: 'All', value: 'all' },
-                  { label: 'House', value: 'house' },
-                  { label: 'Apartment', value: 'apartment' },
-                ]}
+            <Grid xs={12} sm={5.5} lg={2.5}>
+              <ListigFilterLocation
+                propertyTypes={listingData.map((listing) => {
+                  return {
+                    label: listing.name,
+                    value: listing.locationFilter,
+                  };
+                })}
                 currentFilter={currentFilter}
                 setCurrentFilter={setCurrentFilter}
               />
@@ -110,6 +128,41 @@ function ListingFilterCard({ maxPrice }: ListingFilterCardProps) {
                 currentFilter={currentFilter}
                 setCurrentFilter={setCurrentFilter}
               />
+            </Grid>
+            <Grid xs={12} lg={0}>
+              <Container
+                responsive={false}
+                fluid
+                css={{
+                  padding: 0,
+                  margin: 0,
+                  height: 40,
+                }}
+              />
+            </Grid>
+            <Grid xs={12} lg={2.5}>
+              <Container
+                fluid
+                responsive={false}
+                css={{
+                  margin: 0,
+                  padding: 0,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'flex-end',
+                }}
+              >
+                <Button
+                  color='secondary'
+                  auto
+                  css={{ width: '100%' }}
+                  onPress={() => {
+                    setPageInitFilter(currentFilter);
+                  }}
+                >
+                  {'Search'}
+                </Button>
+              </Container>
             </Grid>
           </Grid.Container>
         </Card.Body>

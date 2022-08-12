@@ -8,12 +8,21 @@ import { MainSectionsContainerCSS } from 'styles/theme';
 type ListingsPropertiesListProps = {
   title: string;
   developments: DevelopmentCardProps[];
+  total: number;
+  cardsPerPage: number;
+  onChangePagination: (page: number) => void;
+  currentPagination?: number;
 };
 
 export default function ListingsPropertiesList({
   title,
   developments,
+  total,
+  cardsPerPage,
+  onChangePagination,
+  currentPagination,
 }: ListingsPropertiesListProps) {
+  const totalPagination = Math.ceil(total / cardsPerPage);
   return (
     <Container
       fluid
@@ -80,28 +89,13 @@ export default function ListingsPropertiesList({
           >
             <Pagination
               siblings={0}
-              css={
-                {
-                  /*
-                '.nextui-pagination-item': {
-                  backgroundColor: 'transparent',
-                  color: '$text',
-                },
-                '.nextui-pagination-item-active': {
-                  backgroundColor: 'transparent',
-                  span: {
-                    color: '$text',
-                  },
-                },
-                '.nextui-pagination-highlight': {
-                  backgroundColor: 'transparent',
-                },
-                */
-                }
-              }
               color='secondary'
-              total={20}
+              total={totalPagination}
               initialPage={1}
+              page={currentPagination}
+              onChange={(page) => {
+                onChangePagination(page);
+              }}
             />
           </Container>
         </Grid>

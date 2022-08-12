@@ -24,21 +24,21 @@ const selectStyles = {
   }),
 };
 
-type ListingPropertyTypeProps = {
+type ListigFilterLocationProps = {
   currentFilter: ListingFilter;
   setCurrentFilter: Dispatch<SetStateAction<ListingFilter>>;
   propertyTypes: DevelopmentPropertyTypeProps[];
 };
 
-function ListingPropertyType({
+function ListigFilterLocation({
   currentFilter,
   setCurrentFilter,
   propertyTypes,
-}: ListingPropertyTypeProps) {
+}: ListigFilterLocationProps) {
   return (
     <Grid.Container justify='space-between'>
       <Grid>
-        <Text>{'Property type'}</Text>
+        <Text>{'Location'}</Text>
       </Grid>
       <Grid xs={12} />
       <Grid
@@ -58,12 +58,12 @@ function ListingPropertyType({
             },
           })}
           value={propertyTypes.find((propertyType) => {
-            return propertyType.value === currentFilter.propertyType;
+            return propertyType.value === currentFilter.location;
           })}
           onChange={(selectedOption) => {
             setCurrentFilter({
               ...currentFilter,
-              propertyType: selectedOption?.value || 'all',
+              location: selectedOption?.value || 'all',
             });
           }}
           components={{
@@ -92,4 +92,4 @@ function ListingPropertyType({
   );
 }
 
-export default ListingPropertyType;
+export default ListigFilterLocation;

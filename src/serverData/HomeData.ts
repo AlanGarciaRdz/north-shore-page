@@ -47,28 +47,6 @@ export async function getHomeLocation(
       }),
     };
   });
-
-  /* [ {
-      url: LISTINGS_URL + '?listing=' + formatToURL('San Pancho'),
-      name: 'San Pancho',
-      developments: properties,
-    },
-    {
-      url: LISTINGS_URL + '?listing=' + formatToURL('Sayulita'),
-      name: 'Sayulita',
-      developments: properties,
-    },
-    {
-      url: LISTINGS_URL + '?listing=' + formatToURL('Lo de Marcos'),
-      name: 'Lo de Marcos',
-      developments: properties,
-    },
-    {
-      url: LISTINGS_URL + '?listing=' + formatToURL('Las Lomas'),
-      name: 'Las Lomas',
-      developments: properties,
-    },
-  ];*/
   const location = {
     page: {
       title: 'Locations',
