@@ -1,18 +1,47 @@
 import APISimplyRETS from 'src/API/APISimplyRETS';
-import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
+import { DevelopmentCardProps, DevelopmentCompleteProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import { ListingData } from 'src/components/listing/Listings.types';
 
 import { LISTINGS_URL } from './GeneralData';
 import { ValueExistOnObject } from './ObjectTools';
 import { formatToURL } from './StringTools';
 
-export async function GetMetaData() {
+const avilableNeighborhoods = [
+  {
+    name: 'San Pancho',
+    searchQuerys: ['San Pancho'],
+  },
+  {
+    name: 'Sayulita',
+    searchQuerys: ['Sayulita'],
+  },
+  {
+    name: 'Lo de Marcos',
+    searchQuerys: ['Lo de Marcos'],
+  },
+  /*
+  {
+    name: 'Las Lomas',
+    searchQuerys: ["Las Lomas"]
+  },
+  */
+  {
+    name: 'Punta Mita',
+    searchQuerys: ['Punta Mita', 'Punta de Mita'],
+  },
+  {
+    name: 'Litibu',
+    searchQuerys: ['Litibu'],
+  },
+];
+
+export async function SimplyRETSGetMetaData() {
   const retsAPI = new APISimplyRETS();
   const getPropertiesMetaData = await retsAPI.OPTIONS('/properties');
   return getPropertiesMetaData;
 }
 
-export async function GetAllListing() {
+export async function SimplyRETSGetTestListing() {
   const retsAPI = new APISimplyRETS();
   const getProperties = await retsAPI.GET(
     `/properties?status=Active&q=Sayulita&q=San Pancho&count=true`
@@ -20,7 +49,25 @@ export async function GetAllListing() {
   return getProperties;
 }
 
-export async function GetMainListing(listingData: ListingData, limit: number) {
+export async function SimplyRETSGetAllListing() {
+  let query = '';
+  for (const avilableNeighborhood of avilableNeighborhoods) {
+    for (const searchQuery of avilableNeighborhood.searchQuerys) {
+      query += `&q=${searchQuery}`;
+    }
+  }
+  const retsAPI = new APISimplyRETS();
+  const getProperties = await retsAPI.GET(`/properties?status=Active&limit=500${query}`);
+  return getProperties;
+}
+
+export async function SimplyRETSGetSingleListing(mlsId: string) {
+  const retsAPI = new APISimplyRETS();
+  const getProperties = await retsAPI.GET(`/properties/${mlsId}`);
+  return getProperties;
+}
+
+export async function SimplyRETSGetMainListing(listingData: ListingData, limit: number) {
   const retsAPI = new APISimplyRETS();
   let query = '';
   for (const listing of listingData.searchQuerys) {
@@ -30,7 +77,7 @@ export async function GetMainListing(listingData: ListingData, limit: number) {
   return getProperties;
 }
 
-export async function GetListing(listingData: ListingData, limit?: number) {
+export async function SimplyRETSGetListing(listingData: ListingData, limit?: number) {
   const retsAPI = new APISimplyRETS();
   let query = '';
   for (const listing of listingData.searchQuerys) {
@@ -49,7 +96,7 @@ export async function GetListing(listingData: ListingData, limit?: number) {
   return totalData;
 }
 
-export async function GetSearchListing(
+export async function SimplyRETSGetSearchListing(
   query: string,
   limit?: number,
   offset?: number,
@@ -71,36 +118,7 @@ export async function GetSearchListing(
   return getPropertiesNeighborhoods;
 }
 
-export function GenerateAreas(retsMetaData: any): ListingData[] {
-  //"San Pancho,Sayulita,Lo de Marcos,Las Lomas,Punta Mita,Litibu"
-  const avilableNeighborhoods = [
-    {
-      name: 'San Pancho',
-      searchQuerys: ['San Pancho'],
-    },
-    {
-      name: 'Sayulita',
-      searchQuerys: ['Sayulita'],
-    },
-    {
-      name: 'Lo de Marcos',
-      searchQuerys: ['Lo de Marcos'],
-    },
-    /*
-    {
-      name: 'Las Lomas',
-      searchQuerys: ["Las Lomas"]
-    },
-    */
-    {
-      name: 'Punta Mita',
-      searchQuerys: ['Punta Mita', 'Punta de Mita'],
-    },
-    {
-      name: 'Litibu',
-      searchQuerys: ['Litibu'],
-    },
-  ];
+export function GenerateAreas(): ListingData[] {
   const areas: ListingData[] = [];
   for (const avilableNeighborhood of avilableNeighborhoods) {
     const area = {
@@ -114,7 +132,7 @@ export function GenerateAreas(retsMetaData: any): ListingData[] {
   return areas;
 }
 
-export function GenerateDevelopmentCard(
+export function SimplyRETSGenerateDevelopmentCard(
   retsProperty: any,
   listingData: ListingData
 ): DevelopmentCardProps | undefined {
@@ -137,14 +155,14 @@ export function GenerateDevelopmentCard(
     };
   });
 
-  const bathrroms = parseFloat(
+  const bathroms = parseFloat(
     retsProperty.property.bathsFull.toString() + '.' + retsProperty.property.bathsHalf.toString()
   );
   const developmentCard: DevelopmentCardProps = {
-    url: LISTINGS_URL,
-    name: 'Nombre',
+    url: `${LISTINGS_URL}/mls/${retsProperty.mlsId}`,
+    name: retsProperty.property.subdivision,
     price: retsProperty.listPrice,
-    bathrroms: bathrroms,
+    bathroms: bathroms,
     bedrooms: retsProperty.property.bedrooms,
     squareFT: retsProperty.property.area,
     listing: {
@@ -157,7 +175,7 @@ export function GenerateDevelopmentCard(
   return developmentCard;
 }
 
-export const GenerateDevelopmentMainCard = (
+export const SimplyRETSGenerateDevelopmentMainCard = (
   retsProperty: any,
   listingData: ListingData
 ): DevelopmentMainCardProps | undefined => {
@@ -180,16 +198,16 @@ export const GenerateDevelopmentMainCard = (
     };
   });
 
-  const bathrroms = parseFloat(
+  const bathroms = parseFloat(
     retsProperty.property.bathsFull.toString() + '.' + retsProperty.property.bathsHalf.toString()
   );
 
   const photos = retsProperty.photos.splice(0, 3);
   const developmentCard: DevelopmentMainCardProps = {
-    url: LISTINGS_URL,
-    name: 'Nombre',
+    url: `${LISTINGS_URL}/mls/${retsProperty.mlsId}`,
+    name: retsProperty.property.subdivision,
     price: retsProperty.listPrice,
-    bathrroms: bathrroms,
+    bathroms: bathroms,
     bedrooms: retsProperty.property.bedrooms,
     squareFT: retsProperty.property.area,
     listing: {
@@ -205,7 +223,7 @@ export const GenerateDevelopmentMainCard = (
   return developmentCard;
 };
 
-export function GetRetsPropertyArea(listingData: ListingData[], retsProperty: any) {
+export function SimplyRETSGetPropertyArea(listingData: ListingData[], retsProperty: any) {
   for (const listing of listingData) {
     for (const searchQuery of listing.searchQuerys) {
       if (
@@ -226,7 +244,7 @@ export function GetRetsPropertyArea(listingData: ListingData[], retsProperty: an
   return undefined;
 }
 
-export async function GenerateSearchDevelopmentCards(
+export async function SimplyRETSGenerateSearchDevelopmentCards(
   listingData: ListingData[],
   searchListing?: ListingData,
   limit?: number,
@@ -248,7 +266,7 @@ export async function GenerateSearchDevelopmentCards(
       query = query + `&q=${searchQuery}`;
     }
   }
-  const { count, data } = await GetSearchListing(
+  const { count, data } = await SimplyRETSGetSearchListing(
     query,
     limit,
     offset,
@@ -260,9 +278,11 @@ export async function GenerateSearchDevelopmentCards(
   const retsDevelopmentsCards: DevelopmentCardProps[] = [];
   for (const retsProperty of data) {
     const myArea =
-      searchListing !== undefined ? searchListing : GetRetsPropertyArea(listingData, retsProperty);
+      searchListing !== undefined
+        ? searchListing
+        : SimplyRETSGetPropertyArea(listingData, retsProperty);
     if (myArea !== undefined) {
-      const developmentCard: DevelopmentCardProps | undefined = GenerateDevelopmentCard(
+      const developmentCard: DevelopmentCardProps | undefined = SimplyRETSGenerateDevelopmentCard(
         retsProperty,
         myArea
       );
@@ -274,17 +294,18 @@ export async function GenerateSearchDevelopmentCards(
   return { cards: retsDevelopmentsCards, count };
 }
 
-export async function GenerateAllDevelopmentCards(listingData: ListingData[], limit?: number) {
+export async function SimplyRETSGenerateAllDevelopmentCards(
+  listingData: ListingData[],
+  limit?: number
+) {
   const retsDevelopmentsCards: DevelopmentCardProps[] = await listingData.reduce(
     async (returnData: Promise<DevelopmentCardProps[]>, area: ListingData) => {
       const currentData = await returnData;
       if (area.name !== undefined) {
-        const areaRetsProperties = await GetListing(area, limit);
+        const areaRetsProperties = await SimplyRETSGetListing(area, limit);
         for (const retsProperty of areaRetsProperties) {
-          const developmentCard: DevelopmentCardProps | undefined = GenerateDevelopmentCard(
-            retsProperty,
-            area
-          );
+          const developmentCard: DevelopmentCardProps | undefined =
+            SimplyRETSGenerateDevelopmentCard(retsProperty, area);
           if (developmentCard) {
             currentData.push(developmentCard);
           }
@@ -297,17 +318,80 @@ export async function GenerateAllDevelopmentCards(listingData: ListingData[], li
   return retsDevelopmentsCards;
 }
 
-export async function GenerateAllMainCards(listingData: ListingData[]) {
+export async function SimplyRETSGenerateAllMainCards(listingData: ListingData[]) {
   const mainDevelopmentsCards: DevelopmentMainCardProps[] = [];
   for (const singleListing of listingData) {
-    const tempListingProperties = await GetMainListing(singleListing, 1);
-    const developmentMainCard: DevelopmentMainCardProps | undefined = GenerateDevelopmentMainCard(
-      tempListingProperties[0],
-      singleListing
-    );
+    const tempListingProperties = await SimplyRETSGetMainListing(singleListing, 1);
+    const developmentMainCard: DevelopmentMainCardProps | undefined =
+      SimplyRETSGenerateDevelopmentMainCard(tempListingProperties[0], singleListing);
     if (developmentMainCard !== undefined) {
       mainDevelopmentsCards.push(developmentMainCard);
     }
   }
   return mainDevelopmentsCards;
+}
+
+export async function SimplyRETSGenerateSingleProperty(mlsId: string, listingData: ListingData[]) {
+  const retsProperty = await SimplyRETSGetSingleListing(mlsId);
+  const exteriorFeatures =
+    retsProperty.property.exteriorFeatures !== null
+      ? retsProperty.property.exteriorFeatures.split(',')
+      : [];
+  const interiorFeatures =
+    retsProperty.property.interiorFeatures !== null
+      ? retsProperty.property.interiorFeatures.split(',')
+      : [];
+  const amenities = exteriorFeatures.map((amenity: string) => {
+    return {
+      name: amenity,
+    };
+  });
+  let geo:
+    | {
+        lat: number;
+        lng: number;
+      }
+    | undefined = undefined;
+  if (retsProperty.geo.lat !== null && retsProperty.geo.lng !== null) {
+    geo = {
+      lat: retsProperty.geo.lat,
+      lng: retsProperty.geo.lng,
+    };
+  }
+  const bathroms = parseFloat(
+    retsProperty.property.bathsFull.toString() + '.' + retsProperty.property.bathsHalf.toString()
+  );
+  const myArea = SimplyRETSGetPropertyArea(listingData, retsProperty);
+  const propertyToReturn: DevelopmentCompleteProps = {
+    id: retsProperty.mlsId,
+    url: `${LISTINGS_URL}/mls/${retsProperty.mlsId}`,
+    name: retsProperty.property.subdivision,
+    description: retsProperty.remarks,
+    price: retsProperty.listPrice,
+    lotSize: retsProperty.property.lotSizeArea,
+    area: retsProperty.property.area,
+    bathroms: bathroms,
+    bedrooms: retsProperty.property.bedrooms,
+    exteriorFeatures:
+      retsProperty.property.exteriorFeatures !== null
+        ? retsProperty.property.exteriorFeatures.replaceAll(',', ', ')
+        : '',
+    interiorFeatures:
+      retsProperty.property.interiorFeatures !== null
+        ? retsProperty.property.interiorFeatures.replaceAll(',', ', ')
+        : '',
+    construction: retsProperty.property.construction,
+    view: retsProperty.property.view,
+    cooling: retsProperty.property.cooling,
+    showingInstructions: retsProperty.showingInstructions,
+    amenities: amenities,
+    listing: myArea,
+    images: retsProperty.photos.map((photo: string, index: number) => ({
+      src: photo,
+      alt: `${retsProperty.listingId}-gallery-${index}`,
+    })),
+    geo: geo,
+    fullProperty: retsProperty,
+  };
+  return propertyToReturn;
 }

@@ -7,7 +7,8 @@ import { MainSectionsContainerCSS } from 'styles/theme';
 export default function DevelopmentDataInfo({
   description,
   amenities,
-}: DevelopmentCompleteProps) {
+  contactAgent,
+}: DevelopmentCompleteProps & { contactAgent: () => void }) {
   return (
     <Container
       fluid
@@ -81,6 +82,7 @@ export default function DevelopmentDataInfo({
               css={{
                 width: '100%',
               }}
+              onPress={contactAgent}
             >
               {'Contact agent'}
             </Button>

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import API from 'src/API/API';
 import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import PageLayout from 'src/components/layouts/PageLayout';
-import { GenerateAllDevelopmentCards, GenerateAllMainCards, GenerateAreas, GetAllListing, GetMetaData } from 'src/scripts/RETSPropertiesData';
+import { GenerateAreas, SimplyRETSGenerateAllDevelopmentCards, SimplyRETSGenerateAllMainCards } from 'src/scripts/RETSPropertiesData';
 import { getHomeAboutUs, getHomeBlogs, getHomeHeader, getHomeLocation } from 'src/serverData/HomeData';
 
 const HomeHeader = dynamic(() => import('src/sections/home/HomeHeader'), {
@@ -66,13 +66,14 @@ async function GetHomeData() {
 }
 
 export const getStaticProps = async () => {
-  const metaData = await GetMetaData();
-  const listingData = GenerateAreas(metaData);
-  const retsDevelopmentsCards: DevelopmentCardProps[] = await GenerateAllDevelopmentCards(
+  const listingData = await GenerateAreas();
+  const retsDevelopmentsCards: DevelopmentCardProps[] = await SimplyRETSGenerateAllDevelopmentCards(
     listingData,
     7
   );
-  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await GenerateAllMainCards(listingData);
+  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await SimplyRETSGenerateAllMainCards(
+    listingData
+  );
   const responseHomePage = await GetHomeData();
   const responseHomeBlogs = await GetHomeBlogs();
   const blogsData = responseHomeBlogs.data;
@@ -87,7 +88,6 @@ export const getStaticProps = async () => {
       location,
       aboutUs,
       homeBlogs,
-      metaData,
     },
   };
 };
@@ -97,16 +97,7 @@ function Home({
   location,
   aboutUs,
   homeBlogs,
-  metaData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  async function getListing() {
-    const listing = await GetAllListing();
-    console.log(listing);
-    console.log(metaData);
-  }
-  useEffect(() => {
-    getListing();
-  }, []);
   return (
     <PageLayout showContactCard={true}>
       <HomeHeader

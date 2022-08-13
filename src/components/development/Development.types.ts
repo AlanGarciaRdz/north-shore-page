@@ -1,3 +1,5 @@
+import { ListingData } from '../listing/Listings.types';
+
 export type AmenitiesProps = {
   name: string;
 };
@@ -7,7 +9,7 @@ export type DevelopmentMainCardProps = {
   url?: string;
   name?: string;
   price?: number;
-  bathrroms?: number;
+  bathroms?: number;
   bedrooms?: number;
   squareFT?: number;
   listing?: {
@@ -26,7 +28,7 @@ export type DevelopmentCardProps = {
   url?: string;
   name?: string;
   price?: number;
-  bathrroms?: number;
+  bathroms?: number;
   bedrooms?: number;
   squareFT?: number;
   listing?: {
@@ -48,46 +50,28 @@ export type DevelopmentPropertyTypeProps = {
 export type DevelopmentCompleteProps = {
   id?: string;
   url?: string;
-  description?: string;
   name?: string;
+  description?: string;
   price?: number;
-  oceanFrontMeters?: number;
-  squareFT?: number;
-  lotSqFT?: number;
-  m2?: number;
-  lotM2?: number;
-  bathrroms?: number;
+  lotSize?: number;
+  area?: number;
+  bathroms?: number;
   bedrooms?: number;
-  commonAmenities?: string;
-  appliances?: string;
-  walls?: string;
-  devices?: string;
-  roadTypes?: string;
-  title?: string;
-  connectivity?: string;
-  electricity?: string;
-  sewage?: string;
-  location?: string;
-  howToShow?: string;
-  listing?: {
-    url?: string;
-    name?: string;
-  };
-  images?: {
-    src?: string;
-    alt?: string;
-  }[];
-  mainImageDesktop?: {
-    src?: string;
-    alt?: string;
-  };
-  mainImageMobile?: {
-    src?: string;
-    alt?: string;
-  };
-  mapImage?: {
-    src?: string;
-    alt?: string;
-  };
+  exteriorFeatures?: string;
+  interiorFeatures?: string;
+  construction?: string;
+  view?: string;
+  cooling?: string;
+  showingInstructions?: string;
   amenities?: AmenitiesProps[];
+  listing?: ListingData;
+  images?: {
+    src: string;
+    alt: string;
+  }[];
+  geo?: {
+    lat: number;
+    lng: number;
+  };
+  fullProperty?: any;
 };

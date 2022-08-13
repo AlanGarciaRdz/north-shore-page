@@ -6,9 +6,7 @@ import { DevelopmentCompleteProps } from 'src/components/development/Development
 import RenderContainer from 'src/components/layouts/RenderContainer';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
-export default function DevelopmentGallery({
-  images,
-}: DevelopmentCompleteProps) {
+export default function DevelopmentGallery({ images }: DevelopmentCompleteProps) {
   const [currentGallery, setCurrentGallery] = useState(0);
   if (images === undefined || images.length === 0) return <div />;
   return (
@@ -137,10 +135,7 @@ export default function DevelopmentGallery({
                               marginRight: 8,
                             }}
                           >
-                            <BsArrowLeft
-                              color='inherit'
-                              style={{ fontSize: 20 }}
-                            />
+                            <BsArrowLeft color='inherit' style={{ fontSize: 20 }} />
                           </Button>
                         </Grid>
                         <Grid>
@@ -153,9 +148,7 @@ export default function DevelopmentGallery({
                               alignItems: 'center',
                             }}
                           >
-                            <Text weight='bold'>
-                              {(currentGallery + 1 + '').padStart(2, '0')}
-                            </Text>
+                            <Text weight='bold'>{(currentGallery + 1 + '').padStart(2, '0')}</Text>
                             <Text css={{ margin: '0px 5px' }}>{' / '}</Text>
                             <Text>{(images.length + '').padStart(2, '0')}</Text>
                           </div>
@@ -178,10 +171,7 @@ export default function DevelopmentGallery({
                               height: '40px',
                             }}
                           >
-                            <BsArrowRight
-                              color='inherit'
-                              style={{ fontSize: 20 }}
-                            />
+                            <BsArrowRight color='inherit' style={{ fontSize: 20 }} />
                           </Button>
                         </Grid>
                       </Grid.Container>

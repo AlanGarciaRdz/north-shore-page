@@ -151,7 +151,7 @@ export default function DevelopmentsMainCardInfo({
           <DevelopmentsMainCardData
             squareFT={development.squareFT?.toString()}
             bedrooms={development.bedrooms?.toString()}
-            bathrroms={development.bathrroms?.toString()}
+            bathroms={development.bathroms?.toString()}
             bigData
           />
         </Grid>

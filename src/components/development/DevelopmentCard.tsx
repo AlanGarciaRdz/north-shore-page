@@ -65,7 +65,7 @@ const DevelopmentCard = (development: DevelopmentCardProps) => {
               </Grid>
               <Grid xs={12}>
                 <DevelopmentData
-                  bathrroms={development.bathrroms?.toString()}
+                  bathroms={development.bathroms?.toString()}
                   bedrooms={development.bedrooms?.toString()}
                   squareFT={`${development.squareFT?.toString()} ft`}
                   bigData={false}

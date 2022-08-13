@@ -1,31 +1,27 @@
 import { Container, Grid, Text } from '@nextui-org/react';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-import OptimizeImage from 'src/components/base/OptimizeImage';
 import { DevelopmentCompleteProps } from 'src/components/development/Development.types';
-import RenderContainer from 'src/components/layouts/RenderContainer';
+import { formatNumberToPrice } from 'src/scripts/StringTools';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
+const DevelopmentMap = dynamic(() => import('./DevelopmentMap'), {
+  ssr: false,
+});
+
 export default function DevelopmentGeneralInfo({
-  mapImage,
-  mainImageMobile,
-  mainImageDesktop,
-  commonAmenities,
-  appliances,
-  walls,
-  devices,
-  roadTypes,
-  title,
-  connectivity,
-  electricity,
-  sewage,
-  location,
-  howToShow,
+  geo,
   price,
-  m2,
-  squareFT,
-  lotM2,
-  lotSqFT,
-  oceanFrontMeters,
+  lotSize,
+  area,
+  bathroms,
+  bedrooms,
+  exteriorFeatures,
+  interiorFeatures,
+  construction,
+  view,
+  cooling,
+  showingInstructions,
 }: DevelopmentCompleteProps) {
   return (
     <Container
@@ -52,54 +48,6 @@ export default function DevelopmentGeneralInfo({
             width: '100%',
           }}
         >
-          <Grid xs={12} css={{ marginBottom: 45 }}>
-            <RenderContainer
-              mobileView={
-                <Container
-                  fluid
-                  responsive={false}
-                  css={{
-                    padding: 0,
-                    margin: 0,
-                    width: '100%',
-                    height: 400,
-                    position: 'relative',
-                  }}
-                >
-                  <OptimizeImage
-                    src={mainImageMobile?.src || '/'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
-                    alt={mainImageMobile?.alt}
-                    useBlur={true}
-                  />
-                </Container>
-              }
-              desktopView={
-                <Container
-                  fluid
-                  responsive={false}
-                  css={{
-                    padding: 0,
-                    margin: 0,
-                    width: '100%',
-                    height: 700,
-                    position: 'relative',
-                  }}
-                >
-                  <OptimizeImage
-                    src={mainImageDesktop?.src || '/'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
-                    alt={mainImageDesktop?.alt}
-                    useBlur={true}
-                  />
-                </Container>
-              }
-            />
-          </Grid>
           <Grid xs={12} sm={6}>
             <Grid.Container
               justify='space-between'
@@ -110,70 +58,38 @@ export default function DevelopmentGeneralInfo({
             >
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Common Amenities: '}
-                  <span style={{ fontWeight: 'normal' }}>
-                    {commonAmenities}
-                  </span>
+                  {'Exterior Features: '}
+                  <span style={{ fontWeight: 'normal' }}>{exteriorFeatures}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Appliances: '}
-                  <span style={{ fontWeight: 'normal' }}>{appliances}</span>
+                  {'Interior Features: '}
+                  <span style={{ fontWeight: 'normal' }}>{interiorFeatures}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Walls: '}
-                  <span style={{ fontWeight: 'normal' }}>{walls}</span>
+                  {'Construction: '}
+                  <span style={{ fontWeight: 'normal' }}>{construction}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Devices: '}
-                  <span style={{ fontWeight: 'normal' }}>{devices}</span>
+                  {'View: '}
+                  <span style={{ fontWeight: 'normal' }}>{view}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Road Types: '}
-                  <span style={{ fontWeight: 'normal' }}>{roadTypes}</span>
-                </Text>
-              </Grid>
-              <Grid xs={12} css={{ marginBottom: 16 }}>
-                <Text weight='bold' css={{ margin: 0 }}>
-                  {'Title: '}
-                  <span style={{ fontWeight: 'normal' }}>{title}</span>
-                </Text>
-              </Grid>
-              <Grid xs={12} css={{ marginBottom: 16 }}>
-                <Text weight='bold' css={{ margin: 0 }}>
-                  {'Connectivity: '}
-                  <span style={{ fontWeight: 'normal' }}>{connectivity}</span>
-                </Text>
-              </Grid>
-              <Grid xs={12} css={{ marginBottom: 16 }}>
-                <Text weight='bold' css={{ margin: 0 }}>
-                  {'Electricity: '}
-                  <span style={{ fontWeight: 'normal' }}>{electricity}</span>
-                </Text>
-              </Grid>
-              <Grid xs={12} css={{ marginBottom: 16 }}>
-                <Text weight='bold' css={{ margin: 0 }}>
-                  {'Sewage: '}
-                  <span style={{ fontWeight: 'normal' }}>{sewage}</span>
-                </Text>
-              </Grid>
-              <Grid xs={12} css={{ marginBottom: 16 }}>
-                <Text weight='bold' css={{ margin: 0 }}>
-                  {'Location: '}
-                  <span style={{ fontWeight: 'normal' }}>{location}</span>
+                  {'Cooling: '}
+                  <span style={{ fontWeight: 'normal' }}>{cooling}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
                   {'How To Show: '}
-                  <span style={{ fontWeight: 'normal' }}>{howToShow}</span>
+                  <span style={{ fontWeight: 'normal' }}>{showingInstructions}</span>
                 </Text>
               </Grid>
             </Grid.Container>
@@ -195,92 +111,37 @@ export default function DevelopmentGeneralInfo({
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
                   {'List Price USD$: '}
-                  <span style={{ fontWeight: 'normal' }}>{price}</span>
+                  <span style={{ fontWeight: 'normal' }}>{`${formatNumberToPrice(price)}`}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Total M2 const: '}
-                  <span style={{ fontWeight: 'normal' }}>{m2}</span>
+                  {'Bathrooms: '}
+                  <span style={{ fontWeight: 'normal' }}>{bathroms}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Total SqFt: '}
-                  <span style={{ fontWeight: 'normal' }}>{squareFT}</span>
+                  {'Beadrooms: '}
+                  <span style={{ fontWeight: 'normal' }}>{bedrooms}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Lot M2: '}
-                  <span style={{ fontWeight: 'normal' }}>{lotM2}</span>
+                  {'Area: '}
+                  <span style={{ fontWeight: 'normal' }}>{area}</span>
                 </Text>
               </Grid>
               <Grid xs={12} css={{ marginBottom: 16 }}>
                 <Text weight='bold' css={{ margin: 0 }}>
-                  {'Lot SqFt: '}
-                  <span style={{ fontWeight: 'normal' }}>{lotSqFT}</span>
-                </Text>
-              </Grid>
-              <Grid xs={12} css={{ marginBottom: 16 }}>
-                <Text weight='bold' css={{ margin: 0 }}>
-                  {'Ocen Front Meters: '}
-                  <span style={{ fontWeight: 'normal' }}>
-                    {oceanFrontMeters}
-                  </span>
+                  {'Lot Size: '}
+                  <span style={{ fontWeight: 'normal' }}>{lotSize}</span>
                 </Text>
               </Grid>
             </Grid.Container>
           </Grid>
           <Grid xs={12} />
-          <Grid xs={12} css={{ marginTop: 45 }}>
-            <RenderContainer
-              mobileView={
-                <Container
-                  fluid
-                  responsive={false}
-                  css={{
-                    padding: 0,
-                    margin: 0,
-                    width: '100%',
-                    height: 400,
-                    position: 'relative',
-                  }}
-                >
-                  <OptimizeImage
-                    src={mapImage?.src || '/'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
-                    alt={mapImage?.alt}
-                    useBlur={true}
-                  />
-                </Container>
-              }
-              desktopView={
-                <Container
-                  fluid
-                  responsive={false}
-                  css={{
-                    padding: 0,
-                    margin: 0,
-                    width: '100%',
-                    height: 700,
-                    position: 'relative',
-                  }}
-                >
-                  <OptimizeImage
-                    src={mapImage?.src || '/'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
-                    alt={mapImage?.alt}
-                    useBlur={true}
-                  />
-                </Container>
-              }
-            />
-          </Grid>
+          <DevelopmentMap geo={geo} />
         </Grid.Container>
       </Container>
     </Container>

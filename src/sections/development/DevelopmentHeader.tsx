@@ -10,7 +10,8 @@ export default function DevelopmentHeader({
   name,
   listing,
   price,
-}: DevelopmentCompleteProps) {
+  contactAgent,
+}: DevelopmentCompleteProps & { contactAgent: () => void }) {
   return (
     <Container
       fluid
@@ -78,6 +79,7 @@ export default function DevelopmentHeader({
               css={{
                 width: '100%',
               }}
+              onPress={contactAgent}
             >
               {'Contact agent'}
             </Button>

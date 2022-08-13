@@ -34,12 +34,12 @@ const DevelopmentSingleData = ({ data, name, icon, bigData }: DevelopmentSingleD
 };
 
 type DevelopmentDataProps = {
-  bathrroms?: string;
+  bathroms?: string;
   bedrooms?: string;
   squareFT?: string;
   bigData?: boolean;
 };
-const DevelopmentData = ({ bathrroms, bedrooms, squareFT, bigData }: DevelopmentDataProps) => {
+const DevelopmentData = ({ bathroms, bedrooms, squareFT, bigData }: DevelopmentDataProps) => {
   const iconSize = bigData ? 30 : 16;
   const gridProps = bigData
     ? {
@@ -64,7 +64,7 @@ const DevelopmentData = ({ bathrroms, bedrooms, squareFT, bigData }: Development
       <Grid.Container justify={bigData ? 'center' : 'flex-start'} alignItems='center'>
         <Grid {...gridProps}>
           <DevelopmentSingleData
-            data={bathrroms || '0'}
+            data={bathroms || '0'}
             name='Bathrooms'
             icon={<BathroomsIcon style={{ fontSize: iconSize }} />}
             bigData={bigData}

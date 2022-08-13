@@ -6,7 +6,7 @@ import { DevelopmentMainCardProps } from 'src/components/development/Development
 import PageLayout from 'src/components/layouts/PageLayout';
 import ListingFilterCard, { ListingFilter } from 'src/components/listing/ListingFilterCard';
 import { ListingData } from 'src/components/listing/Listings.types';
-import { GenerateAllMainCards, GenerateAreas, GenerateSearchDevelopmentCards, GetMetaData } from 'src/scripts/RETSPropertiesData';
+import { GenerateAreas, SimplyRETSGenerateAllMainCards, SimplyRETSGenerateSearchDevelopmentCards } from 'src/scripts/RETSPropertiesData';
 import { getQueryFromURL, IsEmptyString, removeQueryFromURL, updateQueryFromURL } from 'src/scripts/StringTools';
 import ListingsFeaturedProperties from 'src/sections/listings/ListingsFeaturedProperties';
 import ListingsPropertiesList from 'src/sections/listings/ListingsPropertiesList';
@@ -18,9 +18,10 @@ const ListingsHeader = dynamic(() => import('src/sections/listings/ListingsHeade
 });
 
 export const getStaticProps = async () => {
-  const metaData = await GetMetaData();
-  const listingData = GenerateAreas(metaData);
-  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await GenerateAllMainCards(listingData);
+  const listingData = GenerateAreas();
+  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await SimplyRETSGenerateAllMainCards(
+    listingData
+  );
   const header = await getListingsHeader();
   const listingsLabels = await getListingsLabels(listingData);
   const listingsFeatured = await getListingsFeatured(mainDevelopmentsCards);
@@ -158,7 +159,7 @@ function Listings({
         updateQueryFromURL('pagination', filterCheck.pagination.toString());
       }
     }
-    const retsDevelopmentsCards = await GenerateSearchDevelopmentCards(
+    const retsDevelopmentsCards = await SimplyRETSGenerateSearchDevelopmentCards(
       listingData,
       listingDataQuery,
       cardsPerPage,

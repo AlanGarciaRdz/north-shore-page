@@ -1,15 +1,10 @@
 import { Button, Card, Input, Text, Textarea } from '@nextui-org/react';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast, { useToaster } from 'react-hot-toast';
 import API from 'src/API/API';
 import { useContactDataContext } from 'src/context/ContactDataContext';
-import {
-  formatToNumber,
-  formatToPhoneNumber,
-  IsEmptyString,
-  IsValidEmail,
-  IsValidPhoneNumber,
-} from 'src/scripts/StringTools';
+import { formatToNumber, formatToPhoneNumber, IsEmptyString, IsValidEmail, IsValidPhoneNumber } from 'src/scripts/StringTools';
 import { getPlatform } from 'src/scripts/UserTools';
 
 import OptimizeImage from '../base/OptimizeImage';
@@ -23,6 +18,7 @@ type UserContactInfoInput = {
 };
 
 export default function ContactCard() {
+  const router = useRouter();
   const { toasts, handlers } = useToaster();
   const { startPause, endPause } = handlers;
   const [userContactData, setUserContactData] = useState<UserContactInfoInput>(
@@ -63,20 +59,29 @@ export default function ContactCard() {
     setSendingContactInfo(true);
     const userPlatform = await getPlatform();
     const api = new API();
-    const postLead = api.POST('/leads', {
+    const sendLeadToast = toast.loading('Sending Message...');
+    const postLead = await api.POST('/leads', {
       data: {
         name: userContactData.name,
         email: userContactData.email,
         phoneNumber: formatToNumber(userContactData.phone),
         message: userContactData.message,
         userPlatform: userPlatform,
+        property: router.query.mlsId !== undefined ? `mlsId-${router.query.mlsId}` : '',
+        url: window.location.href,
       },
     });
-    await toast.promise(postLead, {
-      loading: 'Sending Message...',
-      success: 'Message Sended',
-      error: 'Please Try Again',
-    });
+    setTimeout(() => {
+      if (postLead.error !== undefined) {
+        toast.error('Please Try Again', {
+          id: sendLeadToast,
+        });
+      } else {
+        toast.success('Message Sended', {
+          id: sendLeadToast,
+        });
+      }
+    }, 200);
     setSendingContactInfo(false);
   }
 
@@ -114,9 +119,7 @@ export default function ContactCard() {
         <Text weight='bold' css={{ marginBottom: 8 }}>
           {contactDataInfo.contactCardTitle}
         </Text>
-        <Text css={{ marginBottom: 24 }}>
-          {contactDataInfo.contactCardSubtitle}
-        </Text>
+        <Text css={{ marginBottom: 24 }}>{contactDataInfo.contactCardSubtitle}</Text>
         <Input
           disabled={sendingContactInfo}
           clearable
