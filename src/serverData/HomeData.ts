@@ -81,7 +81,7 @@ export async function getHomeBlogs(blogsData: any, { ourBlogBody }: HomePageAttr
     const blogAttributes = blog.attributes;
     const thumbnail = getImageData(blogAttributes.thumbnail.data);
     return {
-      url: BLOGS_URL + formatToURL(blogAttributes.url),
+      url: BLOGS_URL + '/' + formatToURL(blogAttributes.url),
       title: blogAttributes.title,
       image: thumbnail,
     };
