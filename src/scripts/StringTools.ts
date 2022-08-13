@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 
 //Validate if is an empty string
-export const IsEmptyString = (text: string | undefined) => {
+export const IsEmptyString = (text: string | undefined | null) => {
   if (text === undefined || text == null) {
     return true;
   }

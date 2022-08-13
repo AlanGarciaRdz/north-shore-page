@@ -42,7 +42,7 @@ export async function getBlogList(blogsData: any) {
     const blogData = blog.attributes;
     const thumbnail = getImageData(blogData.thumbnail);
     return {
-      url: BLOGS_URL + formatToURL(blogData.url),
+      url: BLOGS_URL + '/' + formatToURL(blogData.url),
       title: blogData.title,
       views: blogData.blog_views.data.length,
       likes: blogData.blog_likes.data.length,

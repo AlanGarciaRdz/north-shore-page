@@ -2,8 +2,9 @@ import APISimplyRETS from 'src/API/APISimplyRETS';
 import { DevelopmentCardProps, DevelopmentCompleteProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import { ListingData } from 'src/components/listing/Listings.types';
 
-import { LISTINGS_URL } from './GeneralData';
+import { LISTINGS_MLS_URL, LISTINGS_URL } from './GeneralData';
 import { ValueExistOnObject } from './ObjectTools';
+import { timeout } from './PromiseTools';
 import { formatToURL } from './StringTools';
 
 const avilableNeighborhoods = [
@@ -83,17 +84,20 @@ export async function SimplyRETSGetListing(listingData: ListingData, limit?: num
   for (const listing of listingData.searchQuerys) {
     query += `&q=${listing}`;
   }
-  const getPropertiesNeighborhoods = await retsAPI.GET(
+  const getProperties = await retsAPI.GET(
     `/properties?status=Active${query}${limit !== undefined ? `&limit=${limit}` : ''}`
   );
-  const totalData = getPropertiesNeighborhoods.filter(
-    (value: any, index: number, self: any) =>
-      index === self.findIndex((t: any) => t.mlsId === value.mlsId)
-  );
-  if (limit !== undefined) {
-    return totalData.splice(0, limit);
+  if (getProperties.error === undefined) {
+    const totalData = getProperties.filter(
+      (value: any, index: number, self: any) =>
+        index === self.findIndex((t: any) => t.mlsId === value.mlsId)
+    );
+    if (limit !== undefined) {
+      return totalData.splice(0, limit);
+    }
+    return totalData;
   }
-  return totalData;
+  return [];
 }
 
 export async function SimplyRETSGetSearchListing(
@@ -136,6 +140,12 @@ export function SimplyRETSGenerateDevelopmentCard(
   retsProperty: any,
   listingData: ListingData
 ): DevelopmentCardProps | undefined {
+  if (retsProperty === undefined) {
+    return undefined;
+  }
+  if (retsProperty.property === undefined) {
+    return undefined;
+  }
   if (retsProperty.property.subdivision === null) {
     return undefined;
   }
@@ -159,7 +169,7 @@ export function SimplyRETSGenerateDevelopmentCard(
     retsProperty.property.bathsFull.toString() + '.' + retsProperty.property.bathsHalf.toString()
   );
   const developmentCard: DevelopmentCardProps = {
-    url: `${LISTINGS_URL}/mls/${retsProperty.mlsId}`,
+    url: `${LISTINGS_MLS_URL}/${retsProperty.mlsId}`,
     name: retsProperty.property.subdivision,
     price: retsProperty.listPrice,
     bathroms: bathroms,
@@ -179,6 +189,12 @@ export const SimplyRETSGenerateDevelopmentMainCard = (
   retsProperty: any,
   listingData: ListingData
 ): DevelopmentMainCardProps | undefined => {
+  if (retsProperty.error !== undefined) {
+    return undefined;
+  }
+  if (retsProperty.property === undefined || retsProperty.property === null) {
+    return undefined;
+  }
   if (retsProperty.property.subdivision === null) {
     return undefined;
   }
@@ -204,7 +220,7 @@ export const SimplyRETSGenerateDevelopmentMainCard = (
 
   const photos = retsProperty.photos.splice(0, 3);
   const developmentCard: DevelopmentMainCardProps = {
-    url: `${LISTINGS_URL}/mls/${retsProperty.mlsId}`,
+    url: `${LISTINGS_MLS_URL}/${retsProperty.mlsId}`,
     name: retsProperty.property.subdivision,
     price: retsProperty.listPrice,
     bathroms: bathroms,
@@ -302,6 +318,7 @@ export async function SimplyRETSGenerateAllDevelopmentCards(
     async (returnData: Promise<DevelopmentCardProps[]>, area: ListingData) => {
       const currentData = await returnData;
       if (area.name !== undefined) {
+        await timeout(100);
         const areaRetsProperties = await SimplyRETSGetListing(area, limit);
         for (const retsProperty of areaRetsProperties) {
           const developmentCard: DevelopmentCardProps | undefined =
@@ -333,25 +350,28 @@ export async function SimplyRETSGenerateAllMainCards(listingData: ListingData[])
 
 export async function SimplyRETSGenerateSingleProperty(mlsId: string, listingData: ListingData[]) {
   const retsProperty = await SimplyRETSGetSingleListing(mlsId);
+  if (retsProperty === undefined) {
+    return undefined;
+  }
+  if (retsProperty.property === undefined) {
+    return undefined;
+  }
+  if (retsProperty.property.subdivision === null) {
+    return undefined;
+  }
   const exteriorFeatures =
     retsProperty.property.exteriorFeatures !== null
       ? retsProperty.property.exteriorFeatures.split(',')
-      : [];
-  const interiorFeatures =
-    retsProperty.property.interiorFeatures !== null
-      ? retsProperty.property.interiorFeatures.split(',')
       : [];
   const amenities = exteriorFeatures.map((amenity: string) => {
     return {
       name: amenity,
     };
   });
-  let geo:
-    | {
-        lat: number;
-        lng: number;
-      }
-    | undefined = undefined;
+  let geo: {
+    lat?: number;
+    lng?: number;
+  } = {};
   if (retsProperty.geo.lat !== null && retsProperty.geo.lng !== null) {
     geo = {
       lat: retsProperty.geo.lat,
@@ -364,14 +384,14 @@ export async function SimplyRETSGenerateSingleProperty(mlsId: string, listingDat
   const myArea = SimplyRETSGetPropertyArea(listingData, retsProperty);
   const propertyToReturn: DevelopmentCompleteProps = {
     id: retsProperty.mlsId,
-    url: `${LISTINGS_URL}/mls/${retsProperty.mlsId}`,
+    url: `${LISTINGS_MLS_URL}/${retsProperty.mlsId}`,
     name: retsProperty.property.subdivision,
-    description: retsProperty.remarks,
-    price: retsProperty.listPrice,
-    lotSize: retsProperty.property.lotSizeArea,
-    area: retsProperty.property.area,
-    bathroms: bathroms,
-    bedrooms: retsProperty.property.bedrooms,
+    description: retsProperty.remarks !== null ? retsProperty.remarks : '',
+    price: retsProperty.listPrice !== null ? retsProperty.listPrice : 0,
+    lotSize: retsProperty.property.lotSizeArea !== null ? retsProperty.property.lotSizeArea : 0,
+    area: retsProperty.property.area !== null ? retsProperty.property.area : 0,
+    bathroms: bathroms !== null ? bathroms : 0,
+    bedrooms: retsProperty.property.bedrooms !== null ? retsProperty.property.bedrooms : 0,
     exteriorFeatures:
       retsProperty.property.exteriorFeatures !== null
         ? retsProperty.property.exteriorFeatures.replaceAll(',', ', ')
@@ -380,10 +400,12 @@ export async function SimplyRETSGenerateSingleProperty(mlsId: string, listingDat
       retsProperty.property.interiorFeatures !== null
         ? retsProperty.property.interiorFeatures.replaceAll(',', ', ')
         : '',
-    construction: retsProperty.property.construction,
-    view: retsProperty.property.view,
-    cooling: retsProperty.property.cooling,
-    showingInstructions: retsProperty.showingInstructions,
+    construction:
+      retsProperty.property.construction !== null ? retsProperty.property.construction : '',
+    view: retsProperty.property.view !== null ? retsProperty.property.view : '',
+    cooling: retsProperty.property.cooling !== null ? retsProperty.property.cooling : '',
+    showingInstructions:
+      retsProperty.showingInstructions !== null ? retsProperty.showingInstructions : '',
     amenities: amenities,
     listing: myArea,
     images: retsProperty.photos.map((photo: string, index: number) => ({

@@ -69,9 +69,9 @@ export type DevelopmentCompleteProps = {
     src: string;
     alt: string;
   }[];
-  geo?: {
-    lat: number;
-    lng: number;
+  geo: {
+    lat?: number;
+    lng?: number;
   };
   fullProperty?: any;
 };

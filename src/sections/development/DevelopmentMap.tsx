@@ -47,9 +47,11 @@ export default function DevelopmentMap({ geo }: DevelopmentCompleteProps) {
     googleMapsApiKey: 'AIzaSyAHKqD3Tvh3qX52tXMj9czl9grqIGP2oYQ',
   });
 
-  if (geo === undefined) {
+  if (geo.lat === undefined || geo.lng === undefined) {
     return <div />;
   }
+  const lat = geo.lat;
+  const lng = geo.lng;
   return (
     <Grid xs={12} css={{ marginTop: 45 }}>
       <RenderContainer
@@ -83,9 +85,17 @@ export default function DevelopmentMap({ geo }: DevelopmentCompleteProps) {
                 id='marker-example'
                 mapContainerStyle={{ width: '100%', height: '100%', position: 'relative' }}
                 zoom={15}
-                center={geo}
+                center={{
+                  lat: lat,
+                  lng: lng,
+                }}
               >
-                <Marker position={geo} />
+                <Marker
+                  position={{
+                    lat: lat,
+                    lng: lng,
+                  }}
+                />
               </GoogleMap>
             )}
           </Container>
@@ -120,9 +130,17 @@ export default function DevelopmentMap({ geo }: DevelopmentCompleteProps) {
                 id='marker-example'
                 mapContainerStyle={{ width: '100%', height: '100%', position: 'relative' }}
                 zoom={15}
-                center={geo}
+                center={{
+                  lat: lat,
+                  lng: lng,
+                }}
               >
-                <Marker position={geo} />
+                <Marker
+                  position={{
+                    lat: lat,
+                    lng: lng,
+                  }}
+                />
               </GoogleMap>
             )}
           </Container>

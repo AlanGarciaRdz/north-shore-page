@@ -1,38 +1,45 @@
-import { InferGetStaticPropsType } from 'next';
-import { RefObject, useRef, useState } from 'react';
+import { InferGetServerSidePropsType } from 'next';
+import { useRouter } from 'next/router';
+import { RefObject, useEffect, useRef, useState } from 'react';
+import { DevelopmentCompleteProps } from 'src/components/development/Development.types';
 import PageLayout from 'src/components/layouts/PageLayout';
-import { GenerateAreas, SimplyRETSGenerateSingleProperty, SimplyRETSGetAllListing } from 'src/scripts/RETSPropertiesData';
+import { LISTINGS_URL } from 'src/scripts/GeneralData';
+import { GenerateAreas, SimplyRETSGenerateSingleProperty } from 'src/scripts/RETSPropertiesData';
 import DevelopmentDataInfo from 'src/sections/development/DevelopmentDataInfo';
 import DevelopmentGallery from 'src/sections/development/DevelopmentGallery';
 import DevelopmentGeneralInfo from 'src/sections/development/DevelopmentGeneralInfo';
 import DevelopmentHeader from 'src/sections/development/DevelopmentHeader';
 
-export async function getStaticPaths() {
-  const developments = await SimplyRETSGetAllListing();
-  const paths = developments.map((retsProperty: any) => {
-    return {
-      params: {
-        mlsId: retsProperty.mlsId.toString(),
-      },
-    };
-  });
-  return {
-    paths,
-    fallback: 'blocking', // false or 'blocking'
-  };
-}
-
-export async function getStaticProps(props: any) {
+export async function getServerSideProps(props: any) {
   const { mlsId }: { mlsId: string } = props.params;
   const listingData = GenerateAreas();
   const development = await SimplyRETSGenerateSingleProperty(mlsId, listingData);
+  if (development === undefined) {
+    return {
+      props: {
+        development: {} as DevelopmentCompleteProps,
+      },
+      redirect: {
+        destination: LISTINGS_URL,
+      },
+    };
+  }
   return {
     props: { development },
   };
 }
 
-function Development({ development }: InferGetStaticPropsType<typeof getStaticProps>) {
+function Development({ development }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
   const contactRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (development === undefined) {
+      router.push('/');
+    }
+  });
+  if (development === undefined) {
+    return <div />;
+  }
   return (
     <PageLayout showContactCard navigationOnAbsolute={true}>
       <DevelopmentHeader
