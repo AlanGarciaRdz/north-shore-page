@@ -6,7 +6,8 @@ import { DevelopmentMainCardProps } from 'src/components/development/Development
 import PageLayout from 'src/components/layouts/PageLayout';
 import ListingFilterCard, { ListingFilter } from 'src/components/listing/ListingFilterCard';
 import { ListingData } from 'src/components/listing/Listings.types';
-import { GenerateAreas, SimplyRETSGenerateAllMainCards, SimplyRETSGenerateSearchDevelopmentCards } from 'src/scripts/RETSPropertiesData';
+import { CMSGenerateAllListingCards, CMSGenerateSearchDevelopmentCards } from 'src/scripts/CMSPropertiesData';
+import { GenerateAreas, SimplyRETSGenerateSearchDevelopmentCards } from 'src/scripts/RETSPropertiesData';
 import { getQueryFromURL, IsEmptyString, removeQueryFromURL, updateQueryFromURL } from 'src/scripts/StringTools';
 import ListingsFeaturedProperties from 'src/sections/listings/ListingsFeaturedProperties';
 import ListingsPropertiesList from 'src/sections/listings/ListingsPropertiesList';
@@ -19,7 +20,7 @@ const ListingsHeader = dynamic(() => import('src/sections/listings/ListingsHeade
 
 export const getStaticProps = async () => {
   const listingData = GenerateAreas();
-  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await SimplyRETSGenerateAllMainCards(
+  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await CMSGenerateAllListingCards(
     listingData
   );
   const header = await getListingsHeader();
@@ -169,9 +170,22 @@ function Listings({
       filterCheck.bedrooms,
       filterCheck.bathrooms
     );
+    const cmsDevelopmentsCars = await CMSGenerateSearchDevelopmentCards(
+      listingData,
+      listingDataQuery,
+      pagination,
+      cardsPerPage,
+      filterCheck.minValue,
+      filterCheck.maxValue,
+      filterCheck.bedrooms,
+      filterCheck.bathrooms
+    );
     setSearchDevelopments({
-      cards: retsDevelopmentsCards.cards,
-      total: retsDevelopmentsCards.count,
+      cards: [...cmsDevelopmentsCars.cards, ...retsDevelopmentsCards.cards],
+      total:
+        retsDevelopmentsCards.count > cmsDevelopmentsCars.count
+          ? retsDevelopmentsCards.count
+          : cmsDevelopmentsCars.count,
     });
   }
 

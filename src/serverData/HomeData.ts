@@ -19,7 +19,7 @@ export async function getHomeHeader(
   { headerImage, headerTitle, headerButton }: HomePageAttributesProps,
   properties: DevelopmentMainCardProps[]
 ) {
-  const headerImageLarge = getImageData(headerImage);
+  const headerImageLarge = getImageData(headerImage.data);
   const header = {
     page: {
       title: headerTitle,
@@ -65,7 +65,7 @@ export async function getHomeAboutUs({ aboutUsSlider, aboutUsBody }: HomePageAtt
       subtitle: aboutUsBody,
     },
     sliders: aboutUsSlider.map((singleSlider: any) => {
-      const image = getImageData(singleSlider.image);
+      const image = getImageData(singleSlider.image.data);
       return {
         image,
         title: singleSlider.title,
@@ -79,7 +79,7 @@ export async function getHomeAboutUs({ aboutUsSlider, aboutUsBody }: HomePageAtt
 export async function getHomeBlogs(blogsData: any, { ourBlogBody }: HomePageAttributesProps) {
   const blogs: BlogSmallCardProps[] = blogsData.map((blog: any) => {
     const blogAttributes = blog.attributes;
-    const thumbnail = getImageData(blogAttributes.thumbnail);
+    const thumbnail = getImageData(blogAttributes.thumbnail.data);
     return {
       url: BLOGS_URL + formatToURL(blogAttributes.url),
       title: blogAttributes.title,

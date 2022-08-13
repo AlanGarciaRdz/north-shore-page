@@ -11,7 +11,7 @@ interface BlogPageAttributesProps {
 }
 
 export async function getBlogHeader({ headerImage }: BlogPageAttributesProps) {
-  const headerImageLarge = getImageData(headerImage);
+  const headerImageLarge = getImageData(headerImage.data);
   const header = {
     page: {
       title: 'Our Blog',
@@ -26,7 +26,7 @@ export async function getBlogVisitOurListings({
   bottomBannerLink,
   bottomBannerText,
 }: BlogPageAttributesProps) {
-  const bottomBannerImageLarge = getImageData(bottomBannerImage);
+  const bottomBannerImageLarge = getImageData(bottomBannerImage.data);
   const header = {
     page: {
       title: bottomBannerText,
@@ -40,7 +40,7 @@ export async function getBlogVisitOurListings({
 export async function getBlogList(blogsData: any) {
   const blgoCards: BlogCardProps[] = blogsData.map((blog: any) => {
     const blogData = blog.attributes;
-    const thumbnail = getImageData(blogData.thumbnail);
+    const thumbnail = getImageData(blogData.thumbnail.data);
     return {
       url: BLOGS_URL + '/' + formatToURL(blogData.url),
       title: blogData.title,

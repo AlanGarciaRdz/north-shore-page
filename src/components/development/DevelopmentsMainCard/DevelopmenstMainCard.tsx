@@ -139,7 +139,7 @@ export default function DevelopmenstMainCard({
           );
         })}
       </Swiper>
-      {showNavButtons && !isEnd && onHover === true && (
+      {showNavButtons && !isEnd && onHover === true && developments.length > 1 && (
         <Button
           auto
           css={{
@@ -155,7 +155,7 @@ export default function DevelopmenstMainCard({
           <AiOutlineArrowRight />
         </Button>
       )}
-      {showNavButtons && !isBeginning && onHover === true && (
+      {showNavButtons && !isBeginning && onHover === true && developments.length > 1 && (
         <Button
           auto
           css={{

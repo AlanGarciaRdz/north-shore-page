@@ -22,7 +22,7 @@ export async function getBlogPostData({
   url,
   publishedAt,
 }: BlogPostAttributesProps): Promise<BlogPostProps> {
-  const blogImageLarge = getImageData(image);
+  const blogImageLarge = getImageData(image.data);
   const blogData = {
     id: id,
     title: title,

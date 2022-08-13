@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import API from 'src/API/API';
 import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import PageLayout from 'src/components/layouts/PageLayout';
-import { GenerateAreas, SimplyRETSGenerateAllDevelopmentCards, SimplyRETSGenerateAllMainCards } from 'src/scripts/RETSPropertiesData';
+import { CMSGenerateAllDevelopmentCards, CMSGenerateAllHomeCards } from 'src/scripts/CMSPropertiesData';
+import { GenerateAreas, SimplyRETSGenerateAllDevelopmentCards } from 'src/scripts/RETSPropertiesData';
 import { getHomeAboutUs, getHomeBlogs, getHomeHeader, getHomeLocation } from 'src/serverData/HomeData';
 
 const HomeHeader = dynamic(() => import('src/sections/home/HomeHeader'), {
@@ -69,9 +70,13 @@ export const getStaticProps = async () => {
   const listingData = await GenerateAreas();
   const retsDevelopmentsCards: DevelopmentCardProps[] = await SimplyRETSGenerateAllDevelopmentCards(
     listingData,
-    7
+    4
   );
-  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await SimplyRETSGenerateAllMainCards(
+  const cmsDevelopmentsCards: DevelopmentCardProps[] = await CMSGenerateAllDevelopmentCards(
+    listingData,
+    4
+  );
+  const mainDevelopmentsCards: DevelopmentMainCardProps[] = await CMSGenerateAllHomeCards(
     listingData
   );
   const responseHomePage = await GetHomeData();
@@ -79,7 +84,10 @@ export const getStaticProps = async () => {
   const blogsData = responseHomeBlogs.data;
   const homePageAttributes = responseHomePage.data.attributes;
   const header = await getHomeHeader(homePageAttributes, mainDevelopmentsCards);
-  const location = await getHomeLocation(homePageAttributes, listingData, retsDevelopmentsCards);
+  const location = await getHomeLocation(homePageAttributes, listingData, [
+    ...retsDevelopmentsCards,
+    ...cmsDevelopmentsCards,
+  ]);
   const aboutUs = await getHomeAboutUs(homePageAttributes);
   const homeBlogs = await getHomeBlogs(blogsData, homePageAttributes);
   return {

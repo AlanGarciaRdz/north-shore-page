@@ -2,39 +2,10 @@ import APISimplyRETS from 'src/API/APISimplyRETS';
 import { DevelopmentCardProps, DevelopmentCompleteProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import { ListingData } from 'src/components/listing/Listings.types';
 
-import { LISTINGS_MLS_URL, LISTINGS_URL } from './GeneralData';
+import { avilableNeighborhoods, LISTINGS_MLS_URL, LISTINGS_URL } from './GeneralData';
 import { ValueExistOnObject } from './ObjectTools';
 import { timeout } from './PromiseTools';
 import { formatToURL } from './StringTools';
-
-const avilableNeighborhoods = [
-  {
-    name: 'San Pancho',
-    searchQuerys: ['San Pancho'],
-  },
-  {
-    name: 'Sayulita',
-    searchQuerys: ['Sayulita'],
-  },
-  {
-    name: 'Lo de Marcos',
-    searchQuerys: ['Lo de Marcos'],
-  },
-  /*
-  {
-    name: 'Las Lomas',
-    searchQuerys: ["Las Lomas"]
-  },
-  */
-  {
-    name: 'Punta Mita',
-    searchQuerys: ['Punta Mita', 'Punta de Mita'],
-  },
-  {
-    name: 'Litibu',
-    searchQuerys: ['Litibu'],
-  },
-];
 
 export async function SimplyRETSGetMetaData() {
   const retsAPI = new APISimplyRETS();
@@ -189,6 +160,9 @@ export const SimplyRETSGenerateDevelopmentMainCard = (
   retsProperty: any,
   listingData: ListingData
 ): DevelopmentMainCardProps | undefined => {
+  if (retsProperty === undefined) {
+    return undefined;
+  }
   if (retsProperty.error !== undefined) {
     return undefined;
   }
@@ -307,7 +281,7 @@ export async function SimplyRETSGenerateSearchDevelopmentCards(
       }
     }
   }
-  return { cards: retsDevelopmentsCards, count };
+  return { cards: retsDevelopmentsCards, count: parseInt(count) };
 }
 
 export async function SimplyRETSGenerateAllDevelopmentCards(
