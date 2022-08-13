@@ -67,7 +67,12 @@ export default function ContactCard() {
         phoneNumber: formatToNumber(userContactData.phone),
         message: userContactData.message,
         userPlatform: userPlatform,
-        property: router.query.mlsId !== undefined ? `mlsId-${router.query.mlsId}` : '',
+        property:
+          router.query.mlsId !== undefined
+            ? `mlsId-${router.query.mlsId}`
+            : router.query.cmsId !== undefined
+            ? `cmsId-${router.query.cmsId}`
+            : '',
         url: window.location.href,
       },
     });
