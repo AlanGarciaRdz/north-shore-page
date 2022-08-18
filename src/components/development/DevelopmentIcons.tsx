@@ -1,15 +1,21 @@
 import { IconType } from 'react-icons';
-import { BiBath, BiBed } from 'react-icons/bi';
-import { IoExpand } from 'react-icons/io5';
+import { BsHouseDoorFill } from 'react-icons/bs';
+import { FaShower } from 'react-icons/fa';
+import { IoBed } from 'react-icons/io5';
+import { TbToiletPaper } from 'react-icons/tb';
 
 export const BedroomsIcon: IconType = (props) => {
-  return <BiBed {...props} />;
+  return <IoBed {...props} />;
 };
 
 export const BathroomsIcon: IconType = (props) => {
-  return <BiBath {...props} />;
+  return <FaShower {...props} />;
+};
+
+export const HalfBathroomsIcon: IconType = (props) => {
+  return <TbToiletPaper {...props} />;
 };
 
 export const MT2Icon: IconType = (props) => {
-  return <IoExpand {...props} />;
+  return <BsHouseDoorFill {...props} />;
 };

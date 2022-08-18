@@ -30,8 +30,7 @@ const NavigationContainer = ({
 }: NavigationContainerProps) => {
   const opacityToSet = 0.9;
   const baseStyle = {
-    background:
-      'linear-gradient(180deg, #333333 0%, rgba(51, 51, 51, 0.53) 100%)',
+    background: 'linear-gradient(180deg, #333333 0%, rgba(51, 51, 51, 0.53) 100%)',
     backdropFilter: ' blur(6px)',
     width: '100vw',
     maxWidth: '100vw',
@@ -57,9 +56,7 @@ const NavigationContainer = ({
           zIndex: 200,
         }}
       >
-        <animated.header style={{ ...bigHeaderStyles, ...baseStyle }}>
-          {children}
-        </animated.header>
+        <animated.header style={{ ...bigHeaderStyles, ...baseStyle }}>{children}</animated.header>
       </div>
       <div
         style={{
@@ -68,9 +65,7 @@ const NavigationContainer = ({
           zIndex: 200,
         }}
       >
-        <animated.header style={{ ...smallHeaderStyles, ...baseStyle }}>
-          {children}
-        </animated.header>
+        <animated.header style={{ ...smallHeaderStyles, ...baseStyle }}>{children}</animated.header>
       </div>
     </>
   );
@@ -81,10 +76,7 @@ type NavigationProps = {
   toggleDrawer: () => void;
 };
 
-export default function Navigation({
-  contactRef,
-  toggleDrawer,
-}: NavigationProps) {
+export default function Navigation({ contactRef, toggleDrawer }: NavigationProps) {
   const navigationConf = {
     hideDuration: 50,
     showDuration: 200,
@@ -110,38 +102,29 @@ export default function Navigation({
   }, [scrollPosition]);
 
   return (
-    <NavigationContainer
-      useSmallNavigation={useSmallNavigation}
-      {...navigationConf}
-    >
+    <NavigationContainer useSmallNavigation={useSmallNavigation} {...navigationConf}>
       <Container
         fluid
         responsive={false}
         css={{ margin: 0, padding: 0, width: '100%', height: '100%' }}
       >
-        <Container
-          css={{ ...MainSectionsContainerCSS, width: '100%', height: '100%' }}
-        >
-          <Grid.Container
-            justify='space-between'
-            alignItems='center'
-            css={{ height: '100%' }}
-          >
+        <Container css={{ ...MainSectionsContainerCSS, width: '100%', height: '100%' }}>
+          <Grid.Container justify='space-between' alignItems='center' css={{ height: '100%' }}>
             <Grid xs={6}>
               <Link href={'/'}>
-                <OptimizeImage
-                  src={`/images/${
-                    useSmallNavigation
-                      ? 'logo-simple.png'
-                      : 'logo-white-text.png'
-                  }`}
-                  layout='fixed'
-                  alt='North Shore Logo'
-                  useBlur={false}
-                  width={useSmallNavigation ? 40 : 156}
-                  height={useSmallNavigation ? 40 : 80}
-                  containerCSS={{ cursor: 'pointer' }}
-                />
+                <div>
+                  <OptimizeImage
+                    src={`/images/${
+                      useSmallNavigation ? 'logo-simple.png' : 'logo-white-text.png'
+                    }`}
+                    layout='fixed'
+                    alt='North Shore Logo'
+                    useBlur={false}
+                    width={useSmallNavigation ? 40 : 156}
+                    height={useSmallNavigation ? 40 : 80}
+                    containerCSS={{ cursor: 'pointer' }}
+                  />
+                </div>
               </Link>
             </Grid>
             <Grid xs={6} justify='flex-end'>

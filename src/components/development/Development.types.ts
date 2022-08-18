@@ -9,7 +9,8 @@ export type DevelopmentMainCardProps = {
   url?: string;
   name?: string;
   price?: number;
-  bathroms?: number;
+  bathrooms?: number;
+  halfBathrooms?: number;
   bedrooms?: number;
   squareFT?: number;
   listing?: {
@@ -28,7 +29,8 @@ export type DevelopmentCardProps = {
   url?: string;
   name?: string;
   price?: number;
-  bathroms?: number;
+  bathrooms?: number;
+  halfBathrooms?: number;
   bedrooms?: number;
   squareFT?: number;
   listing?: {
@@ -55,7 +57,8 @@ export type DevelopmentCompleteProps = {
   price?: number;
   lotSize?: number;
   area?: number;
-  bathroms?: number;
+  bathrooms?: number;
+  halfBathrooms?: number;
   bedrooms?: number;
   exteriorFeatures?: string;
   interiorFeatures?: string;

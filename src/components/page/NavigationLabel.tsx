@@ -37,19 +37,21 @@ const NavigationLabel = ({
   }
   return (
     <Link href={href}>
-      <Text
-        color='white'
-        weight='bold'
-        id={`navigate-to-${href}`}
-        css={{
-          marginRight: noMargin ? 0 : 32,
-          cursor: 'pointer',
-          fontSize: isBigText ? '$lg' : '$base',
-        }}
-        onClick={onClick}
-      >
-        {label}
-      </Text>
+      <div>
+        <Text
+          color='white'
+          weight='bold'
+          id={`navigate-to-${href}`}
+          css={{
+            marginRight: noMargin ? 0 : 32,
+            cursor: 'pointer',
+            fontSize: isBigText ? '$lg' : '$base',
+          }}
+          onClick={onClick}
+        >
+          {label}
+        </Text>
+      </div>
     </Link>
   );
 };

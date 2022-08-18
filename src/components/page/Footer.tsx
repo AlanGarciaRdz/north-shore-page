@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { forwardRef, RefObject, useEffect, useState } from 'react';
 import OptimizeImage from 'src/components/base/OptimizeImage';
 import { useContactDataContext } from 'src/context/ContactDataContext';
+import { avilableNeighborhoods, LISTINGS_URL } from 'src/scripts/GeneralData';
+import { formatToURL } from 'src/scripts/StringTools';
 import { WithChildren } from 'src/scripts/Types';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
@@ -53,11 +55,7 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
           alignItems='center'
           css={{ height: '100%', position: 'relative' }}
         >
-          <Grid
-            xs={12}
-            sm={0}
-            css={{ position: 'absolute', width: '100%', top: -260, right: 0 }}
-          >
+          <Grid xs={12} sm={0} css={{ position: 'absolute', width: '100%', top: -260, right: 0 }}>
             {showContactCard === true && (
               <div style={{ width: '100%' }}>
                 <ContactCard />
@@ -80,15 +78,17 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
               <Grid.Container>
                 <Grid xs={12} css={{ marginBottom: 32 }}>
                   <Link href={'/'}>
-                    <OptimizeImage
-                      src={'/images/logo-blue.png'}
-                      layout='fixed'
-                      alt='North Shore Logo'
-                      useBlur={false}
-                      width={65}
-                      height={80}
-                      containerCSS={{ cursor: 'pointer' }}
-                    />
+                    <div>
+                      <OptimizeImage
+                        src={'/images/logo-blue.png'}
+                        layout='fixed'
+                        alt='North Shore Logo'
+                        useBlur={false}
+                        width={65}
+                        height={80}
+                        containerCSS={{ cursor: 'pointer' }}
+                      />
+                    </div>
                   </Link>
                 </Grid>
                 <Grid xs={12} css={{ marginBottom: 4 }}>
@@ -111,49 +111,44 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
                 </Grid>
                 <Grid xs={12} css={{ marginBottom: 0 }}>
                   <a href={contactDataInfo?.phoneNumber.link}>
-                    <Text color='$secondary'>
-                      {contactDataInfo?.phoneNumber.label}
-                    </Text>
+                    <Text color='$secondary'>{contactDataInfo?.phoneNumber.label}</Text>
                   </a>
                 </Grid>
                 <Grid xs={12} css={{ marginBottom: 32 }}>
                   <a href={contactDataInfo.email.link}>
-                    <Text color='$secondary'>
-                      {contactDataInfo?.email.label}
-                    </Text>
+                    <Text color='$secondary'>{contactDataInfo?.email.label}</Text>
                   </a>
                 </Grid>
                 <Grid xs={12} sm={5} css={{ marginBottom: 32 }}>
                   <Text color='$secondary'>
                     {contactDataInfo?.address1}
-                    <span style={{ fontWeight: 'bold' }}>
-                      {contactDataInfo?.address2}
-                    </span>
+                    <span style={{ fontWeight: 'bold' }}>{contactDataInfo?.address2}</span>
                   </Text>
                 </Grid>
                 <Grid xs={12}>
-                  <a href={`${contactDataInfo?.bottomData1.link}`}>
-                    <Text color='$secondary'>
-                      {contactDataInfo?.bottomData1.label}
-                    </Text>
-                  </a>
-                  <Text color='$secondary' css={{ margin: '0px 10px' }}>
-                    {'·'}
-                  </Text>
-                  <a href={`${contactDataInfo?.bottomData2.link}`}>
-                    <Text color='$secondary'>
-                      {contactDataInfo?.bottomData2.label}
-                    </Text>
-                  </a>
+                  {avilableNeighborhoods.map((avilableNeighborhood, index) => {
+                    return (
+                      <>
+                        <a
+                          href={`${LISTINGS_URL}?location=${formatToURL(
+                            avilableNeighborhood.name
+                          )}`}
+                        >
+                          <Text color='$secondary'>{avilableNeighborhood.name}</Text>
+                        </a>
+                        {index + 1 < avilableNeighborhoods.length && (
+                          <Text color='$secondary' css={{ margin: '0px 10px' }}>
+                            {'·'}
+                          </Text>
+                        )}
+                      </>
+                    );
+                  })}
                 </Grid>
               </Grid.Container>
             </Container>
           </Grid>
-          <Grid
-            xs={0}
-            sm={6}
-            css={{ position: 'absolute', width: '100%', top: -230, right: 0 }}
-          >
+          <Grid xs={0} sm={6} css={{ position: 'absolute', width: '100%', top: -230, right: 0 }}>
             {showContactCard === true && (
               <div style={{ width: '100%' }} id='contact-card'>
                 <ContactCard />

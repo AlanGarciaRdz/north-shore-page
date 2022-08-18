@@ -16,12 +16,7 @@ type HomeBlogsProps = {
   blogs: BlogSmallCardProps[];
 };
 
-export default function HomeBlogs({
-  title,
-  subtitle,
-  blogs,
-  goToBlogsLabel,
-}: HomeBlogsProps) {
+export default function HomeBlogs({ title, subtitle, blogs, goToBlogsLabel }: HomeBlogsProps) {
   if (blogs.length === 0) return <div />;
   return (
     <Container
@@ -86,18 +81,11 @@ export default function HomeBlogs({
             }}
           >
             <Link href={BLOGS_URL}>
-              <Button
-                auto
-                bordered
-                iconRight={<BsArrowRight />}
-                css={{
-                  backgroundColor: '$background',
-                  borderColor: '$background',
-                  color: '$text',
-                }}
-              >
-                {goToBlogsLabel}
-              </Button>
+              <div>
+                <Button auto iconRight={<BsArrowRight />} color={'secondary'}>
+                  {goToBlogsLabel}
+                </Button>
+              </div>
             </Link>
           </Container>
         </Grid>

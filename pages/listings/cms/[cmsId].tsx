@@ -10,6 +10,7 @@ import DevelopmentDataInfo from 'src/sections/development/DevelopmentDataInfo';
 import DevelopmentGallery from 'src/sections/development/DevelopmentGallery';
 import DevelopmentGeneralInfo from 'src/sections/development/DevelopmentGeneralInfo';
 import DevelopmentHeader from 'src/sections/development/DevelopmentHeader';
+import DevelopmentMap from 'src/sections/development/DevelopmentMap';
 
 export async function getServerSideProps(props: any) {
   const { cmsId }: { cmsId: string } = props.params;
@@ -67,6 +68,7 @@ function Development({ development }: InferGetServerSidePropsType<typeof getServ
         }}
       />
       <DevelopmentGeneralInfo {...development} />
+      <DevelopmentMap {...development} />
       <div
         style={{
           width: '100%',

@@ -1,6 +1,6 @@
 import { Container, Grid, Text } from '@nextui-org/react';
 
-import { BathroomsIcon, BedroomsIcon, MT2Icon } from './DevelopmentIcons';
+import { BathroomsIcon, BedroomsIcon, HalfBathroomsIcon, MT2Icon } from './DevelopmentIcons';
 
 type DevelopmentSingleDataProps = {
   icon: React.ReactNode;
@@ -34,17 +34,24 @@ const DevelopmentSingleData = ({ data, name, icon, bigData }: DevelopmentSingleD
 };
 
 type DevelopmentDataProps = {
-  bathroms?: string;
+  bathrooms?: string;
+  halfBathrooms?: string;
   bedrooms?: string;
   squareFT?: string;
   bigData?: boolean;
 };
-const DevelopmentData = ({ bathroms, bedrooms, squareFT, bigData }: DevelopmentDataProps) => {
+const DevelopmentData = ({
+  bathrooms,
+  halfBathrooms,
+  bedrooms,
+  squareFT,
+  bigData,
+}: DevelopmentDataProps) => {
   const iconSize = bigData ? 30 : 16;
   const gridProps = bigData
     ? {
         xs: 6,
-        sm: 4,
+        sm: 3,
       }
     : {
         css: {
@@ -64,9 +71,17 @@ const DevelopmentData = ({ bathroms, bedrooms, squareFT, bigData }: DevelopmentD
       <Grid.Container justify={bigData ? 'center' : 'flex-start'} alignItems='center'>
         <Grid {...gridProps}>
           <DevelopmentSingleData
-            data={bathroms || '0'}
+            data={bathrooms || '0'}
             name='Bathrooms'
             icon={<BathroomsIcon style={{ fontSize: iconSize }} />}
+            bigData={bigData}
+          />
+        </Grid>
+        <Grid {...gridProps}>
+          <DevelopmentSingleData
+            data={halfBathrooms || '0'}
+            name='Half Bathrooms'
+            icon={<HalfBathroomsIcon style={{ fontSize: iconSize }} />}
             bigData={bigData}
           />
         </Grid>

@@ -136,14 +136,12 @@ export function SimplyRETSGenerateDevelopmentCard(
     };
   });
 
-  const bathroms = parseFloat(
-    retsProperty.property.bathsFull.toString() + '.' + retsProperty.property.bathsHalf.toString()
-  );
   const developmentCard: DevelopmentCardProps = {
     url: `${LISTINGS_MLS_URL}/${retsProperty.mlsId}`,
     name: retsProperty.property.subdivision,
     price: retsProperty.listPrice,
-    bathroms: bathroms,
+    bathrooms: retsProperty.property.bathsFull !== null ? retsProperty.property.bathsFull : 0,
+    halfBathrooms: retsProperty.property.bathsHalf !== null ? retsProperty.property.bathsHalf : 0,
     bedrooms: retsProperty.property.bedrooms,
     squareFT: retsProperty.property.area,
     listing: {
@@ -188,16 +186,13 @@ export const SimplyRETSGenerateDevelopmentMainCard = (
     };
   });
 
-  const bathroms = parseFloat(
-    retsProperty.property.bathsFull.toString() + '.' + retsProperty.property.bathsHalf.toString()
-  );
-
   const photos = retsProperty.photos.splice(0, 3);
   const developmentCard: DevelopmentMainCardProps = {
     url: `${LISTINGS_MLS_URL}/${retsProperty.mlsId}`,
     name: retsProperty.property.subdivision,
     price: retsProperty.listPrice,
-    bathroms: bathroms,
+    bathrooms: retsProperty.property.bathsFull !== null ? retsProperty.property.bathsFull : 0,
+    halfBathrooms: retsProperty.property.bathsHalf !== null ? retsProperty.property.bathsHalf : 0,
     bedrooms: retsProperty.property.bedrooms,
     squareFT: retsProperty.property.area,
     listing: {
@@ -352,9 +347,6 @@ export async function SimplyRETSGenerateSingleProperty(mlsId: string, listingDat
       lng: retsProperty.geo.lng,
     };
   }
-  const bathroms = parseFloat(
-    retsProperty.property.bathsFull.toString() + '.' + retsProperty.property.bathsHalf.toString()
-  );
   const myArea = SimplyRETSGetPropertyArea(listingData, retsProperty);
   const propertyToReturn: DevelopmentCompleteProps = {
     id: retsProperty.mlsId,
@@ -364,7 +356,8 @@ export async function SimplyRETSGenerateSingleProperty(mlsId: string, listingDat
     price: retsProperty.listPrice !== null ? retsProperty.listPrice : 0,
     lotSize: retsProperty.property.lotSizeArea !== null ? retsProperty.property.lotSizeArea : 0,
     area: retsProperty.property.area !== null ? retsProperty.property.area : 0,
-    bathroms: bathroms !== null ? bathroms : 0,
+    bathrooms: retsProperty.property.bathsFull !== null ? retsProperty.property.bathsFull : 0,
+    halfBathrooms: retsProperty.property.bathsHalf !== null ? retsProperty.property.bathsHalf : 0,
     bedrooms: retsProperty.property.bedrooms !== null ? retsProperty.property.bedrooms : 0,
     exteriorFeatures:
       retsProperty.property.exteriorFeatures !== null

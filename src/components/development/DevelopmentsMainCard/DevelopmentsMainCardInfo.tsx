@@ -119,26 +119,30 @@ export default function DevelopmentsMainCardInfo({
         )}
         <Grid xs={12} css={{ marginBottom: 15 }}>
           <Link href={development.url || '/'}>
-            <Button light auto css={{ padding: 0, margin: 0 }} onClick={() => {}}>
-              <Text h2>{development.name}</Text>
-            </Button>
+            <div>
+              <Button light auto css={{ padding: 0, margin: 0 }} onClick={() => {}}>
+                <Text h2>{development.name}</Text>
+              </Button>
+            </div>
           </Link>
         </Grid>
         <Grid xs={12}>
           <Link href={development.listing?.url || '/'}>
-            <Button
-              auto
-              light
-              css={{
-                padding: 0,
-                margin: 0,
-                height: 'auto',
-                '.nextui-button-icon': { marginRight: 4 },
-              }}
-              icon={<GrLocation style={{ fontSize: 15 }} />}
-            >
-              <Text>{development.listing?.name}</Text>
-            </Button>
+            <div>
+              <Button
+                auto
+                light
+                css={{
+                  padding: 0,
+                  margin: 0,
+                  height: 'auto',
+                  '.nextui-button-icon': { marginRight: 4 },
+                }}
+                icon={<GrLocation style={{ fontSize: 15 }} />}
+              >
+                <Text>{development.listing?.name}</Text>
+              </Button>
+            </div>
           </Link>
         </Grid>
         <Grid xs={12} css={{ marginBottom: 20 }}>
@@ -151,23 +155,26 @@ export default function DevelopmentsMainCardInfo({
           <DevelopmentsMainCardData
             squareFT={development.squareFT?.toString()}
             bedrooms={development.bedrooms?.toString()}
-            bathroms={development.bathroms?.toString()}
+            bathrooms={development.bathrooms?.toString()}
+            halfBathrooms={development.halfBathrooms?.toString()}
             bigData
           />
         </Grid>
         <Grid xs={12} css={{ marginBottom: 20 }}>
           <Link href={development.url || '/'}>
-            <Button
-              auto
-              css={{
-                width: '100%',
-                backgroundColor: '$gray100',
-                border: '1px solid $accents3',
-                color: '$text',
-              }}
-            >
-              {'View Details'}
-            </Button>
+            <div>
+              <Button
+                auto
+                css={{
+                  width: '100%',
+                  backgroundColor: '$gray100',
+                  border: '1px solid $accents3',
+                  color: '$text',
+                }}
+              >
+                {'View Details'}
+              </Button>
+            </div>
           </Link>
         </Grid>
         <Grid xs={12}>

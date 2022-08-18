@@ -15,7 +15,7 @@ type HomeHeaderProps = {
   };
 };
 
-export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
+function HomeHeader({ image, title, button }: HomeHeaderProps) {
   return (
     <Container
       fluid
@@ -56,20 +56,22 @@ export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
           <Grid xs={12} />
           <Grid xs={12} sm={6}>
             <Link href={LISTINGS_URL}>
-              <Button
-                auto
-                ghost
-                css={{
-                  width: '100%',
-                  borderColor: '$white',
-                  color: '$white',
-                  '@sm': {
-                    width: '388px',
-                  },
-                }}
-              >
-                {button.label}
-              </Button>
+              <div>
+                <Button
+                  auto
+                  onPress={() => {}}
+                  css={{
+                    width: '100%',
+                    backgroundColor: '$white',
+                    color: '$black',
+                    '@sm': {
+                      width: '388px',
+                    },
+                  }}
+                >
+                  {button.label}
+                </Button>
+              </div>
             </Link>
           </Grid>
         </Grid.Container>
@@ -81,8 +83,7 @@ export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
           position: 'absolute',
           height: '100%',
           width: '100%',
-          background:
-            'linear-gradient(180deg, rgba(2,0,36,0.3) 10%,  rgba(2,0,36,0.3) 100%)',
+          background: 'linear-gradient(180deg, rgba(2,0,36,0.3) 10%,  rgba(2,0,36,0.3) 100%)',
           zIndex: 2,
         }}
       />
@@ -106,3 +107,4 @@ export default function HomeHeader({ image, title, button }: HomeHeaderProps) {
     </Container>
   );
 }
+export default HomeHeader;

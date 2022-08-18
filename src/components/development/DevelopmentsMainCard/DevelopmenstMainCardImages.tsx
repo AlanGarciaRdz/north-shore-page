@@ -17,9 +17,7 @@ type DevelopmentMainCardImageProps = {
   development: DevelopmentMainCardProps;
 };
 
-export default function DevelopmentMainCardImage({
-  development,
-}: DevelopmentMainCardImageProps) {
+export default function DevelopmentMainCardImage({ development }: DevelopmentMainCardImageProps) {
   return (
     <RenderContainer
       mobileView={
@@ -33,30 +31,35 @@ export default function DevelopmentMainCardImage({
             return (
               <SwiperSlide key={key}>
                 <Link href={development.url || '/'}>
-                  <Card
-                    clickable
-                    shadow={false}
-                    css={{
-                      padding: 0,
-                      margin: 0,
-                      borderRadius: 0,
+                  <div
+                    style={{
                       height: '100%',
                       width: '100%',
                     }}
                   >
-                    <Card.Body>
-                      <OptimizeImage
-                        src={image.src}
-                        layout='fill'
-                        objectFit='cover'
-                        objectPosition='center'
-                        alt={`${formatToURL(
-                          development.name || ''
-                        )}-gallery-image-${key}`}
-                        useBlur={false}
-                      />
-                    </Card.Body>
-                  </Card>
+                    <Card
+                      clickable
+                      shadow={false}
+                      css={{
+                        padding: 0,
+                        margin: 0,
+                        borderRadius: 0,
+                        height: '100%',
+                        width: '100%',
+                      }}
+                    >
+                      <Card.Body>
+                        <OptimizeImage
+                          src={image.src}
+                          layout='fill'
+                          objectFit='cover'
+                          objectPosition='center'
+                          alt={`${formatToURL(development.name || '')}-gallery-image-${key}`}
+                          useBlur={false}
+                        />
+                      </Card.Body>
+                    </Card>
+                  </div>
                 </Link>
               </SwiperSlide>
             );

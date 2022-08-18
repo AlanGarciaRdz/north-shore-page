@@ -14,7 +14,8 @@ export default function DevelopmentGeneralInfo({
   price,
   lotSize,
   area,
-  bathroms,
+  bathrooms,
+  halfBathrooms,
   bedrooms,
   exteriorFeatures,
   interiorFeatures,
@@ -32,7 +33,7 @@ export default function DevelopmentGeneralInfo({
         padding: 0,
         width: '100vw',
         position: 'relative',
-        marginBottom: 80,
+        marginBottom: 40,
       }}
     >
       <Container
@@ -126,11 +127,19 @@ export default function DevelopmentGeneralInfo({
                   <span style={{ fontWeight: 'normal' }}>{`${formatNumberToPrice(price)}`}</span>
                 </Text>
               </Grid>
-              {bathroms !== undefined && bathroms !== 0 && (
+              {bathrooms !== undefined && bathrooms !== 0 && (
                 <Grid xs={12} css={{ marginBottom: 16 }}>
                   <Text weight='bold' css={{ margin: 0 }}>
                     {'Bathrooms: '}
-                    <span style={{ fontWeight: 'normal' }}>{bathroms}</span>
+                    <span style={{ fontWeight: 'normal' }}>{bathrooms}</span>
+                  </Text>
+                </Grid>
+              )}
+              {halfBathrooms !== undefined && halfBathrooms !== 0 && (
+                <Grid xs={12} css={{ marginBottom: 16 }}>
+                  <Text weight='bold' css={{ margin: 0 }}>
+                    {'Half Bathrooms: '}
+                    <span style={{ fontWeight: 'normal' }}>{halfBathrooms}</span>
                   </Text>
                 </Grid>
               )}
@@ -160,8 +169,6 @@ export default function DevelopmentGeneralInfo({
               )}
             </Grid.Container>
           </Grid>
-          <Grid xs={12} />
-          <DevelopmentMap geo={geo} />
         </Grid.Container>
       </Container>
     </Container>

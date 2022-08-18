@@ -19,14 +19,6 @@ export type ContactDataInfoProps = {
   };
   address1: string;
   address2: string;
-  bottomData1: {
-    label: string;
-    link: string;
-  };
-  bottomData2: {
-    label: string;
-    link: string;
-  };
   contactCardTitle: string;
   contactCardSubtitle: string;
   contactCardButtonLabel: string;
@@ -38,21 +30,17 @@ interface ContactDataInterfaceContext {
   userData: ReturnIPDataProps | undefined;
 }
 
-export const ContactDataContext = createContext<
-  ContactDataInterfaceContext | undefined
->(undefined);
+export const ContactDataContext = createContext<ContactDataInterfaceContext | undefined>(undefined);
 
 export const useContactDataContext = () => useContext(ContactDataContext);
 const ContactDataConsumer = ContactDataContext.Consumer;
 
 const ContactDataProvider = ({ children }: ContactDataProviderProps) => {
-  const [contactDataInfo, setContactDataInfo] = useState<
-    ContactDataInfoProps | undefined
-  >(undefined);
-
-  const [userData, setUserData] = useState<ReturnIPDataProps | undefined>(
+  const [contactDataInfo, setContactDataInfo] = useState<ContactDataInfoProps | undefined>(
     undefined
   );
+
+  const [userData, setUserData] = useState<ReturnIPDataProps | undefined>(undefined);
 
   useEffect(() => {
     getUserData();
@@ -88,14 +76,6 @@ const ContactDataProvider = ({ children }: ContactDataProviderProps) => {
         },
         address1: contactPageAttributes.footerAddress1,
         address2: contactPageAttributes.footerAddress2,
-        bottomData1: {
-          label: 'Listings Sayulita',
-          link: '/',
-        },
-        bottomData2: {
-          label: 'Listings Punta Mita',
-          link: '/',
-        },
         contactCardTitle: contactPageAttributes.cardTitle,
         contactCardSubtitle: contactPageAttributes.cardSubtitle,
         contactCardButtonLabel: contactPageAttributes.cardButtonLabel,
@@ -107,9 +87,7 @@ const ContactDataProvider = ({ children }: ContactDataProviderProps) => {
     }
   }
   return (
-    <ContactDataContext.Provider
-      value={{ getContactDataInfo, contactDataInfo, userData }}
-    >
+    <ContactDataContext.Provider value={{ getContactDataInfo, contactDataInfo, userData }}>
       {children}
     </ContactDataContext.Provider>
   );

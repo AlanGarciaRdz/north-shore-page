@@ -141,18 +141,11 @@ export default function HomeLocations({
             }}
           >
             <Link href={listings[currentListingIndex].url || LISTINGS_URL}>
-              <Button
-                auto
-                bordered
-                iconRight={<BsArrowRight />}
-                css={{
-                  backgroundColor: '$background',
-                  borderColor: '$background',
-                  color: '$text',
-                }}
-              >
-                {`${goToListingLabel} ${listings[currentListingIndex].name}`}
-              </Button>
+              <div>
+                <Button auto color={'secondary'} iconRight={<BsArrowRight />}>
+                  {`${goToListingLabel} ${listings[currentListingIndex].name}`}
+                </Button>
+              </div>
             </Link>
           </Container>
         </Grid>

@@ -35,7 +35,7 @@ export async function CMSGetSearchListing(
   const query = qs.stringify(
     {
       filters: {
-        City: city
+        city: city
           ? {
               $eq: city,
             }
@@ -69,7 +69,7 @@ export async function CMSGetListing(city: string, limit?: number) {
   const query = qs.stringify(
     {
       filters: {
-        City: {
+        city: {
           $eq: city,
         },
       },
@@ -101,7 +101,7 @@ export async function CMSGetMainListing(limit?: number) {
   const query = qs.stringify(
     {
       filters: {
-        ShowOnListings: true,
+        showOnListings: true,
       },
       pagination: limit
         ? {
@@ -131,7 +131,7 @@ export async function CMSGetHomeListing(limit?: number) {
   const query = qs.stringify(
     {
       filters: {
-        ShowOnHome: true,
+        showOnHome: true,
       },
       pagination: limit
         ? {
@@ -162,7 +162,7 @@ export function CMSGetPropertyArea(listingData: ListingData[], cmsProperty: any)
       if (
         ValueExistOnObject(cmsProperty, (value: any) => {
           if (
-            value !== null &&
+            value !== undefined &&
             value.toString().toUpperCase().includes(searchQuery.toUpperCase())
           ) {
             return true;
@@ -186,10 +186,10 @@ export function CMSGenerateDevelopmentCard(
   }
   const { id, attributes } = cmsProperty;
   const exteriorFeatures = (
-    attributes.exteriorFeatures !== null ? attributes.exteriorFeatures.split(',') : []
+    attributes.exteriorFeatures !== undefined ? attributes.exteriorFeatures.split(',') : []
   ).splice(0, 3);
   const interiorFeatures = (
-    attributes.interiorFeatures !== null ? attributes.interiorFeatures.split(',') : []
+    attributes.interiorFeatures !== undefined ? attributes.interiorFeatures.split(',') : []
   ).splice(0, 3);
   const amenities = [...exteriorFeatures, ...interiorFeatures].map((amenity: string) => {
     return {
@@ -201,7 +201,7 @@ export function CMSGenerateDevelopmentCard(
     url: `${LISTINGS_CMS_URL}/${id}`,
     name: attributes.name,
     price: attributes.price,
-    bathroms: attributes.bathroms,
+    bathrooms: attributes.bathrooms || 0,
     bedrooms: attributes.bedrooms,
     squareFT: attributes.area,
     listing: {
@@ -226,10 +226,10 @@ export const CMSGenerateDevelopmentMainCard = (
   }
   const { id, attributes } = cmsProperty;
   const exteriorFeatures = (
-    attributes.exteriorFeatures !== null ? attributes.exteriorFeatures.split(',') : []
+    attributes.exteriorFeatures !== undefined ? attributes.exteriorFeatures.split(',') : []
   ).splice(0, 3);
   const interiorFeatures = (
-    attributes.interiorFeatures !== null ? attributes.interiorFeatures.split(',') : []
+    attributes.interiorFeatures !== undefined ? attributes.interiorFeatures.split(',') : []
   ).splice(0, 3);
   const amenities = [...exteriorFeatures, ...interiorFeatures].map((amenity: string) => {
     return {
@@ -241,7 +241,7 @@ export const CMSGenerateDevelopmentMainCard = (
     url: `${LISTINGS_CMS_URL}/${id}`,
     name: attributes.name,
     price: attributes.price,
-    bathroms: attributes.bathroms,
+    bathrooms: attributes.bathrooms || 0,
     bedrooms: attributes.bedrooms,
     squareFT: attributes.area,
     listing: {
@@ -358,7 +358,7 @@ export async function CMSGenerateSingleProperty(cmsId: string, listingData: List
   }
   const { id, attributes } = cmsProperty.data;
   const exteriorFeatures =
-    attributes.exteriorFeatures !== null ? attributes.exteriorFeatures.split(',') : [];
+    attributes.exteriorFeatures !== undefined ? attributes.exteriorFeatures.split(',') : [];
   const amenities = exteriorFeatures.map((amenity: string) => {
     return {
       name: amenity,
@@ -368,7 +368,7 @@ export async function CMSGenerateSingleProperty(cmsId: string, listingData: List
     lat?: number;
     lng?: number;
   } = {};
-  if (attributes.geo.lat !== null && attributes.geo.lng !== null) {
+  if (attributes.geo.lat !== undefined && attributes.geo.lng !== undefined) {
     geo = {
       lat: attributes.geo.lat,
       lng: attributes.geo.lng,
@@ -379,21 +379,25 @@ export async function CMSGenerateSingleProperty(cmsId: string, listingData: List
     id: id,
     url: `${LISTINGS_CMS_URL}/${id}`,
     name: attributes.name,
-    description: attributes.description !== null ? attributes.description : '',
-    price: attributes.price !== null ? attributes.price : 0,
-    lotSize: attributes.lotSizeArea !== null ? attributes.lotSizeArea : 0,
-    area: attributes.area !== null ? attributes.area : 0,
-    bathroms: attributes.bathroms !== null ? attributes.bathroms : 0,
-    bedrooms: attributes.bedrooms !== null ? attributes.bedrooms : 0,
+    description: attributes.description !== undefined ? attributes.description : '',
+    price: attributes.price !== undefined ? attributes.price : 0,
+    lotSize: attributes.lotSizeArea !== undefined ? attributes.lotSizeArea : 0,
+    area: attributes.area !== undefined ? attributes.area : 0,
+    bathrooms: attributes.bathrooms !== undefined ? attributes.bathrooms : 0,
+    bedrooms: attributes.bedrooms !== undefined ? attributes.bedrooms : 0,
     exteriorFeatures:
-      attributes.exteriorFeatures !== null ? attributes.exteriorFeatures.replaceAll(',', ', ') : '',
+      attributes.exteriorFeatures !== undefined
+        ? attributes.exteriorFeatures.replaceAll(',', ', ')
+        : '',
     interiorFeatures:
-      attributes.interiorFeatures !== null ? attributes.interiorFeatures.replaceAll(',', ', ') : '',
-    construction: attributes.construction !== null ? attributes.construction : '',
-    view: attributes.view !== null ? attributes.view : '',
-    cooling: attributes.cooling !== null ? attributes.cooling : '',
+      attributes.interiorFeatures !== undefined
+        ? attributes.interiorFeatures.replaceAll(',', ', ')
+        : '',
+    construction: attributes.construction !== undefined ? attributes.construction : '',
+    view: attributes.view !== undefined ? attributes.view : '',
+    cooling: attributes.cooling !== undefined ? attributes.cooling : '',
     showingInstructions:
-      attributes.showingInstructions !== null ? attributes.showingInstructions : '',
+      attributes.showingInstructions !== undefined ? attributes.showingInstructions : '',
     amenities: amenities,
     listing: myArea,
     images: attributes.photos.data.map((photo: any, index: number) => ({
