@@ -7,6 +7,22 @@ import { ValueExistOnObject } from './ObjectTools';
 import { timeout } from './PromiseTools';
 import { formatToURL } from './StringTools';
 
+const propertyTypes = [
+  'farm',
+  'residential',
+  'rental',
+  'mobilehome',
+  'condominium',
+  'multifamily',
+  'commercial',
+  'land',
+];
+
+const finalQueryForTypes = propertyTypes.reduce((finalQuery, propertyType) => {
+  finalQuery = `${finalQuery}&type=${propertyType}`;
+  return finalQuery;
+}, '');
+
 export async function SimplyRETSGetMetaData() {
   const retsAPI = new APISimplyRETS();
   const getPropertiesMetaData = await retsAPI.OPTIONS('/properties');
@@ -29,7 +45,9 @@ export async function SimplyRETSGetAllListing() {
     }
   }
   const retsAPI = new APISimplyRETS();
-  const getProperties = await retsAPI.GET(`/properties?status=Active&limit=500${query}`);
+  const getProperties = await retsAPI.GET(
+    `/properties?status=Active&limit=500${query}${finalQueryForTypes}`
+  );
   return getProperties;
 }
 
@@ -45,7 +63,9 @@ export async function SimplyRETSGetMainListing(listingData: ListingData, limit: 
   for (const listing of listingData.searchQuerys) {
     query += `&q=${listing}`;
   }
-  const getProperties = await retsAPI.GET(`/properties?status=Active&limit=${limit}${query}`);
+  const getProperties = await retsAPI.GET(
+    `/properties?status=Active&limit=${limit}${query}${finalQueryForTypes}`
+  );
   return getProperties;
 }
 
@@ -56,7 +76,9 @@ export async function SimplyRETSGetListing(listingData: ListingData, limit?: num
     query += `&q=${listing}`;
   }
   const getProperties = await retsAPI.GET(
-    `/properties?status=Active${query}${limit !== undefined ? `&limit=${limit}` : ''}`
+    `/properties?status=Active${query}${
+      limit !== undefined ? `&limit=${limit}` : ''
+    }${finalQueryForTypes}`
   );
   if (getProperties.error === undefined) {
     const totalData = getProperties.filter(
@@ -88,7 +110,8 @@ export async function SimplyRETSGetSearchListing(
     ${minprice !== undefined ? `&minprice=${minprice}` : ''}
     ${maxprice !== undefined ? `&maxprice=${maxprice}` : ''}
     ${minbeds !== undefined ? `&minbeds=${minbeds}` : ''}
-    ${minbaths !== undefined ? `&minbaths=${minbaths}` : ''}`
+    ${minbaths !== undefined ? `&minbaths=${minbaths}` : ''}
+    ${finalQueryForTypes}`
   );
   return getPropertiesNeighborhoods;
 }
@@ -143,7 +166,12 @@ export function SimplyRETSGenerateDevelopmentCard(
     bathrooms: retsProperty.property.bathsFull !== null ? retsProperty.property.bathsFull : 0,
     halfBathrooms: retsProperty.property.bathsHalf !== null ? retsProperty.property.bathsHalf : 0,
     bedrooms: retsProperty.property.bedrooms,
-    squareFT: retsProperty.property.area,
+    squareFT:
+      retsProperty.property.area !== null
+        ? retsProperty.property.area
+        : retsProperty.property.lotSizeArea !== null
+        ? retsProperty.property.lotSizeArea
+        : 0,
     listing: {
       url: listingData.url || '',
       name: listingData.name || '',
@@ -194,7 +222,12 @@ export const SimplyRETSGenerateDevelopmentMainCard = (
     bathrooms: retsProperty.property.bathsFull !== null ? retsProperty.property.bathsFull : 0,
     halfBathrooms: retsProperty.property.bathsHalf !== null ? retsProperty.property.bathsHalf : 0,
     bedrooms: retsProperty.property.bedrooms,
-    squareFT: retsProperty.property.area,
+    squareFT:
+      retsProperty.property.area !== null
+        ? retsProperty.property.area
+        : retsProperty.property.lotSizeArea !== null
+        ? retsProperty.property.lotSizeArea
+        : 0,
     listing: {
       url: listingData.url || '',
       name: listingData.name || '',

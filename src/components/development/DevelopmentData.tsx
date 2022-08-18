@@ -24,7 +24,7 @@ const DevelopmentSingleData = ({ data, name, icon, bigData }: DevelopmentSingleD
       }}
     >
       {icon}
-      {bigData ? <div style={{ height: 4 }} /> : <div style={{ width: 6 }} />}
+      {bigData ? <div style={{ height: 4 }} /> : <div style={{ width: 3 }} />}
       <Text weight='bold' css={{ margin: 0, lineHeight: 1 }}>
         {data}
       </Text>
