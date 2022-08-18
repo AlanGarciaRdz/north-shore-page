@@ -52,6 +52,9 @@ const DevelopmentData = ({
     ? {
         xs: 6,
         sm: 3,
+        css: {
+          marginBottom: 16,
+        },
       }
     : {
         css: {

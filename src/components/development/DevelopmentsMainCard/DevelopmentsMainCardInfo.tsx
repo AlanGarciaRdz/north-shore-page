@@ -162,7 +162,7 @@ export default function DevelopmentsMainCardInfo({
         </Grid>
         <Grid xs={12} css={{ marginBottom: 20 }}>
           <Link href={development.url || '/'}>
-            <div>
+            <div style={{ width: '100%' }}>
               <Button
                 auto
                 css={{
