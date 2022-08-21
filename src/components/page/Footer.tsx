@@ -126,24 +126,30 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
                   </Text>
                 </Grid>
                 <Grid xs={12}>
-                  {avilableNeighborhoods.map((avilableNeighborhood, index) => {
-                    return (
-                      <>
-                        <a
-                          href={`${LISTINGS_URL}?location=${formatToURL(
-                            avilableNeighborhood.name
-                          )}`}
-                        >
-                          <Text color='$secondary'>{avilableNeighborhood.name}</Text>
-                        </a>
-                        {index + 1 < avilableNeighborhoods.length && (
-                          <Text color='$secondary' css={{ margin: '0px 10px' }}>
-                            {'·'}
-                          </Text>
-                        )}
-                      </>
-                    );
-                  })}
+                  <Grid.Container>
+                    {avilableNeighborhoods.map((avilableNeighborhood, index) => {
+                      return (
+                        <>
+                          <Grid>
+                            <a
+                              href={`${LISTINGS_URL}?location=${formatToURL(
+                                avilableNeighborhood.name
+                              )}`}
+                            >
+                              <Text color='$secondary'>{avilableNeighborhood.name}</Text>
+                            </a>
+                          </Grid>
+                          {index + 1 < avilableNeighborhoods.length && (
+                            <Grid>
+                              <Text color='$secondary' css={{ margin: '0px 10px' }}>
+                                {'·'}
+                              </Text>
+                            </Grid>
+                          )}
+                        </>
+                      );
+                    })}
+                  </Grid.Container>
                 </Grid>
               </Grid.Container>
             </Container>
