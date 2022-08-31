@@ -50,6 +50,7 @@ export const getStaticProps = async (props: any) => {
     props: {
       blogData,
     },
+    revalidate: 60,
   };
 };
 
@@ -72,9 +73,7 @@ export async function getStaticPaths() {
   };
 }
 
-function Listings({
-  blogData,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+function Listings({ blogData }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [likedBlogPost, setLikedBlogPost] = useState<{
     liked: boolean;
     id: number;
@@ -86,9 +85,7 @@ function Listings({
   async function CheckViewBlog() {
     if (userData !== undefined) {
       let createView = false;
-      const myView = blogData.views.find(
-        (view: any) => view.userIP === userData.platformIp
-      );
+      const myView = blogData.views.find((view: any) => view.userIP === userData.platformIp);
       if (myView !== undefined) {
         if (myView.data.attributes.viewed === false) {
           createView = true;
@@ -113,9 +110,7 @@ function Listings({
     if (userData !== undefined) {
       let didLikeBlogPost = false;
       let likeId = -1;
-      const myLike = blogData.views.find(
-        (view: any) => view.userIP === userData.platformIp
-      );
+      const myLike = blogData.views.find((view: any) => view.userIP === userData.platformIp);
       if (myLike !== undefined) {
         didLikeBlogPost = myLike.data.attributes.liked;
         likeId = myLike.data.id;

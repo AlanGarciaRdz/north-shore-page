@@ -73,6 +73,7 @@ export const getStaticProps = async () => {
       visitOurListings,
       paginationData,
     },
+    revalidate: 60,
   };
 };
 

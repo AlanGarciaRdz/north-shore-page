@@ -35,6 +35,7 @@ export const getStaticProps = async () => {
       listingsPropertiesList,
       listingData,
     },
+    revalidate: 60,
   };
 };
 
