@@ -6,7 +6,7 @@ module.exports = {
       '143.198.108.116',
       's3-us-west-2.amazonaws.com',
       'cdn.photos.sparkplatform.com',
-      'https://cms.northshorerealtysanpancho.com',
+      'cms.northshorerealtysanpancho.com',
     ],
   },
   async headers() {
