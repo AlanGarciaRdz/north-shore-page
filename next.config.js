@@ -2,7 +2,12 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['143.198.108.116', 's3-us-west-2.amazonaws.com', 'cdn.photos.sparkplatform.com'],
+    domains: [
+      '143.198.108.116',
+      's3-us-west-2.amazonaws.com',
+      'cdn.photos.sparkplatform.com',
+      'https://cms.northshorerealtysanpancho.com',
+    ],
   },
   async headers() {
     return [
