@@ -56,7 +56,7 @@ export default function DevelopmentGallery({ images }: DevelopmentCompleteProps)
                   <OptimizeImage
                     src={images[currentGallery].src || '/'}
                     layout='fill'
-                    objectFit='cover'
+                    objectFit='contain'
                     objectPosition='center'
                     alt={images[currentGallery].alt}
                     useBlur={true}
@@ -82,7 +82,7 @@ export default function DevelopmentGallery({ images }: DevelopmentCompleteProps)
                     <OptimizeImage
                       src={images[currentGallery].src || '/'}
                       layout='fill'
-                      objectFit='cover'
+                      objectFit='contain'
                       objectPosition='center'
                       alt={images[currentGallery].alt}
                       useBlur={true}

@@ -2,7 +2,6 @@ import { Button, Container } from '@nextui-org/react';
 import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import OptimizeImage from 'src/components/base/OptimizeImage';
-import { DevelopmentCompleteProps } from 'src/components/development/Development.types';
 import RenderContainer from 'src/components/layouts/RenderContainer';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
@@ -41,7 +40,7 @@ function ShowMapButton({ setShowMap }: ShowMapButtonProps) {
   );
 }
 
-export default function DevelopmentMap({ geo, id }: DevelopmentCompleteProps) {
+export default function HomeMap({ geo }: { geo: { lat?: number; lng?: number } }) {
   const [showMap, setShowMap] = useState(true);
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -99,7 +98,7 @@ export default function DevelopmentMap({ geo, id }: DevelopmentCompleteProps) {
               )}
               {showMap === true && isLoaded === true && (
                 <GoogleMap
-                  id={`map-${id}`}
+                  id='home-map'
                   mapContainerStyle={{ width: '100%', height: '100%', position: 'relative' }}
                   zoom={15}
                   center={{
@@ -144,7 +143,7 @@ export default function DevelopmentMap({ geo, id }: DevelopmentCompleteProps) {
               )}
               {showMap === true && isLoaded === true && (
                 <GoogleMap
-                  id={`map-${id}`}
+                  id='home-map'
                   mapContainerStyle={{ width: '100%', height: '100%', position: 'relative' }}
                   zoom={15}
                   center={{

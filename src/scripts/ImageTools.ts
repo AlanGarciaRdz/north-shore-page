@@ -7,6 +7,13 @@ const blurBase64Image =
 export const blurDataURL = `data:image/gif;base64,${blurBase64Image}`;
 
 export function getImageData(image: any, baseType?: string): BaseImageProps {
+  if (image === null) {
+    return {
+      src: '/',
+      alternativeText: 'ERROR',
+      title: 'ERROR',
+    };
+  }
   const imageFormats = image.attributes.formats;
   let type = baseType || 'small';
   if (imageFormats.large) {

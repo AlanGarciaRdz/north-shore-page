@@ -24,6 +24,9 @@ const HomeAboutUs = dynamic(() => import('src/sections/home/HomeAboutUs'), {
 const HomeBlogs = dynamic(() => import('src/sections/home/HomeBlogs'), {
   ssr: false,
 });
+const HomeMap = dynamic(() => import('src/sections/home/HomeMap'), {
+  ssr: false,
+});
 
 async function GetHomeBlogs() {
   const api = new API();
@@ -134,6 +137,12 @@ function Home({
         subtitle={homeBlogs.page.subtitle}
         blogs={homeBlogs.blogs}
         goToBlogsLabel={homeBlogs.page.goToBlogsLabel}
+      />
+      <HomeMap
+        geo={{
+          lat: 20.90062,
+          lng: -105.41393,
+        }}
       />
     </PageLayout>
   );

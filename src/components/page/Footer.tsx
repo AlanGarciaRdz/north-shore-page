@@ -1,9 +1,9 @@
-import { Container, Grid, Text } from '@nextui-org/react';
+import { Container, Grid, Text, useTheme } from '@nextui-org/react';
 import Link from 'next/link';
 import { forwardRef, RefObject, useEffect, useState } from 'react';
 import OptimizeImage from 'src/components/base/OptimizeImage';
 import { useContactDataContext } from 'src/context/ContactDataContext';
-import { avilableNeighborhoods, LISTINGS_URL } from 'src/scripts/GeneralData';
+import { avilableNeighborhoods, LISTINGS_URL, socialMedia } from 'src/scripts/GeneralData';
 import { formatToURL } from 'src/scripts/StringTools';
 import { WithChildren } from 'src/scripts/Types';
 import { MainSectionsContainerCSS } from 'styles/theme';
@@ -15,6 +15,7 @@ type FooterProps = WithChildren<{
 }>;
 
 const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
+  const { theme } = useTheme();
   const contextData = useContactDataContext();
   const contactDataInfo = contextData?.contactDataInfo;
   if (contactDataInfo === undefined) {
@@ -119,11 +120,34 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
                     <Text color='$secondary'>{contactDataInfo?.email.label}</Text>
                   </a>
                 </Grid>
-                <Grid xs={12} sm={5} css={{ marginBottom: 32 }}>
+                <Grid xs={12} sm={5} css={{ marginBottom: 20 }}>
                   <Text color='$secondary'>
                     {contactDataInfo?.address1}
                     <span style={{ fontWeight: 'bold' }}>{contactDataInfo?.address2}</span>
                   </Text>
+                </Grid>
+                <Grid xs={12} css={{ marginBottom: 5 }}>
+                  <Text weight={'bold'} color='$secondary'>
+                    {'Follow us'}
+                  </Text>
+                </Grid>
+                <Grid xs={12} css={{ marginBottom: 32 }}>
+                  <Grid.Container>
+                    {socialMedia.map((socialMediaItem, index) => {
+                      return (
+                        <Grid key={index} css={{ marginRight: 20 }}>
+                          <a href={socialMediaItem.url} target='_blank' rel='noreferrer'>
+                            <socialMediaItem.icon
+                              style={{
+                                fontSize: theme?.fontSizes.lg.value,
+                                color: socialMediaItem.color,
+                              }}
+                            />
+                          </a>
+                        </Grid>
+                      );
+                    })}
+                  </Grid.Container>
                 </Grid>
                 <Grid xs={12}>
                   <Grid.Container>
