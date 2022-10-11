@@ -146,7 +146,7 @@ export default function DevelopmentGeneralInfo({
               {bedrooms !== undefined && bedrooms !== 0 && (
                 <Grid xs={12} css={{ marginBottom: 16 }}>
                   <Text weight='bold' css={{ margin: 0 }}>
-                    {'Beadrooms: '}
+                    {'Bedrooms: '}
                     <span style={{ fontWeight: 'normal' }}>{bedrooms}</span>
                   </Text>
                 </Grid>
