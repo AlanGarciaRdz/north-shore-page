@@ -1,13 +1,16 @@
 import { Container, Grid } from '@nextui-org/react';
 import { DevelopmentMainCardProps } from 'src/components/development/Development.types';
-import DevelopmentMainCard from 'src/components/development/DevelopmentsMainCard/DevelopmenstMainCard';
+import DevelopmenstMainCard from 'src/components/development/DevelopmentsMainCard/DevelopmenstMainCard';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
 type HomeMainDevelopmentsProps = {
   developments: DevelopmentMainCardProps[];
 };
 
-export default function HomeMainDevelopments({ developments }: HomeMainDevelopmentsProps) {
+export default function HomeMainDevelopments({
+  developments,
+  contactAgent,
+}: HomeMainDevelopmentsProps & { contactAgent: () => void }) {
   return (
     <Container
       fluid
@@ -36,7 +39,7 @@ export default function HomeMainDevelopments({ developments }: HomeMainDevelopme
           }}
         >
           <Grid xs={12} md={10.5}>
-            <DevelopmentMainCard developments={developments} />
+            <DevelopmenstMainCard developments={developments} contactAgent={contactAgent} />
           </Grid>
         </Grid.Container>
       </Container>

@@ -6,7 +6,7 @@ import { DevelopmentMainCardProps } from 'src/components/development/Development
 import RenderContainer from 'src/components/layouts/RenderContainer';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
-const DevelopmentMainCard = dynamic(
+const DevelopmenstMainCard = dynamic(
   () => import('src/components/development/DevelopmentsMainCard/DevelopmenstMainCard'),
   {
     ssr: false,
@@ -21,7 +21,8 @@ type ListingsFeaturedPropertiesProps = {
 export default function ListingsFeaturedProperties({
   title,
   developments,
-}: ListingsFeaturedPropertiesProps) {
+  contactAgent,
+}: ListingsFeaturedPropertiesProps & { contactAgent: () => void }) {
   return (
     <Container
       fluid
@@ -62,7 +63,12 @@ export default function ListingsFeaturedProperties({
                   margin: 'auto',
                 }}
               >
-                <DevelopmentMainCard addMarginLeft developments={developments} isNormalSwiper />
+                <DevelopmenstMainCard
+                  addMarginLeft
+                  developments={developments}
+                  isNormalSwiper
+                  contactAgent={contactAgent}
+                />
               </Container>
             }
             desktopView={
@@ -71,7 +77,12 @@ export default function ListingsFeaturedProperties({
                   ...MainSectionsContainerCSS,
                 }}
               >
-                <DevelopmentMainCard showNavButtons developments={developments} isNormalSwiper />
+                <DevelopmenstMainCard
+                  showNavButtons
+                  developments={developments}
+                  isNormalSwiper
+                  contactAgent={contactAgent}
+                />
               </Container>
             }
           />

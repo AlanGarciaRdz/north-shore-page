@@ -163,6 +163,7 @@ export function CMSGetPropertyArea(listingData: ListingData[], cmsProperty: any)
         ValueExistOnObject(cmsProperty, (value: any) => {
           if (
             value !== undefined &&
+            value !== null &&
             value.toString().toUpperCase().includes(searchQuery.toUpperCase())
           ) {
             return true;
@@ -202,6 +203,7 @@ export function CMSGenerateDevelopmentCard(
     name: attributes.name,
     price: attributes.price,
     bathrooms: attributes.bathrooms || 0,
+    halfBathrooms: attributes.halfBathrooms || 0,
     bedrooms: attributes.bedrooms,
     squareFT: attributes.area,
     listing: {
@@ -242,6 +244,7 @@ export const CMSGenerateDevelopmentMainCard = (
     name: attributes.name,
     price: attributes.price,
     bathrooms: attributes.bathrooms || 0,
+    halfBathrooms: attributes.halfBathrooms || 0,
     bedrooms: attributes.bedrooms,
     squareFT: attributes.area,
     listing: {
@@ -384,6 +387,7 @@ export async function CMSGenerateSingleProperty(cmsId: string, listingData: List
     lotSize: attributes.lotSizeArea !== undefined ? attributes.lotSizeArea : 0,
     area: attributes.area !== undefined ? attributes.area : 0,
     bathrooms: attributes.bathrooms !== undefined ? attributes.bathrooms : 0,
+    halfBathrooms: attributes.halfBathrooms !== undefined ? attributes.halfBathrooms : 0,
     bedrooms: attributes.bedrooms !== undefined ? attributes.bedrooms : 0,
     exteriorFeatures:
       attributes.exteriorFeatures !== undefined

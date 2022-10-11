@@ -1,7 +1,7 @@
 import { Container } from '@nextui-org/react';
 import { InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import { DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import PageLayout from 'src/components/layouts/PageLayout';
 import ListingFilterCard, { ListingFilter } from 'src/components/listing/ListingFilterCard';
@@ -46,6 +46,7 @@ function Listings({
   listingsPropertiesList,
   listingData,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const contactRef = useRef<HTMLDivElement>(null);
   const cardsPerPage = 9;
   const maxPrice = 3000000;
 
@@ -239,6 +240,14 @@ function Listings({
         <ListingsFeaturedProperties
           title={listingsFeatured.page.title}
           developments={listingsFeatured.developments}
+          contactAgent={() => {
+            if (contactRef.current !== null) {
+              contactRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+              });
+            }
+          }}
         />
       </Container>
       <Container
@@ -262,6 +271,15 @@ function Listings({
           currentPagination={currentFilter.pagination}
         />
       </Container>
+      <div
+        style={{
+          width: '100%',
+          height: 20,
+          position: 'absolute',
+          bottom: 1000,
+        }}
+        ref={contactRef as RefObject<HTMLDivElement>}
+      />
     </PageLayout>
   );
 }

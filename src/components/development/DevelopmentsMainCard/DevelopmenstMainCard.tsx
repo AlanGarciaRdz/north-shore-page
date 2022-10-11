@@ -22,7 +22,8 @@ export default function DevelopmenstMainCard({
   isNormalSwiper,
   addMarginLeft,
   developments,
-}: DevelopmentsMainCardProps) {
+  contactAgent,
+}: DevelopmentsMainCardProps & { contactAgent: () => void }) {
   const swiperRef = useRef<SwiperInterface>();
   const [onHover, setOnHover] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
@@ -128,6 +129,7 @@ export default function DevelopmenstMainCard({
                             swiperRef={swiperRef}
                             development={development}
                             developments={developments}
+                            contactAgent={contactAgent}
                           />
                         </Grid>
                       </Grid.Container>

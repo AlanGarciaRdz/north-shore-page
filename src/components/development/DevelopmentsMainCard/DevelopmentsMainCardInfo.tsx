@@ -22,7 +22,8 @@ export default function DevelopmentsMainCardInfo({
   development,
   developments,
   swiperRef,
-}: DevelopmentsMainCardInfoProps) {
+  contactAgent,
+}: DevelopmentsMainCardInfoProps & { contactAgent: () => void }) {
   return (
     <Container
       fluid
@@ -184,6 +185,7 @@ export default function DevelopmentsMainCardInfo({
             css={{
               width: '100%',
             }}
+            onClick={contactAgent}
           >
             {'Contact agent'}
           </Button>

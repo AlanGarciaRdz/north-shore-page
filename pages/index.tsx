@@ -1,7 +1,7 @@
 import { InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
 import qs from 'qs';
-import { useEffect } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 import API from 'src/API/API';
 import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import PageLayout from 'src/components/layouts/PageLayout';
@@ -110,6 +110,7 @@ function Home({
   aboutUs,
   homeBlogs,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const contactRef = useRef<HTMLDivElement>(null);
   return (
     <PageLayout showContactCard={true}>
       <HomeHeader
@@ -120,7 +121,17 @@ function Home({
         }}
         image={header.page.image}
       />
-      <HomeMainDevelopments developments={header.developments} />
+      <HomeMainDevelopments
+        developments={header.developments}
+        contactAgent={() => {
+          if (contactRef.current !== null) {
+            contactRef.current.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start',
+            });
+          }
+        }}
+      />
       <HomeLocations
         listings={location.listings}
         title={location.page.title}
@@ -143,6 +154,15 @@ function Home({
           lat: 20.90062,
           lng: -105.41393,
         }}
+      />
+      <div
+        style={{
+          width: '100%',
+          height: 20,
+          position: 'absolute',
+          bottom: 1000,
+        }}
+        ref={contactRef as RefObject<HTMLDivElement>}
       />
     </PageLayout>
   );
