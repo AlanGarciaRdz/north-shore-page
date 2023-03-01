@@ -103,6 +103,9 @@ export async function CMSGetMainListing(limit?: number) {
       filters: {
         showOnListings: true,
       },
+      sort: {
+        listingOrder: 'asc',
+      },
       pagination: limit
         ? {
             page: 1,
@@ -132,6 +135,9 @@ export async function CMSGetHomeListing(limit?: number) {
     {
       filters: {
         showOnHome: true,
+      },
+      sort: {
+        homeOrder: 'asc',
       },
       pagination: limit
         ? {
