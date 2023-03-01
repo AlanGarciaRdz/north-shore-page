@@ -9,6 +9,7 @@ module.exports = {
       'cms.northshorerealtysanpancho.com',
     ],
   },
+  experimental: { esmExternals: 'loose' },
   async headers() {
     return [
       {

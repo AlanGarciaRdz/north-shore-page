@@ -34,10 +34,12 @@ export default function BlogsSmallCard({ blog }: BlogsSmallCardProps) {
             <Card.Body css={{ padding: 0, margin: 0, borderRadius: 4, height: 156 }}>
               <OptimizeImage
                 src={blog.image?.src || '/'}
-                layout='fill'
-                objectFit='cover'
-                objectPosition='center'
-                alt={blog.image?.alternativeText}
+                fill
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+                alt={blog.image?.alternativeText || 'blog'}
                 useBlur={false}
               />
             </Card.Body>

@@ -28,7 +28,6 @@ export default function DevelopmentMLSInfo() {
           <Grid css={{ marginRight: 10 }}>
             <OptimizeImage
               src={'/images/vnmls-logo.jpg'}
-              layout='fixed'
               alt='VMLS Logo'
               useBlur={false}
               width={50}

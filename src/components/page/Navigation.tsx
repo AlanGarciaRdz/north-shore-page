@@ -117,7 +117,6 @@ export default function Navigation({ contactRef, toggleDrawer }: NavigationProps
                     src={`/images/${
                       useSmallNavigation ? 'logo-simple.png' : 'logo-white-text.png'
                     }`}
-                    layout='fixed'
                     alt='North Shore Logo'
                     useBlur={false}
                     width={useSmallNavigation ? 40 : 156}

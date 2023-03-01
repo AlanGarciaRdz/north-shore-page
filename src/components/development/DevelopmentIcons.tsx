@@ -4,17 +4,24 @@ import { HiOutlineArrowsExpand } from 'react-icons/hi';
 import { TbToiletPaper } from 'react-icons/tb';
 
 export const BedroomsIcon: IconType = (props) => {
-  return <BiBed {...props} />;
+  return <BiBed {...props} style={{ ...props.style, color: 'var(--nextui-colors-text)' }} />;
 };
 
 export const BathroomsIcon: IconType = (props) => {
-  return <BiBath {...props} />;
+  return <BiBath {...props} style={{ ...props.style, color: 'var(--nextui-colors-text)' }} />;
 };
 
 export const HalfBathroomsIcon: IconType = (props) => {
-  return <TbToiletPaper {...props} />;
+  return (
+    <TbToiletPaper {...props} style={{ ...props.style, color: 'var(--nextui-colors-text)' }} />
+  );
 };
 
 export const MT2Icon: IconType = (props) => {
-  return <HiOutlineArrowsExpand {...props} />;
+  return (
+    <HiOutlineArrowsExpand
+      {...props}
+      style={{ ...props.style, color: 'var(--nextui-colors-text)' }}
+    />
+  );
 };

@@ -51,9 +51,11 @@ export default function DevelopmentMainCardImage({ development }: DevelopmentMai
                       <Card.Body>
                         <OptimizeImage
                           src={image.src}
-                          layout='fill'
-                          objectFit='cover'
-                          objectPosition='center'
+                          fill
+                          style={{
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                          }}
                           alt={`${formatToURL(development.name || '')}-gallery-image-${key}`}
                           useBlur={false}
                         />

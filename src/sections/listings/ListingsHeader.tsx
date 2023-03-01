@@ -62,17 +62,18 @@ export default function ListingsHeader({ image, title }: ListingsHeaderProps) {
           position: 'absolute',
           height: '100%',
           width: '100%',
-          background:
-            'linear-gradient(180deg, rgba(2,0,36,0.3) 10%,  rgba(2,0,36,0.3) 100%)',
+          background: 'linear-gradient(180deg, rgba(2,0,36,0.3) 10%,  rgba(2,0,36,0.3) 100%)',
           zIndex: 2,
         }}
       />
       <OptimizeImage
         src={image.src}
         alt={image.alt}
-        layout='fill'
-        objectFit='cover'
-        objectPosition='center'
+        fill
+        style={{
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
         useBlur={true}
         containerCSS={{
           zIndex: 1,

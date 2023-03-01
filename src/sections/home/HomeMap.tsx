@@ -87,9 +87,11 @@ export default function HomeMap({ geo }: { geo: { lat?: number; lng?: number } }
                 <>
                   <OptimizeImage
                     src={'/dump/map.png'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
                     alt={'dummy map'}
                     useBlur={true}
                   />
@@ -132,9 +134,11 @@ export default function HomeMap({ geo }: { geo: { lat?: number; lng?: number } }
                 <>
                   <OptimizeImage
                     src={'/dump/map.png'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
                     alt={'dummy map'}
                     useBlur={true}
                   />

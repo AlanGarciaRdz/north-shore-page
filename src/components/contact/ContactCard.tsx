@@ -103,9 +103,10 @@ export default function ContactCard() {
         desktopView={
           <OptimizeImage
             src={'/images/palm.png'}
-            layout='fixed'
-            objectFit='contain'
-            objectPosition='center'
+            style={{
+              objectFit: 'contain',
+              objectPosition: 'center',
+            }}
             alt='North Shore Logo'
             useBlur={false}
             width={360}

@@ -29,17 +29,19 @@ const DevelopmentCard = (development: DevelopmentCardProps) => {
           <Card.Body css={{ padding: 0, margin: 0, height: 296 }}>
             <OptimizeImage
               src={development.image?.src || '/'}
-              layout='fill'
-              objectFit='cover'
-              objectPosition='center'
-              alt={development.image?.alt}
+              fill
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+              alt={development.image?.alt || 'blog'}
               useBlur={false}
             />
           </Card.Body>
           <Card.Footer css={{ padding: 24 }}>
             <Grid.Container>
               <Grid xs={12} css={{ marginBottom: 8 }}>
-                <Text h3 css={{ margin: 0 }}>
+                <Text h4 css={{ margin: 0 }}>
                   {development.name}
                 </Text>
               </Grid>

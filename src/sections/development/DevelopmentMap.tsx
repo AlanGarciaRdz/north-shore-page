@@ -88,9 +88,11 @@ export default function DevelopmentMap({ geo, id }: DevelopmentCompleteProps) {
                 <>
                   <OptimizeImage
                     src={'/dump/map.png'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
                     alt={'dummy map'}
                     useBlur={true}
                   />
@@ -133,9 +135,11 @@ export default function DevelopmentMap({ geo, id }: DevelopmentCompleteProps) {
                 <>
                   <OptimizeImage
                     src={'/dump/map.png'}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
                     alt={'dummy map'}
                     useBlur={true}
                   />

@@ -5,11 +5,7 @@ import TitleWithBorder from 'src/components/base/TitleWithBorder';
 import { BlogPostProps } from 'src/components/blog/Blog.types';
 import { MainSectionsContainerCSS } from 'styles/theme';
 
-export default function BlogPostHeader({
-  image,
-  title,
-  publishedAt,
-}: BlogPostProps) {
+export default function BlogPostHeader({ image, title, publishedAt }: BlogPostProps) {
   return (
     <Container
       fluid
@@ -50,9 +46,9 @@ export default function BlogPostHeader({
             <TitleWithBorder color='$white' title={title} isH1 />
           </Grid>
           <Grid xs={12}>
-            <Text weight='bold' color='$white'>{`Published: ${moment(
-              publishedAt
-            ).format('LLL')}`}</Text>
+            <Text weight='bold' color='$white'>{`Published: ${moment(publishedAt).format(
+              'LLL'
+            )}`}</Text>
           </Grid>
           <Grid xs={12} />
         </Grid.Container>
@@ -64,8 +60,7 @@ export default function BlogPostHeader({
           position: 'absolute',
           height: '100%',
           width: '100%',
-          background:
-            'linear-gradient(180deg, rgba(2,0,36,0.3) 10%,  rgba(2,0,36,0.3) 100%)',
+          background: 'linear-gradient(180deg, rgba(2,0,36,0.3) 10%,  rgba(2,0,36,0.3) 100%)',
           zIndex: 2,
         }}
       />
@@ -73,9 +68,11 @@ export default function BlogPostHeader({
         src={image.src}
         alt={image.alternativeText}
         title={image.title}
-        layout='fill'
-        objectFit='cover'
-        objectPosition='center'
+        fill
+        style={{
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
         useBlur={true}
         containerCSS={{
           zIndex: 1,

@@ -60,8 +60,7 @@ export default function BlogHeader({ image, title }: BlogHeaderProps) {
           position: 'absolute',
           height: '100%',
           width: '100%',
-          background:
-            'linear-gradient(180deg, rgba(2,0,36,0.3) 10%,  rgba(2,0,36,0.3) 100%)',
+          background: 'linear-gradient(180deg, rgba(2,0,36,0.3) 10%,  rgba(2,0,36,0.3) 100%)',
           zIndex: 2,
         }}
       />
@@ -69,9 +68,11 @@ export default function BlogHeader({ image, title }: BlogHeaderProps) {
         src={image.src}
         alt={image.alternativeText}
         title={image.title}
-        layout='fill'
-        objectFit='cover'
-        objectPosition='center'
+        fill
+        style={{
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
         useBlur={true}
         containerCSS={{
           zIndex: 1,

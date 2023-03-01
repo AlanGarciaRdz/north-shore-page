@@ -32,6 +32,7 @@ async function GetBlogData(url: string) {
 
 export const getStaticProps = async (props: any) => {
   const { url } = props.params;
+  console.log('URL');
   const responseBlog = await GetBlogData(url);
   const blogsData = responseBlog.data;
   if (blogsData.length === 0) {

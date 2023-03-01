@@ -82,7 +82,6 @@ const Footer = forwardRef(({ showContactCard }: FooterProps, ref) => {
                     <div>
                       <OptimizeImage
                         src={'/images/logo-blue.png'}
-                        layout='fixed'
                         alt='North Shore Logo'
                         useBlur={false}
                         width={65}

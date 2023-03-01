@@ -1,6 +1,8 @@
 import { useNProgress } from '@tanem/react-nprogress';
 import LoadingOverlay from 'react-loading-overlay';
 
+LoadingOverlay.propTypes = undefined;
+
 const LoadingPage = ({ children, isRouteChanging }) => {
   const { animationDuration, isFinished, progress } = useNProgress({
     isAnimating: isRouteChanging,

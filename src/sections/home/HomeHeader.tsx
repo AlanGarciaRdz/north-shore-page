@@ -91,9 +91,11 @@ function HomeHeader({ image, title, button }: HomeHeaderProps) {
         src={image.src}
         alt={image.alternativeText}
         title={image.title}
-        layout='fill'
-        objectFit='cover'
-        objectPosition='center'
+        fill
+        style={{
+          objectFit: 'cover',
+          objectPosition: 'center',
+        }}
         useBlur={true}
         containerCSS={{
           zIndex: 1,

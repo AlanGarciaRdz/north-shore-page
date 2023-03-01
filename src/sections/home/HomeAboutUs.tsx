@@ -13,11 +13,7 @@ type HomeAboutUsProps = {
   sliders: AboutUsSlide[];
 };
 
-export default function HomeAboutUs({
-  title,
-  subtitle,
-  sliders,
-}: HomeAboutUsProps) {
+export default function HomeAboutUs({ title, subtitle, sliders }: HomeAboutUsProps) {
   const [currentSlider, setCurrentSlider] = useState(0);
   return (
     <Container
@@ -88,9 +84,11 @@ export default function HomeAboutUs({
                 >
                   <OptimizeImage
                     src={sliders[currentSlider].image.src}
-                    layout='fill'
-                    objectFit='cover'
-                    objectPosition='center'
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
                     alt={sliders[currentSlider].image.alternativeText}
                     title={sliders[currentSlider].image.title}
                     useBlur={true}
@@ -115,9 +113,11 @@ export default function HomeAboutUs({
                   >
                     <OptimizeImage
                       src={sliders[currentSlider].image.src}
-                      layout='fill'
-                      objectFit='cover'
-                      objectPosition='center'
+                      fill
+                      style={{
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                      }}
                       alt={sliders[currentSlider].image.alternativeText}
                       title={sliders[currentSlider].image.title}
                       useBlur={true}

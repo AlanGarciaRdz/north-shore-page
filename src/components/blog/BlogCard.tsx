@@ -29,11 +29,13 @@ const BlogCard = (blog: BlogCardProps) => {
             <Card.Body css={{ padding: 0, margin: 0, height: 296 }}>
               <OptimizeImage
                 src={blog.image?.src || '/'}
-                alt={blog.image?.alternativeText}
+                alt={blog.image?.alternativeText || 'blog'}
                 title={blog.image?.title}
-                layout='fill'
-                objectFit='cover'
-                objectPosition='center'
+                fill
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'cover',
+                }}
                 useBlur={false}
               />
             </Card.Body>
