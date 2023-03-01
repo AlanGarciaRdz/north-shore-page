@@ -56,8 +56,8 @@ function MyApp({ Component, pageProps, GTM_ID }: AppProps & Props) {
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=5' />
         <meta name='google' content='notranslate' />
-        <Script src='https://platform.twitter.com/widgets.js' strategy='lazyOnload' />
       </Head>
+      <Script src='https://platform.twitter.com/widgets.js' strategy='lazyOnload' />
       <Script id='google-tag-manager' strategy='beforeInteractive'>
         {`
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
