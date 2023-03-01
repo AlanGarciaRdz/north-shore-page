@@ -1,7 +1,7 @@
 import { InferGetStaticPropsType } from 'next';
 import dynamic from 'next/dynamic';
 import qs from 'qs';
-import { RefObject, useEffect, useRef } from 'react';
+import { RefObject, useRef } from 'react';
 import API from 'src/API/API';
 import { DevelopmentCardProps, DevelopmentMainCardProps } from 'src/components/development/Development.types';
 import PageLayout from 'src/components/layouts/PageLayout';
