@@ -88,17 +88,19 @@ function MyApp({ Component, pageProps, GTM_ID }: AppProps & Props) {
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
-  const api = new API();
-  const query = qs.stringify(
-    {
-      populate: ['GTM'],
-    },
-    {
-      encodeValuesOnly: true,
-    }
-  );
-  const getSEO = await api.GET(`/main-seo?${query}`);
-  return { ...appProps, GTM_ID: getSEO?.data?.attributes?.GTM || 'FIX_GTM_ON_CMS' };
+  // const api = new API();
+  // const query = qs.stringify(
+  //   {
+  //     populate: ['GTM'],
+  //   },
+  //   {
+  //     encodeValuesOnly: true,
+  //   }
+  // );
+  // console.log(query)
+  //const getSEO = await api.GET(`/main-seo?${query}`);
+  //return { ...appProps, GTM_ID: getSEO?.data?.attributes?.GTM || 'FIX_GTM_ON_CMS' };
+  return { ...appProps}; //ALAN
 };
 
 export default MyApp;

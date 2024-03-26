@@ -2,13 +2,15 @@
   "name": "north-shore-page",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "nodemon",
     "build": "NODE_OPTIONS=--max-old-space-size=4096 next build && tsc --project tsconfig.server.json",
-    "start": "NODE_OPTIONS=--max-old-space-size=4096 node -r dotenv/config dist/server/index.js",
+    "start": "NODE_OPTIONS=--max-old-space-size=4096  NODE_ENV=production node -r dotenv/config dist/server/index.js",
     "lint": "next lint",
     "server-stage": "pm2 start ecosystem.config.js --env production",
-    "server": "pm2 start ecosystem.config.js --env production"
+    "server": "pm2 start ecosystem.config.js --env production",
+    "deploy": "rsync -av --exclude='node_modules' ./* root@143.198.108.116:/home/ubuntu/pagex"
   },
   "dependencies": {
     "@nextui-org/react": "1.0.8-beta.5",

@@ -149,6 +149,7 @@ function Home({
         blogs={homeBlogs.blogs}
         goToBlogsLabel={homeBlogs.page.goToBlogsLabel}
       />
+
       <HomeMap
         geo={{
           lat: 20.90062,
@@ -164,6 +165,21 @@ function Home({
         }}
         ref={contactRef as RefObject<HTMLDivElement>}
       />
+
+      <div>
+        <a
+          href={`https://wa.me/5213335706111/?text=${encodeURIComponent("Hola dessde sitio northshorerealtysanpancho")}`}
+          className="whatsapp_float"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+      src="https://cms.northshorerealtysanpancho.com/uploads/Digital_Glyph_White.svg"
+      alt="WhatsApp Logo"
+      className="whatsapp-icon"
+    />
+        </a>
+      </div>
     </PageLayout>
   );
 }
