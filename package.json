@@ -10,7 +10,7 @@
     "lint": "next lint",
     "server-stage": "pm2 start ecosystem.config.js --env production",
     "server": "pm2 start ecosystem.config.js --env production",
-    "deploy": "rsync -av --exclude='node_modules' ./* root@143.198.108.116:/home/ubuntu/pagex"
+    "deploy": "rsync -av --exclude='node_modules' . root@143.198.108.116:/home/ubuntu/pagex"
   },
   "dependencies": {
     "@nextui-org/react": "1.0.8-beta.5",

@@ -145,7 +145,7 @@ export default function Navigation({ contactRef, toggleDrawer }: NavigationProps
                 }
                 desktopView={
                   <>
-                    <NavigationLabel label='Listings' href={LISTINGS_URL} />
+                    <NavigationLabel label='Listing' href={LISTINGS_URL} />
                     <NavigationLabel
                       simpleText
                       label='Contact us'
